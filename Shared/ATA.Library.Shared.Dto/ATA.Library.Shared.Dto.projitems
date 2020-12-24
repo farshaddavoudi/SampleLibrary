@@ -13,5 +13,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ApiResponseFormats\ApiResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\IArchivableDto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\IATADto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\IDto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\IKnownException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\ISyncableDto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\IVersionableDto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)User\UserDto.cs" />
   </ItemGroup>
 </Project>
