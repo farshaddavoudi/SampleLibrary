@@ -3,3 +3,24 @@
 ################################################################################
 
 /Client/ATA.Library.Client.Dto/bin/Debug/netstandard2.0
+/Client/ATA.Library.Client.Dto/obj
+/Client/ATA.Library.Client.Service/bin/Debug/netstandard2.0
+/Client/ATA.Library.Client.Service/obj
+/Client/Web/ATA.Library.Client.Web.Service/bin/Debug/netstandard2.0
+/Client/Web/ATA.Library.Client.Web.Service/obj
+/Client/Web/ATA.Library.Client.Web.UI/bin/Debug/net5.0
+/Client/Web/ATA.Library.Client.Web.UI/obj
+/Server/ATA.Library.Server.Api/bin/Debug/net5.0
+/Server/ATA.Library.Server.Api/obj
+/Server/ATA.Library.Server.Data/bin/Debug/netstandard2.0
+/Server/ATA.Library.Server.Data/obj
+/Server/ATA.Library.Server.Model/bin/Debug/netstandard2.0
+/Server/ATA.Library.Server.Model/obj/Debug/netstandard2.0
+/Server/ATA.Library.Server.Model/obj
+/Server/ATA.Library.Server.Service/bin/Debug/netstandard2.0
+/Server/ATA.Library.Server.Service/obj
+/Shared/ATA.Library.Shared.Core/bin/Debug/netstandard2.0
+/Shared/ATA.Library.Shared.Core/obj
+/Shared/ATA.Library.Shared.Service/bin/Debug/netstandard2.0
+/Shared/ATA.Library.Shared.Service/obj
+/.vs/ATA.Library
