@@ -15,6 +15,10 @@
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)SSO Auth\ATA.Core.dll" />
     <None Include="$(MSBuildThisFileDirectory)SSO Auth\SSOGuide.pdf" />
+    <None Include="$(MSBuildThisFileDirectory)فازهای توسعه\1. کلیات سامانه" />
+    <None Include="$(MSBuildThisFileDirectory)فازهای توسعه\2. قابلیت مشاهده کتاب بدون امکان دانلود آن" />
+    <None Include="$(MSBuildThisFileDirectory)فازهای توسعه\3. تنظیم دسترسی‌ها" />
+    <None Include="$(MSBuildThisFileDirectory)فازهای توسعه\4. آمار و گزارشات" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)تحلیل سامانه\" />
