@@ -10,4 +10,8 @@
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ATA.Library.Client.Web.Service\ATA.Library.Client.Web.Service.csproj" />
+  </ItemGroup>
+
 </Project>

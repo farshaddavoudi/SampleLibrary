@@ -4,4 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ATA.Library.Server.Service\ATA.Library.Server.Service.csproj" />
+  </ItemGroup>
+
 </Project>
