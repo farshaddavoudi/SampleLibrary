@@ -2,6 +2,7 @@
 using ATA.Library.Server.Service.Category.Contracts;
 using ATA.Library.Shared.Dto;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
@@ -13,6 +14,7 @@ namespace ATA.Library.Server.Api.Controllers.api.Category
     /// Book Categories based on subjects and related units
     /// </summary>
     [ApiVersion("1")]
+    [AllowAnonymous]
     public class CategoryController : BaseApiController
     {
         private readonly ICategoryService _categoryService;
@@ -71,6 +73,8 @@ namespace ATA.Library.Server.Api.Controllers.api.Category
 
             if (entity == null)
                 return NotFound($"هیچ دسته‌ای با این شناسه پیدا نشد. شناسه‌ی ارسالی = {categoryId}");
+
+            dto.CreatedAt = entity.CreatedAt; //fix CreateAt mapping issue
 
             _mapper.Map(dto, entity);
 

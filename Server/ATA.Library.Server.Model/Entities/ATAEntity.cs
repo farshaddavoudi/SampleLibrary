@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ATA.Library.Server.Model.Entities
 {
-    public class ATAEntity : IATAEntity
+    public abstract class ATAEntity : IATAEntity
     {
         [Key]
         [JsonIgnore]
