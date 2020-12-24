@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -51,6 +52,9 @@ namespace ATA.Library.Server.Api.Controllers.api.Category
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Create))]
         public async Task<IActionResult> AddCategory(CategoryDto dto, CancellationToken cancellationToken)
         {
+            if (dto == null)
+                throw new ArgumentNullException(nameof(dto));
+
             var entity = _mapper.Map<CategoryEntity>(dto);
 
             var addedEntity = await _categoryService.AddAsync(entity, cancellationToken);
@@ -69,6 +73,9 @@ namespace ATA.Library.Server.Api.Controllers.api.Category
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Put))]
         public async Task<IActionResult> EditCategory(int categoryId, CategoryDto dto, CancellationToken cancellationToken)
         {
+            if (dto == null)
+                throw new ArgumentNullException(nameof(dto));
+
             var entity = await _categoryService.GetByIdAsync(categoryId, cancellationToken);
 
             if (entity == null)

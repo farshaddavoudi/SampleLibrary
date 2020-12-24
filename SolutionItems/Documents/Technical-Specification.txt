@@ -12,7 +12,7 @@
 
 Client:
 	* Blazor
-	* Bootstrap 5
+	* Bootstrap 4
 	* Using SASS instead of CSS for styles
 	* Using HttpClientFactory typed client
 		> Connecting to Security client
