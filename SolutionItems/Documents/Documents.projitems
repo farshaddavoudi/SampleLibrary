@@ -9,6 +9,11 @@
     <Import_RootNamespace>Documents</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)ATA SSO Auth docs\Use Modules or Roles discussion.txt" />
     <Content Include="$(MSBuildThisFileDirectory)Technical-Specification.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)ATA SSO Auth docs\ATA.Core.dll" />
+    <None Include="$(MSBuildThisFileDirectory)ATA SSO Auth docs\SSOGuide.pdf" />
   </ItemGroup>
 </Project>

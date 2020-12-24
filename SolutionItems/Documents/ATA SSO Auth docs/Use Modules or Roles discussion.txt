@@ -1,0 +1,7 @@
+﻿# Using Modules is a way in Koroorian SSO pdf way to handle which page can be shown by which user
+
+# But it is complicated and hard to remember, also needs extra json config file for front-end.
+
+# Another feature again by him in SSO is the Roles. I can handle the page accessibility with Roles
+
+# Roles are more standard and very easier method to handle the senario at least in Blazor

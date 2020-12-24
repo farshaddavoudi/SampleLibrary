@@ -1,8 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(MSBuildThisFileName).xml</DocumentationFile>
+		<NoWarn>NU1701;1702;1591</NoWarn>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.1" NoWarn="NU1605" />
@@ -22,6 +26,19 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ATA.Library.Server.Data\ATA.Library.Server.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\odata\" />
+    <Folder Include="Infrastructure\Cache\" />
+    <Folder Include="Infrastructure\Hangfire\" />
+    <Folder Include="Mappers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ATA.Core">
+      <HintPath>..\..\SolutionItems\Documents\ATA SSO Auth docs\ATA.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

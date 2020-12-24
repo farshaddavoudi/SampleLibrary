@@ -2,9 +2,11 @@
 {
     public static class AppStrings
     {
-        public static readonly string AppNameForATASecurity = "library";
+        public static readonly string ATASecurityAppKeyName = "library";
 
-        public static readonly string AppFullName = "سامانه‌ی کتابخانه‌ی مجازی آتا";
+        public static readonly string AppPersianFullName = "سامانه‌ی کتابخانه‌ی مجازی آتا";
+
+        public static readonly string AppEnglishFullName = "ATA Virtual Library";
 
         public static readonly string ATAAuthTokenKey = "SSOToken";
 

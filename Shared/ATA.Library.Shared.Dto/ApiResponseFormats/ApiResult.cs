@@ -1,7 +1,7 @@
 ﻿using ATA.Library.Shared.Service.Exceptions;
 using Newtonsoft.Json;
 
-namespace ATA.Library.Client.Dto.ApiResponseFormats
+namespace ATA.Library.Shared.Dto
 {
     public partial class ApiResult
     {
