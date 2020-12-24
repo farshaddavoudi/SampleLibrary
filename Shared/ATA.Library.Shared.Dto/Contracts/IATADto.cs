@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ATA.Library.Client.Dto.Contracts
+namespace ATA.Library.Shared.Dto
 {
     public interface IATADto : IArchivableDto
     {

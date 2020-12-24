@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ATA.Library.Client.Dto.Contracts;
 
-namespace ATA.Library.Client.Dto.User
+namespace ATA.Library.Shared.Dto
 {
     public partial class UserDto : IDto
     {

@@ -1,4 +1,4 @@
-﻿namespace ATA.Library.Client.Dto.Contracts
+﻿namespace ATA.Library.Shared.Dto
 {
     public interface IArchivableDto : IDto
     {

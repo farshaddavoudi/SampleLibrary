@@ -20,4 +20,10 @@
 	<ItemGroup>
 		<ProjectReference Include="..\ATA.Library.Server.Service\ATA.Library.Server.Service.csproj" />
 	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Folder Include="Configuration\" />
+	  <Folder Include="Migrations\" />
+	</ItemGroup>
 </Project>

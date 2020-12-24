@@ -1,4 +1,4 @@
-﻿using ATA.Library.Client.Dto.User;
+﻿using ATA.Library.Shared.Dto;
 
 namespace ATA.Library.Server.Service.Contracts
 {
