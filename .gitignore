@@ -24,3 +24,5 @@
 /Shared/ATA.Library.Shared.Service/bin/Debug/netstandard2.0
 /Shared/ATA.Library.Shared.Service/obj
 /.vs/ATA.Library
+/Shared/ATA.Library.Shared.Core/bin/Debug/netstandard2.1
+/Shared/ATA.Library.Shared.Service/bin/Debug/netstandard2.1
