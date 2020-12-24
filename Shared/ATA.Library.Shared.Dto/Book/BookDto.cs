@@ -18,7 +18,7 @@ namespace ATA.Library.Server.Model.Book
         [Required(ErrorMessage = "گروه را وارد نمایید")]
         public int CategoryId { get; set; }
 
-        public bool IsDownloadable { get; set; } = false;
+        public bool IsDownloadable { get; set; } = true;
 
         public string? CoverImageUrl { get; set; }
 

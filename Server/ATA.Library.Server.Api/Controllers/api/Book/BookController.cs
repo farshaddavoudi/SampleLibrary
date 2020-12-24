@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace ATA.Library.Server.Api.Controllers.api.Book
 {
     /// <summary>
-    /// Book managements
+    /// Books management
     /// </summary>
     [ApiVersion("1")]
     [AllowAnonymous]
@@ -43,7 +43,12 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
         [HttpGet("get-by-id")]
         public async Task<IActionResult> GetBookById(int bookId, CancellationToken cancellationToken)
         {
-            return Ok(await _bookService.GetByIdAsync(bookId, cancellationToken));
+            var book = await _bookService.GetByIdAsync(bookId, cancellationToken);
+
+            if (book == null)
+                return NotFound($"هیچ کتابی با این شناسه پیدا نشد. شناسه‌ی ارسالی = {bookId}");
+
+            return Ok(book);
         }
 
         /// <summary>
