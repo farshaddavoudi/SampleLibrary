@@ -1,59 +1,112 @@
+using ATA.Library.Server.Api.Infrastructure;
+using ATA.Library.Server.Api.Infrastructure.OData;
+using ATA.Library.Server.Api.Infrastructure.Swagger;
+using ATA.Library.Server.Api.Middlewares;
+using ATA.Library.Server.Model.AppSettings;
+using Humanizer;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace ATA.Library.Server.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        #region Constructor Injections
+
+        private readonly AppSettings _appSettings;
+        public IConfiguration Configuration { get; }
+
+        private readonly IHostEnvironment _hostEnvironment;
+        public Startup(IConfiguration configuration, IHostEnvironment hostEnvironment)
         {
             Configuration = configuration;
+            _hostEnvironment = hostEnvironment;
+            _appSettings = Configuration.GetSection(nameof(AppSettings)).Get<AppSettings>();
         }
 
-        public IConfiguration Configuration { get; }
+        #endregion
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //* HttpContextAccessor
+            services.AddHttpContextAccessor();
 
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddControllers(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ATA.Library.Server.Api", Version = "v1" });
-            });
+                //options.Filters.Add(new AuthorizeFilter());
+                options.Conventions.Add(new RouteTokenTransformerConvention(
+                    new CamelCaseDasherizeParameterTransformer()));
+            })
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                });
+
+            //* Installers
+            services.InstallServicesInAssemblies(_appSettings, Configuration, _hostEnvironment);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ATA.Library.Server.Api v1"));
-            }
+            // app.InitializeDatabase(env);
+
+            app.UseRequestResponseLogging();
+
+            app.UseCustomExceptionHandler();
+
+            if (env.IsProduction())
+                app.UseHsts();
+
 
             app.UseHttpsRedirection();
 
+            app.UseStaticFiles();
+
             app.UseRouting();
 
+            // global Cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+            );
+
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
+            // app.UseCustomHangfire(_appSettings.JobSettings!);
+
+            app.UseSwaggerAndUI(env);
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.EnableDependencyInjection();
+                endpoints.Select().Filter().Expand().MaxTop(100).OrderBy().Count();
+                endpoints.MapODataRoute("odata", "odata", ODataEdmModelsConfiguration.GetEdmModels());
             });
         }
+
+        private class CamelCaseDasherizeParameterTransformer : IOutboundParameterTransformer
+        {
+            public string? TransformOutbound(object? value)
+            {
+                return value?.ToString().Kebaberize();
+            }
+        }
+
     }
 }
