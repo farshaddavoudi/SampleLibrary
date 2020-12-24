@@ -1,11 +1,7 @@
+using ATA.Library.Client.Web.Service.AppSetting;
+using ATA.Library.Client.Web.UI.Infrastructure;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ATA.Library.Client.Web.UI
@@ -17,7 +13,10 @@ namespace ATA.Library.Client.Web.UI
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            var blazorAppSettings = builder.Configuration.GetSection(nameof(AppSettings)).Get<AppSettings>();
+
+            // Client Installers
+            builder.Services.InstallServicesInAssemblies(blazorAppSettings);
 
             await builder.Build().RunAsync();
         }

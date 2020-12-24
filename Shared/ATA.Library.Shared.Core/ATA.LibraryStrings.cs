@@ -15,8 +15,8 @@
         /// </summary>
         public static class WebApp
         {
-            public static readonly string ClientName = "BlazorApp";
-            public static readonly string ClientId = "BlazorApp-ResOwnerFlow";
+            public static readonly string ClientName = "LibraryBlazorApp";
+            public static readonly string ClientId = "LibraryBlazorApp-ResOwnerFlow";
         }
 
         public class Claims
