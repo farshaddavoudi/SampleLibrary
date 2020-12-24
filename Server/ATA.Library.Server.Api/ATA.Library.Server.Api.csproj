@@ -32,7 +32,6 @@
     <Folder Include="Controllers\odata\" />
     <Folder Include="Infrastructure\Cache\" />
     <Folder Include="Infrastructure\Hangfire\" />
-    <Folder Include="Mappers\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -33,7 +33,7 @@ namespace ATA.Library.Server.Service
 
         public Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? CommonOrder { get; set; }
 
-        public virtual async Task<TEntity?> GetByIdAsync(long key, CancellationToken cancellationToken)
+        public virtual async Task<TEntity?> GetByIdAsync(int key, CancellationToken cancellationToken)
         {
             TEntity? entity = await Repository.GetByIdAsync(cancellationToken, key);
 
@@ -111,7 +111,7 @@ namespace ATA.Library.Server.Service
             return updatedEntity;
         }
 
-        public virtual async Task DeleteAsync(long key, CancellationToken cancellationToken)
+        public virtual async Task DeleteAsync(int key, CancellationToken cancellationToken)
         {
             TEntity? entity = await Repository.GetByIdAsync(cancellationToken, key);
 
