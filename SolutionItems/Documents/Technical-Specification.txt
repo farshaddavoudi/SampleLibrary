@@ -1,1 +1,27 @@
-﻿
+﻿Server:
+	* Using .Net 5
+	* SQL Server database
+	* Code-First approach
+	* AutoRegisterDi as services registrar
+	* AutoMapper as mapper
+	* Authentication from ATA SSO 
+		> ddl file and doc are included 
+	* Using HttpClientFactory typed client
+		> Connecting to Security client
+	* Independent Server and Client approach with only a shared layer for common models and services 
+
+Client:
+	* Blazor
+	* Bootstrap 5
+	* Using SASS instead of CSS for styles
+	* Using HttpClientFactory typed client
+		> Connecting to Security client
+	* Include roles heavily in the logic using Blazor features (refer to doc: تحلیل سامانه)
+
+
+Publish:
+	* Only Master branch to publish (develop branch to development)
+	* Using Web Deploy Publish 
+	* Backup automatically creates on Server
+	* No need to stop IIS to publish. It will automatically will do that :)
+	* Make application like offline by app_offline.htm files modifications on the server (different senarios for Client and Server apps)
