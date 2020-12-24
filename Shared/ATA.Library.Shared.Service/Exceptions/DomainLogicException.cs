@@ -1,37 +1,36 @@
-﻿using ATA.Library.Shared.Core.CoreEnums;
-using System;
+﻿using System;
 
 namespace ATA.Library.Shared.Service.Exceptions
 {
     public class DomainLogicException : AppException
     {
         public DomainLogicException()
-            : base(ApiResultStatusCode.LogicError)
+            : base(ApiResultStatusCodeEnum.LogicError)
         {
         }
 
         public DomainLogicException(string message)
-            : base(ApiResultStatusCode.LogicError, message)
+            : base(ApiResultStatusCodeEnum.LogicError, message)
         {
         }
 
         public DomainLogicException(object additionalData)
-            : base(ApiResultStatusCode.LogicError, additionalData)
+            : base(ApiResultStatusCodeEnum.LogicError, additionalData)
         {
         }
 
         public DomainLogicException(string message, object additionalData)
-            : base(ApiResultStatusCode.LogicError, message, additionalData)
+            : base(ApiResultStatusCodeEnum.LogicError, message, additionalData)
         {
         }
 
         public DomainLogicException(string message, Exception exception)
-            : base(ApiResultStatusCode.LogicError, message, exception)
+            : base(ApiResultStatusCodeEnum.LogicError, message, exception)
         {
         }
 
         public DomainLogicException(string message, Exception exception, object additionalData)
-            : base(ApiResultStatusCode.LogicError, message, exception, additionalData)
+            : base(ApiResultStatusCodeEnum.LogicError, message, exception, additionalData)
         {
         }
     }

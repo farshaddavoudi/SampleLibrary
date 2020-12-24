@@ -9,5 +9,9 @@
     <Import_RootNamespace>ATA.Library.Shared.Dto</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Enums\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ApiResponseFormats\ApiResult.cs" />
   </ItemGroup>
 </Project>

@@ -1,37 +1,36 @@
-﻿using ATA.Library.Shared.Core.CoreEnums;
-using System;
+﻿using System;
 
 namespace ATA.Library.Shared.Service.Exceptions
 {
     public class BadRequestException : AppException
     {
         public BadRequestException()
-            : base(ApiResultStatusCode.BadRequest)
+            : base(ApiResultStatusCodeEnum.BadRequest)
         {
         }
 
         public BadRequestException(string message)
-            : base(ApiResultStatusCode.BadRequest, message)
+            : base(ApiResultStatusCodeEnum.BadRequest, message)
         {
         }
 
         public BadRequestException(object additionalData)
-            : base(ApiResultStatusCode.BadRequest, additionalData)
+            : base(ApiResultStatusCodeEnum.BadRequest, additionalData)
         {
         }
 
         public BadRequestException(string message, object additionalData)
-            : base(ApiResultStatusCode.BadRequest, message, additionalData)
+            : base(ApiResultStatusCodeEnum.BadRequest, message, additionalData)
         {
         }
 
         public BadRequestException(string message, Exception exception)
-            : base(ApiResultStatusCode.BadRequest, message, exception)
+            : base(ApiResultStatusCodeEnum.BadRequest, message, exception)
         {
         }
 
         public BadRequestException(string message, Exception exception, object additionalData)
-            : base(ApiResultStatusCode.BadRequest, message, exception, additionalData)
+            : base(ApiResultStatusCodeEnum.BadRequest, message, exception, additionalData)
         {
         }
     }

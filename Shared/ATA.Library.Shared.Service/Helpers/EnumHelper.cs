@@ -1,4 +1,4 @@
-﻿using ATA.Library.Shared.Core.CoreModels;
+﻿using ATA.Library.Shared.Core;
 using ATA.Library.Shared.Service.Extensions;
 using System;
 using System.Collections.Generic;

@@ -9,5 +9,6 @@
     <Import_RootNamespace>Documents</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Technical-Specification.txt" />
   </ItemGroup>
 </Project>

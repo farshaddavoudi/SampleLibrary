@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ATA.Library.Shared.Core.CoreEnums
+namespace ATA.Library.Shared.Service.Exceptions
 {
-    public enum ApiResultStatusCode
+    public enum ApiResultStatusCodeEnum
     {
         [Display(Name = "عملیات با موفقیت انجام شد")]
         Success = 0,

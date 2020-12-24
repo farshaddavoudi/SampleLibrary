@@ -1,5 +1,6 @@
-﻿namespace ATA.Library.Shared.Core.CoreModels
+﻿namespace ATA.Library.Shared.Core
 {
+    /// Because Blazor cannot use MVC SelectListItem, this custom class has been created. Copied from original one :)
     /// <summary>
     /// This class is typically rendered as an HTML <code>&lt;option&gt;</code> element with the specified
     /// attribute values.

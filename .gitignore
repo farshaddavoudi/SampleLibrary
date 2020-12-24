@@ -26,3 +26,9 @@
 /.vs/ATA.Library
 /Shared/ATA.Library.Shared.Core/bin/Debug/netstandard2.1
 /Shared/ATA.Library.Shared.Service/bin/Debug/netstandard2.1
+/Client/ATA.Library.Client.Dto/bin/Debug/netstandard2.1
+/Client/ATA.Library.Client.Service/bin/Debug/netstandard2.1
+/Client/Web/ATA.Library.Client.Web.Service/bin/Debug/netstandard2.1
+/Server/ATA.Library.Server.Data/bin/Debug/netstandard2.1
+/Server/ATA.Library.Server.Model/bin/Debug/netstandard2.1
+/Server/ATA.Library.Server.Service/bin/Debug/netstandard2.1
