@@ -1,7 +1,45 @@
-﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+﻿/*#region font-face*/
+@font-face {
+    font-family: 'webyekan';
+    src: url('/fonts/webyekan/web_Yekan.woff') format('woff'), url('/fonts/webyekan/web_Yekan.ttf') format('truetype'), url('/fonts/webyekan/web_Yekan.svg') format('svg'), url('/fonts/webyekan/web_Yekan.eot') format('embedded-opentype');
+}
+
+@font-face {
+    font-family: 'iransans';
+    src: url('/fonts/iransans/IRANSansWeb.woff') format('woff'), url('/fonts/iransans/IRANSansWeb.ttf') format('truetype'), url('/fonts/iransans/IRANSansWeb.woff2') format('woff2'), url('/fonts/iransans/IRANSansWeb.eot') format('embedded-opentype');
+}
+
+@font-face {
+    font-family: 'iranyekan';
+    src: url('/fonts/iranyekan/iranyekanwebregular.eot');
+    src: url('/fonts/iranyekan/iranyekanwebregular.eot?#iefix') format('embedded-opentype'),url('/fonts/iranyekan/iranyekanwebregular.woff') format('woff'),url('/fonts/iranyekan/iranyekanwebregular.ttf') format('truetype'),url('/fonts/iranyekan/iranyekanwebregular.svg#iran_sans') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face { /*Latin font that match iranyekan. It means if you write this font after iranyekan, the latin character plus latin numbers will be best*/
+    font-family: 'roboto';
+    src: url('/fonts/roboto/robotoregular.eot');
+    src: url('/fonts/roboto/robotoregular.eot?#iefix') format('embedded-opentype'),url('/fonts/roboto/robotoregular.woff') format('woff'),url('/fonts/roboto/robotoregular.ttf') format('truetype'),url('/fonts/roboto/robotoregular.svg#iran_sans') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*IRANYEKAN FANUMBERS*/
+@font-face {
+    font-family: 'iranyekanfa';
+    src: url('/fonts/iranyekanfa/iranyekanwebregular(fanum).eot');
+    src: url('/fonts/iranyekanfa/iranyekanwebregular(fanum).eot?#iefix') format('embedded-opentype'),url('/fonts/iranyekanfa/iranyekanwebregular(fanum).woff') format('woff'),url('/fonts/iranyekanfa/iranyekanwebregular(fanum).ttf') format('truetype'),url('/fonts/iranyekanfa/iranyekanwebregular(fanum).svg#iran_sans') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*#endregion*/
+
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: iranyekan, roboto, webyekan;
 }
 
 a, .btn-link {
