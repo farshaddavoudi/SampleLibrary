@@ -7,6 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Blazored.Toast" Version="3.1.2" />
+	</ItemGroup>
+
+	<ItemGroup>
     <ProjectReference Include="..\..\ATA.Library.Client.Service\ATA.Library.Client.Service.csproj" />
   </ItemGroup>
 

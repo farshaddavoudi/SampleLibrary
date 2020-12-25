@@ -1,0 +1,37 @@
+﻿@page "/categories"
+
+<Title Value="مدیریت دسته‌ها"></Title>
+
+@if (_categories == null)
+{
+    <p><em>در حال بارگزاری...</em></p>
+}
+else
+{
+    <div>
+        <button class="btn btn-primary" @onclick="OnAddCategory">
+            <span class="oi oi-plus" aria-hidden="true"></span>
+            افزودن دسته
+        </button>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>شناسه</th>
+                <th>نام دسته</th>
+                <th>نقش ادمین </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in _categories)
+            {
+                <tr @key="category">
+                    <td>@category.Id</td>
+                    <td>@category.CategoryName</td>
+                    <td>@category.AdminRole</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

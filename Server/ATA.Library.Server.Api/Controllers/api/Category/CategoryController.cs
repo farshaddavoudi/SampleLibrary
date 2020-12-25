@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -39,7 +40,8 @@ namespace ATA.Library.Server.Api.Controllers.api.Category
         [HttpGet("get-all")]
         public async Task<IActionResult> GetCategories(CancellationToken cancellationToken)
         {
-            return Ok(await _categoryService.GetAsync(cancellationToken));
+            var categories = await _categoryService.GetAsync(cancellationToken);
+            return Ok(_mapper.Map<List<CategoryDto>>(categories));
         }
 
         /// <summary>
