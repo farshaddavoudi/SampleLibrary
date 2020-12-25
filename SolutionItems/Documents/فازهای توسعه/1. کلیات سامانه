@@ -2,9 +2,6 @@
 	- Due to being in a hurry, I instructed to developed system very fast. 
 	- So I decided to make the system work just for basic stuff, seeing books! and also add and edit and delete books for administrator.
 
-Important note: 
-	- Every day in ATA is around 6 hours.
-
 Schedule:
 	- 2 days for infrastructure:
 		> Project extra analysis 
@@ -25,6 +22,10 @@ Schedule:
 
 	- 1 day for publish / test 
 		> Configure DNS and IIS and VS to publish app to the server (frontend & backend)
-		> Test and fix apperance and logic bugs based on manual tests and owner comments
-		> New ideas/features for this phase by owner may cause extra time.
-		
+		> Test and fix apperance and logic bugs based on manual tests and owner comments		
+
+
+Important notes: 
+	- Every day in ATA is around 6 hours.
+	- Other time-consuming (irrelavant) works between the development may cause deferring the schedule.
+	- New ideas/features for this phase by owner may cause extra time.
