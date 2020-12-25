@@ -4,6 +4,7 @@
 
 .top-row {
     height: 3.5rem;
+    justify-content: center;
     background-color: rgba(0,0,0,0.4);
 }
 
