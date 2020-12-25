@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{E206C9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{CA8C6A75-A0FD-470A-8CF3-93C1CB1CCD95}"
 	ProjectSection(SolutionItems) = preProject
-		..\DDS Nikola Project\Nikola\Clean.bat = ..\DDS Nikola Project\Nikola\Clean.bat
+		SolutionItems\Clean.bat = SolutionItems\Clean.bat
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ATA.Library.Server.Api", "Server\ATA.Library.Server.Api\ATA.Library.Server.Api.csproj", "{E559AC11-B4CB-43F5-A874-BFBC5712EBA8}"
