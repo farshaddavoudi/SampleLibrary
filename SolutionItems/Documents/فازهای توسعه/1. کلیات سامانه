@@ -24,7 +24,6 @@ Schedule:
 		> Configure DNS and IIS and VS to publish app to the server (frontend & backend)
 		> Test and fix apperance and logic bugs based on manual tests and owner comments		
 
-
 Important notes: 
 	- Every day in ATA is around 6 hours.
 	- Other time-consuming (irrelavant) works between the development may cause deferring the schedule.
