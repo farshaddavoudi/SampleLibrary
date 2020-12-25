@@ -1,4 +1,10 @@
-﻿
-This project has a complex senario about this matter. Each book category has its admin and he/she and also its viewer (typically belong to same unit).
+﻿Description:
+	- This project has a complex senario about this matter. Each book category has its admin and he/she and also its viewer (typically belong to same unit).
+	- I should integrate ATA Security system by our requirements. You can see them in section: تحلیل سامانه
 
-I should integrate ATA Security system by our requirements. You can see them in section: تحلیل سامانه
+Schedule:
+	- 2 days:
+		> Design best senario to easily implement requested feature
+		> Codes in both backend & frontend
+		> Publish
+		> Tests

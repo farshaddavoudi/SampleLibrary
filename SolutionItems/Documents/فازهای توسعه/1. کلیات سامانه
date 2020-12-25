@@ -1,4 +1,30 @@
-﻿Due to being in a hurry, I instructed to developed system very fast. 
+﻿Description:
+	- Due to being in a hurry, I instructed to developed system very fast. 
+	- So I decided to make the system work just for basic stuff, seeing books! and also add and edit and delete books for administrator.
 
-So I decided to make the system work just for basic stuff, seeing books! and also add and edit and delete books for administrator.
+Important note: 
+	- Every day in ATA is around 6 hours.
 
+Schedule:
+	- 2 days for infrastructure:
+		> Project extra analysis 
+		> Design a properiate architecture
+		> Create project structure in VisualStudio (backend & frontend)
+		> Configure git and adding project to git
+		> Configure SSO for project in security.app.ataair.ir
+		> Also adding the database (without tables)
+
+	- 2 days for business logic (backend development):
+		> Adding tables, services, controllers and approperiate endpoints
+		> R&D for image and file uploads on file system, then implement it
+
+	- 2 days for frontend development:
+		> Think about pages design
+		> Creating those designs by html/css
+		> Connect frontend to backend and make app dynamic
+
+	- 1 day for publish / test 
+		> Configure DNS and IIS and VS to publish app to the server (frontend & backend)
+		> Test and fix apperance and logic bugs based on manual tests and owner comments
+		> New ideas/features for this phase by owner may cause extra time.
+		
