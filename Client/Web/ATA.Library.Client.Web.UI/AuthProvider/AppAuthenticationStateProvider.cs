@@ -52,19 +52,7 @@ namespace ATA.Library.Client.Web.UI.AuthProvider
 
             if (string.IsNullOrWhiteSpace(token))
             {
-                if (_hostEnvironment.IsDevelopment())
-                {
-                    var securityResponse =
-                        await _securityClientService.GetUserTokenByPersonnelCodeAsync(980923, CancellationToken.None);
-
-                    // Set auth cookie
-                    await _jsRuntime.SetCookieAsync(_authTokenKey, securityResponse!.Data!.Token);
-                }
-
-                else
-                {
-                    NavigateToLoginPageOnSecurityApp();
-                }
+                await NavigateToLoginPageOnSecurityApp();
             }
 
             else
@@ -75,7 +63,7 @@ namespace ATA.Library.Client.Web.UI.AuthProvider
 
                 // No valid response or token has been expired
                 if (securityResponse == null || !securityResponse.IsSuccessful)
-                    NavigateToLoginPageOnSecurityApp();
+                    await NavigateToLoginPageOnSecurityApp();
 
                 else //Valid token
                 {
@@ -125,9 +113,20 @@ namespace ATA.Library.Client.Web.UI.AuthProvider
             return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>())));
         }
 
-        private void NavigateToLoginPageOnSecurityApp()
+        private async Task NavigateToLoginPageOnSecurityApp()
         {
-            _navigationManager.NavigateTo($"{_appSettings.Urls!.SecurityAppUrl}application/login.aspx?ReturnUrl={_appSettings.Urls.AppAddress}");
+            if (_hostEnvironment.IsDevelopment())
+            {
+                var securityResponse =
+                    await _securityClientService.GetUserTokenByPersonnelCodeAsync(980923, CancellationToken.None);
+
+                // Set auth cookie
+                await _jsRuntime.SetCookieAsync(_authTokenKey, securityResponse!.Data!.Token);
+            }
+            else
+            {
+                _navigationManager.NavigateTo($"{_appSettings.Urls!.SecurityAppUrl}application/login.aspx?ReturnUrl={_appSettings.Urls.AppAddress}");
+            }
         }
     }
 }
