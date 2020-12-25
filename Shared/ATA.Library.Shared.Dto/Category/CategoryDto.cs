@@ -18,5 +18,10 @@ namespace ATA.Library.Shared.Dto
         public string? CategoryName { get; set; }
 
         public string? AdminRole { get; set; }
+
+        public override string ToString()
+        {
+            return $"Category: {CategoryName}";
+        }
     }
 }

@@ -32,5 +32,10 @@ namespace ATA.Library.Server.Model.Book
         public string? FileUrl { get; set; }
 
         public CategoryDto? Category { get; set; }
+
+        public override string ToString()
+        {
+            return $"Book Id and name: {Id} | {Title}";
+        }
     }
 }
