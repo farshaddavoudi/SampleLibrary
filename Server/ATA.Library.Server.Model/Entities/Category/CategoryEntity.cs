@@ -11,7 +11,7 @@ namespace ATA.Library.Server.Model.Entities.Category
         [Required]
         public string? CategoryName { get; set; }
 
-        public string? AccessRole { get; set; }
+        public string? AdminRole { get; set; }
 
 
         public ICollection<BookEntity> Books { get; set; } = new List<BookEntity>();

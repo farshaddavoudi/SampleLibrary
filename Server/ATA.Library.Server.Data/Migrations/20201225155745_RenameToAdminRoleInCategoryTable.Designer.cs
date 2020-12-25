@@ -4,14 +4,16 @@ using ATA.Library.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ATA.Library.Server.Data.Migrations
 {
     [DbContext(typeof(ATADbContext))]
-    partial class ATADbContextModelSnapshot : ModelSnapshot
+    [Migration("20201225155745_RenameToAdminRoleInCategoryTable")]
+    partial class RenameToAdminRoleInCategoryTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
