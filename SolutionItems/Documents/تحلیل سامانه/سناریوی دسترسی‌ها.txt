@@ -1,0 +1,10 @@
+﻿Accesses are based on Categories.
+
+Each Category has admin to manage its books, add or update or delete them.
+
+Each Category has special viewers, meaning only athorized users can see Category and related books.
+
+View Categories are based on Units, so cannot be configured in ATA Security. (Security is only for Users). It is this project business and should be handled here.
+
+Sometimes system administrator should be able to access all users to see all books.
+
