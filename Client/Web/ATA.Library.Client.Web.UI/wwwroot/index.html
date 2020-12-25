@@ -1,26 +1,35 @@
 ﻿<!DOCTYPE html>
-<html>
+
+<html lang="fa" dir="rtl">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>ATA.Library.Client.Web.UI</title>
+    <title>کتابخانه‌ی مجازی آتا</title>
     <base href="/" />
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap/bootstrap.rtl.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
     <link href="ATA.Library.Client.Web.UI.styles.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div id="app">Loading...</div>
+    <div id="app">
+        <div style="position:absolute; top:30vh; width:100%; text-align:center">
+            <h1>کتابخانه‌ی مجازی آتا</h1>
+            <p>
+                <img src="images/loading.gif" />
+                برنامه در حال بارگذاری می‌باشد ...
+            </p>
+        </div>
+    </div>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
-<script src="_framework/blazor.webassembly.js"></script>
-<script src="js/BlazorExtensions.js"></script>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="js/BlazorExtensions.js"></script>
 </body>
 
 </html>
