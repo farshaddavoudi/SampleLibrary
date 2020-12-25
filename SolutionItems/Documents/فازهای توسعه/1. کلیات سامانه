@@ -4,7 +4,6 @@
 
 Schedule:
 	- 2 days for infrastructure:
-		> Project extra analysis 
 		> Design a properiate architecture
 		> Create project structure in VisualStudio (backend & frontend)
 		> Configure git and adding project to git
