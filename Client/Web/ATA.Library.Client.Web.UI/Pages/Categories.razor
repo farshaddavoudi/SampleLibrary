@@ -8,9 +8,9 @@
 }
 else
 {
-    <div>
+    <div class="add-category-wrapper">
         <button class="btn btn-primary" @onclick="OnAddCategory">
-            <span class="oi oi-plus" aria-hidden="true"></span>
+            <i class="fa fa-plus add-category-icon"></i>
             افزودن دسته
         </button>
     </div>
@@ -21,6 +21,7 @@ else
                 <th>شناسه</th>
                 <th>نام دسته</th>
                 <th>نقش ادمین </th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -30,6 +31,15 @@ else
                     <td>@category.Id</td>
                     <td>@category.CategoryName</td>
                     <td>@category.AdminRole</td>
+
+                    <td>
+                        <button class="btn btn-light" @onclick="() => OnEditCategory(category)">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button class="btn btn-light" @onclick="() => OnDeleteCategory(category)">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </td>
                 </tr>
             }
         </tbody>

@@ -42,6 +42,10 @@ html, body {
     font-family: iranyekan, roboto, webyekan;
 }
 
+.blazored-toast-container {
+    z-index: 2;
+}
+
 a, .btn-link {
     color: #0366d6;
 }

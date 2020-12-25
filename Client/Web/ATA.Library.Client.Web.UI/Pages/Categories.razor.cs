@@ -41,5 +41,15 @@ namespace ATA.Library.Client.Web.UI.Pages
         {
             ToastService.ShowSuccess("افزودن دسته با موفقیت انجام شد");
         }
+
+        private async Task OnEditCategory(CategoryDto category)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private async Task OnDeleteCategory(CategoryDto category)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
