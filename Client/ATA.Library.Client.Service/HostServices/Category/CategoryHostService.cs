@@ -1,6 +1,7 @@
 ﻿using ATA.Library.Client.Service.HostServices.Category.Contracts;
 using ATA.Library.Shared.Dto;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -23,6 +24,40 @@ namespace ATA.Library.Client.Service.HostServices.Category
         public async Task<ApiResult<List<CategoryDto>>?> GetCategories()
         {
             return await _hostClient.GetFromJsonAsync<ApiResult<List<CategoryDto>>>("api/v1/category/get-all");
+        }
+
+        public async Task<ApiResult?> AddCategory(CategoryDto category)
+        {
+            var httpResponseMessage = await _hostClient.PostAsJsonAsync("api/v1/category/add", category);
+
+            httpResponseMessage.EnsureSuccessStatusCode();
+
+            return await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult>();
+        }
+
+        public async Task<ApiResult?> EditCategory(CategoryDto category)
+        {
+            var httpResponseMessage =
+                await _hostClient.PutAsJsonAsync($"api/v1/category/edit?categoryId={category.Id}", category);
+
+            httpResponseMessage.EnsureSuccessStatusCode();
+
+            if (httpResponseMessage.StatusCode != HttpStatusCode.NoContent)
+                return await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult?>();
+
+            return null;
+        }
+
+        public async Task<ApiResult?> DeleteCategory(CategoryDto category)
+        {
+            var httpResponseMessage = await _hostClient.DeleteAsync($"api/v1/category/delete?categoryId={category.Id}");
+
+            httpResponseMessage.EnsureSuccessStatusCode();
+
+            if (httpResponseMessage.StatusCode != HttpStatusCode.NoContent)
+                return await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult?>();
+
+            return null;
         }
     }
 }

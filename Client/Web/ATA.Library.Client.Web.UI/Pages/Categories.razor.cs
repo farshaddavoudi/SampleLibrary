@@ -25,22 +25,7 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            var hostResponse = await CategoryHostService.GetCategories();
-
-            if (hostResponse == null)
-            {
-                ToastService.ShowError("خطایی رخ داده است. هیچ پاسخی از سمت سرور یافت نشد");
-                return;
-            }
-
-
-            if (!hostResponse.IsSuccess)
-            {
-                ToastService.ShowError(hostResponse.Message);
-                return;
-            }
-
-            _categories = hostResponse.Data;
+            await LoadTableData();
         }
 
         private async Task OnAddCategory()
@@ -52,6 +37,8 @@ namespace ATA.Library.Client.Web.UI.Pages
             if (!result.Cancelled)
             {
                 ToastService.ShowSuccess("افزودن دسته با موفقیت انجام شد");
+
+                await LoadTableData();
             }
         }
 
@@ -68,12 +55,34 @@ namespace ATA.Library.Client.Web.UI.Pages
             if (!result.Cancelled)
             {
                 ToastService.ShowSuccess("ویرایش دسته با موفقیت انجام شد");
+
+                await LoadTableData();
             }
         }
 
         private async Task OnDeleteCategory(CategoryDto category)
         {
             throw new System.NotImplementedException();
+        }
+
+        private async Task LoadTableData()
+        {
+            var hostResponse = await CategoryHostService.GetCategories();
+
+            if (hostResponse == null)
+            {
+                ToastService.ShowError("خطایی رخ داده است. هیچ پاسخی از سمت سرور یافت نشد");
+                return;
+            }
+
+
+            if (!hostResponse.IsSuccess)
+            {
+                ToastService.ShowError(hostResponse.Message);
+                return;
+            }
+
+            _categories = hostResponse.Data;
         }
     }
 }
