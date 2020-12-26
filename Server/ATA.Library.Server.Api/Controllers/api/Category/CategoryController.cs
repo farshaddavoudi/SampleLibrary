@@ -61,7 +61,7 @@ namespace ATA.Library.Server.Api.Controllers.api.Category
 
             var addedEntity = await _categoryService.AddAsync(entity, cancellationToken);
 
-            return StatusCode(StatusCodes.Status201Created, addedEntity);
+            return StatusCode(StatusCodes.Status201Created, _mapper.Map<CategoryDto>(addedEntity));
         }
 
         /// <summary>

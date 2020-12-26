@@ -4,6 +4,7 @@ using ATA.Library.Client.Web.UI.Extensions;
 using ATA.Library.Shared.Core;
 using ATA.Library.Shared.Service.Exceptions;
 using ATA.Library.Shared.Service.Extensions;
+using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -26,6 +27,7 @@ namespace ATA.Library.Client.Web.UI.AuthProvider
         private readonly AppSettings _appSettings;
         private readonly IWebAssemblyHostEnvironment _hostEnvironment;
         private readonly string _authTokenKey = AppStrings.ATAAuthTokenKey;
+        private readonly IToastService _toastService;
 
         #region Constructor Injections
 
@@ -34,7 +36,7 @@ namespace ATA.Library.Client.Web.UI.AuthProvider
             AppSettings appSettings,
             IJSRuntime jsRuntime,
             IWebAssemblyHostEnvironment hostEnvironment,
-            ISecurityClientService securityClientService)
+            ISecurityClientService securityClientService, IToastService toastService)
         {
             _hostClient = hostClient;
             _navigationManager = navigationManager;
@@ -42,6 +44,7 @@ namespace ATA.Library.Client.Web.UI.AuthProvider
             _jsRuntime = jsRuntime;
             _hostEnvironment = hostEnvironment;
             _securityClientService = securityClientService;
+            _toastService = toastService;
         }
 
         #endregion
@@ -60,10 +63,12 @@ namespace ATA.Library.Client.Web.UI.AuthProvider
                 // Call Security client to confirm token
                 var securityResponse = await _securityClientService.GetUserByTokenAsync(token, default);
 
-
                 // No valid response or token has been expired
                 if (securityResponse == null || !securityResponse.IsSuccessful)
+                {
+                    // todo: Log the response Message into Logger
                     await NavigateToLoginPageOnSecurityApp();
+                }
 
                 else //Valid token
                 {
@@ -119,6 +124,9 @@ namespace ATA.Library.Client.Web.UI.AuthProvider
             {
                 var securityResponse =
                     await _securityClientService.GetUserTokenByPersonnelCodeAsync(980923, CancellationToken.None);
+
+                if (!securityResponse!.IsSuccessful)
+                    throw new BadRequestException(securityResponse.Message ?? "Error calling ATA Security service");
 
                 // Set auth cookie
                 await _jsRuntime.SetCookieAsync(_authTokenKey, securityResponse!.Data!.Token);

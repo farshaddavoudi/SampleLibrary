@@ -34,7 +34,7 @@ namespace ATA.Library.Client.Service.SecurityClient
         public async Task<SecurityResult<UserByTokenData?>?> GetUserTokenByPersonnelCodeAsync(int personnelCode, CancellationToken cancellationToken)
         {
             return await _securityClient.GetFromJsonAsync<SecurityResult<UserByTokenData?>>(
-                $"api/Authentication/DirectLogin?perscode={personnelCode}&version=1&remarks=Test", cancellationToken);
+                $"api/Authentication/DirectLogin?perscode={personnelCode}&version=1&remarks=farshad", cancellationToken);
         }
 
         public async Task<List<UserRoleResponseDto>?> GetUserRolesAsync(string token, CancellationToken cancellationToken)
