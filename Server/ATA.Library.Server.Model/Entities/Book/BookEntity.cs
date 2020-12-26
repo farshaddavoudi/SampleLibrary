@@ -14,6 +14,8 @@ namespace ATA.Library.Server.Model.Entities.Book
 
         public string? CoverImageUrl { get; set; }
 
+        public string? CoverImageFileFormat { get; set; }
+
         [Required]
         public string? Title { get; set; }
 
@@ -21,8 +23,12 @@ namespace ATA.Library.Server.Model.Entities.Book
 
         public string? Author { get; set; }
 
-        public string? FileUrl { get; set; }
+        [Required]
+        public string? BookFileUrl { get; set; }
 
+        public string? BookFileFormat { get; set; }
+
+        public long BookFileSize { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
         public CategoryEntity? Category { get; set; }

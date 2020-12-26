@@ -9,12 +9,10 @@
     <Import_RootNamespace>ATA.Library.Shared.Dto</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Enums\" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ApiResponseFormats\ApiResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApiResponseFormats\SecurityResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Book\BookDto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Book\FileData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Category\CategoryDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\IArchivableDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\IATADto.cs" />
@@ -22,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\IKnownException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\ISyncableDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\IVersionableDto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\FileType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)User\UserDto.cs" />
   </ItemGroup>
 </Project>

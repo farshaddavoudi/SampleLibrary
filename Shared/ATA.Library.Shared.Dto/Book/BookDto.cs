@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using ATA.Library.Shared.Dto;
 
@@ -15,12 +16,16 @@ namespace ATA.Library.Server.Model.Book
 
         public DateTime ModifiedAt { get; set; }
 
+
         [Required(ErrorMessage = "گروه را وارد نمایید")]
         public int CategoryId { get; set; }
 
         public bool IsDownloadable { get; set; } = true;
 
+        public List<FileData> FileData { get; set; } = new List<FileData>();
+
         public string? CoverImageUrl { get; set; }
+
 
         [Required(ErrorMessage = "عنوان کتاب را وارد نمایید")]
         public string? Title { get; set; }
