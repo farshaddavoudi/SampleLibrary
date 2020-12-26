@@ -3,6 +3,7 @@ using ATA.Library.Server.Model.Entities.Book;
 using ATA.Library.Server.Model.Enums;
 using ATA.Library.Server.Service.Book.Contracts;
 using ATA.Library.Server.Service.Contracts;
+using ATA.Library.Shared.Service.Exceptions;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using MimeTypes;
@@ -23,19 +24,30 @@ namespace ATA.Library.Server.Service.Book
 
         public async Task<string> SaveFileAndGetPathAsync(FileData file, CancellationToken cancellationToken)
         {
-            string fileExtenstion = MimeTypeMap.GetExtension(file.MimeType);
+            var filePath = FilePath(file);
 
-            string fileRelativeUrl = $"{Guid.NewGuid()}.{fileExtenstion}";
-
-            var path = file.FileType == FileType.CoverImage
-                ? Path.Combine(_hostingEnvironment.ContentRootPath, "Uploads", "CoverImages", fileRelativeUrl)
-                : Path.Combine(_hostingEnvironment.ContentRootPath, "Uploads", "BookFiles", fileRelativeUrl);
+            var path = Path.Combine(_hostingEnvironment.ContentRootPath, filePath);
 
             await using var fileStream = File.Create(path);
 
             await fileStream.WriteAsync(file.Data, cancellationToken);
 
-            return path;
+            return filePath;
+        }
+
+        private string FilePath(FileData file)
+        {
+            string fileExtenstion = MimeTypeMap.GetExtension(file.MimeType);
+
+            string fileName = $"{Guid.NewGuid()}.{fileExtenstion}";
+
+            if (file.FileType == FileType.CoverImage)
+                return $"Uploads/CoverImages/{fileName}";
+
+            if (file.FileType == FileType.BookPdf)
+                return $"Uploads/BookFiles/{fileName}";
+
+            throw new BadRequestException();
         }
     }
 }
