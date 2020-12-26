@@ -62,7 +62,30 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         private async Task OnDeleteCategory(CategoryDto category)
         {
-            throw new System.NotImplementedException();
+            var confirmParams = new ModalParameters();
+
+            confirmParams.Add(nameof(Confirm.ConfirmationMessage), $"آیا از حذف دسته {category.CategoryName} مطمئن می‌باشید؟");
+
+            var confirmModal = ModalService.Show<Confirm>("تایید حذف", confirmParams);
+
+            var result = await confirmModal.Result;
+
+            if (!result.Cancelled && (bool)result.Data)
+            {
+                var hostResponse = await CategoryHostService.DeleteCategory(category);
+
+                if (hostResponse == null)
+                {
+                    ToastService.ShowSuccess("حذف دسته با موفقیت انجام شد");
+
+                    await LoadTableData();
+                }
+                else
+                {
+                    ToastService.ShowError(hostResponse.Message);
+                    return;
+                }
+            }
         }
 
         private async Task LoadTableData()

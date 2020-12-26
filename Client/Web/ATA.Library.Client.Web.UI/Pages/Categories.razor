@@ -15,33 +15,35 @@ else
         </button>
     </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>شناسه</th>
-                <th>نام دسته</th>
-                <th>نقش مدیر </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var category in _categories)
-            {
-                <tr @key="category">
-                    <td>@category.Id</td>
-                    <td>@category.CategoryName</td>
-                    <td>@category.AdminRole</td>
-
-                    <td>
-                        <button class="btn btn-light" @onclick="() => OnEditCategory(category)">
-                            <i class="fa fa-pencil"></i>
-                        </button>
-                        <button class="btn btn-light" @onclick="() => OnDeleteCategory(category)">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </td>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered categories-table">
+            <thead>
+                <tr>
+                    <th>شناسه</th>
+                    <th>نام دسته</th>
+                    <th>نقش مدیر در سامانه‌ی security </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var category in _categories)
+                {
+                    <tr @key="category">
+                        <td>@category.Id</td>
+                        <td>@category.CategoryName</td>
+                        <td>@category.AdminRole</td>
+
+                        <td class="edit-delete-buttons-wrapper">
+                            <button class="btn btn-light" @onclick="() => OnEditCategory(category)">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                            <button class="btn btn-light" @onclick="() => OnDeleteCategory(category)">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
