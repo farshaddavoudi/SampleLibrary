@@ -90,3 +90,13 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+/*  Blazored Modal Common Styles  */
+.blazored-modal .blazored-modal-title {
+    font-family: 'webyekan';
+    font-size: 17px;
+}
+
+.blazored-modal .blazored-modal-close {
+    margin: -1.3rem auto -1rem -1rem;
+}

@@ -1,0 +1,20 @@
+﻿
+<div class="category-form">
+    <EditForm Model="Category" OnValidSubmit="HandleCategorySubmit">
+        <DataAnnotationsValidator />
+        <div class="mb-3">
+            <label class="form-label">نام دسته</label>
+            <InputText class="form-control" @bind-Value="Category.CategoryName" placeholder="نام دسته" />
+            <ValidationMessage For="() => Category.CategoryName" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">نقش مدیر</label>
+            <InputText class="form-control" @bind-Value="Category.AdminRole" placeholder="نقش مدیر" />
+            <div class="form-text">نقش مدیر دسته در سیستم security </div>
+        </div>
+        <div class="mb-3 buttons-wrapper">
+            <button type="submit" class="btn btn-primary save-button">ذخیره</button>
+            <button type="button" @onclick="CancelAndReturnBack" class="btn btn-warning">انصراف</button>
+        </div>
+    </EditForm>
+</div>

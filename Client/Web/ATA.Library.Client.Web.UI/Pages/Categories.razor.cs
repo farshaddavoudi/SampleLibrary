@@ -1,5 +1,8 @@
 ﻿using ATA.Library.Client.Service.HostServices.Category.Contracts;
+using ATA.Library.Client.Web.UI.Components;
 using ATA.Library.Shared.Dto;
+using Blazored.Modal;
+using Blazored.Modal.Services;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -16,6 +19,9 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         [Inject]
         private IToastService ToastService { get; set; }
+
+        [CascadingParameter]
+        private IModalService ModalService { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -39,12 +45,30 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         private async Task OnAddCategory()
         {
-            ToastService.ShowSuccess("افزودن دسته با موفقیت انجام شد");
+            var categoryForm = ModalService.Show<CategoryForm>("افزودن دسته");
+
+            var result = await categoryForm.Result;
+
+            if (!result.Cancelled)
+            {
+                ToastService.ShowSuccess("افزودن دسته با موفقیت انجام شد");
+            }
         }
 
         private async Task OnEditCategory(CategoryDto category)
         {
-            throw new System.NotImplementedException();
+            var categoryParam = new ModalParameters();
+
+            categoryParam.Add(nameof(CategoryForm.Category), category);
+
+            var categoryForm = ModalService.Show<CategoryForm>("ویرایش دسته", categoryParam);
+
+            var result = await categoryForm.Result;
+
+            if (!result.Cancelled)
+            {
+                ToastService.ShowSuccess("ویرایش دسته با موفقیت انجام شد");
+            }
         }
 
         private async Task OnDeleteCategory(CategoryDto category)
