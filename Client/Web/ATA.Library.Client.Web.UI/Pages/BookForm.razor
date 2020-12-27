@@ -1,0 +1,58 @@
+﻿@page "/book-form"
+<div class="form-wrapper">
+    @if (_categories == null)
+    {
+        <Loading />
+    }
+    else
+    {
+        <EditForm Model="_book" OnValidSubmit="HandleBookSubmit">
+            <DataAnnotationsValidator />
+            <div>
+                <h3 class="page-title">افزودن کتاب</h3>
+            </div>
+            <div class="mb-3">
+                <label for="bookCategory" class="form-label"> دسته مرتبط</label>
+                <InputSelect id="bookCategory" @bind-Value="_book.CategoryId" class="form-control">
+                    @foreach (var category in _categories)
+                        {
+                        <option value="@category?.Id">@category?.CategoryName</option>
+                        }
+                </InputSelect>
+            </div>
+            <div class="mb-3">
+                <label for="bookTitle" class="form-label">عنوان </label>
+                <InputText class="form-control" id="bookTitle" @bind-Value="_book.Title" placeholder="عنوان کتاب" />
+                <ValidationMessage For="()=> _book.Title" />
+            </div>
+            <div class="mb-3">
+                <label for="bookAuthor" class="form-label">نویسنده / مولف</label>
+                <InputText class="form-control" id="bookAuthor" @bind-Value="_book.Author" placeholder="نام نویسنده یا مولف کتاب" />
+                <ValidationMessage For="()=> _book.Author" />
+            </div>
+            <div class="mb-3">
+                <label for="bookDescription" class="form-label">توضیحات</label>
+                <InputTextArea class="form-control" id="bookDescription" @bind-Value="_book.Description" placeholder="توضیحات کتاب را وارد نمایید" />
+                <ValidationMessage For="()=> _book.Description" />
+            </div>
+            <div class="mb-3 form-check">
+                <InputCheckbox id="isDownloadable" @bind-Value="_book.IsDownloadable" class="form-check-input" />
+
+                <label class="form-check-label" for="isDownloadable">
+                    امکان دانلود کتاب برای کاربر
+                </label>
+            </div>
+            <div class="mb-3">
+                <label for="bookImageCover" class="form-label">بارگزاری عکس جلد کتاب</label>
+                <textarea class="form-control" id="bookImageCover"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="bookFile" class="form-label">بارگزاری فایل Pdf کتاب</label>
+                <textarea class="form-control" id="bookFile"></textarea>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">ذخیره</button>
+            </div>
+        </EditForm>
+    }
+</div>

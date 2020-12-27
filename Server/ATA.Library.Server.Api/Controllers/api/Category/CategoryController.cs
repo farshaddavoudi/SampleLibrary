@@ -33,13 +33,15 @@ namespace ATA.Library.Server.Api.Controllers.api.Category
         #endregion
 
         /// <summary>
-        /// Get all categories
+        /// Get all authorized categories
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("get-all")]
         public async Task<IActionResult> GetCategories(CancellationToken cancellationToken)
         {
+            // todo: filter it with authorized categories
+
             var categories = await _categoryService.GetAsync(cancellationToken);
             return Ok(_mapper.Map<List<CategoryDto>>(categories));
         }
