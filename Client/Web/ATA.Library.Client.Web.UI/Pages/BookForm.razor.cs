@@ -1,12 +1,13 @@
 ﻿using ATA.Library.Client.Service.HostServices.Category.Contracts;
 using ATA.Library.Server.Model.Book;
 using ATA.Library.Shared.Dto;
+using ATA.Library.Shared.Service.Extensions;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ATA.Library.Shared.Service.Extensions;
 
 namespace ATA.Library.Client.Web.UI.Pages
 {
@@ -60,6 +61,16 @@ namespace ATA.Library.Client.Web.UI.Pages
         }
 
         private Task HandleBookSubmit()
+        {
+            throw new NotImplementedException();
+        }
+
+        private Task OnCoverImageFileSelection(InputFileChangeEventArgs arg)
+        {
+            throw new NotImplementedException();
+        }
+
+        private Task OnBookFileSelection(InputFileChangeEventArgs arg)
         {
             throw new NotImplementedException();
         }
