@@ -6,6 +6,7 @@
 		<Nullable>enable</Nullable>
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(MSBuildThisFileName).xml</DocumentationFile>
 		<NoWarn>NU1701;1702;1591</NoWarn>
+		<UserSecretsId>cf5b1fc3-3eb1-413c-9fa6-a9c1ac894c23</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>
