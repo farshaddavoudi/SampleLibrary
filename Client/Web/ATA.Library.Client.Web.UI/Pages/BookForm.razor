@@ -1,4 +1,7 @@
 ﻿@page "/book-form"
+@page "/book-form/{BookId:int}"
+@page "/book-form/{BookId:int}/{BookTitle}"
+
 <div class="form-wrapper">
     @if (_categories == null)
     {
@@ -16,7 +19,7 @@
                 <InputSelect id="bookCategory" @bind-Value="_book.CategoryId" class="form-control">
                     @foreach (var category in _categories)
                         {
-                        <option value="@category?.Id">@category?.CategoryName</option>
+                        <option @key="category" value="@category?.Id">@category?.CategoryName</option>
                         }
                 </InputSelect>
             </div>
@@ -45,16 +48,16 @@
             <div class="mb-3">
                 <label for="bookImageCover" class="form-label">بارگزاری عکس جلد کتاب</label>
                 <InputFile id="bookImageCover" class="form-control" OnChange="OnCoverImageFileSelection" />
+                @if (_coverImagePreview != null)
+                {
+                    <div class="row cover-preview-image-wrapper">
+                        <img src="@_coverImagePreview" />
+                    </div>
+                }
             </div>
             <div class="mb-3">
                 <label for="bookFile" class="form-label">بارگزاری فایل Pdf کتاب</label>
                 <InputFile id="bookFile" class="form-control" OnChange="OnBookFileSelection" />
-                @if (_coverImagePreview != null)
-                {
-                    <div class="row">
-                        <img src="@_coverImagePreview" />
-                    </div>
-                }
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">ذخیره</button>

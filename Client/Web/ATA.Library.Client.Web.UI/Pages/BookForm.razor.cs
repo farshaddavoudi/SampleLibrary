@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ATA.Library.Client.Web.UI.Pages
@@ -21,7 +22,10 @@ namespace ATA.Library.Client.Web.UI.Pages
         private List<CategoryDto> _categories;
 
         [Parameter]
-        public int? BookId { get; set; } = 1;
+        public int? BookId { get; set; }
+
+        [Parameter]
+        public string BookTitle { get; set; }
 
         private BookDto _book = new BookDto();
 
@@ -33,23 +37,29 @@ namespace ATA.Library.Client.Web.UI.Pages
 
             if (categoriesResponse == null)
             {
-                ToastService.ShowError("خطا در ارتباط با سرور");
-                return;
+                var msg = "خطا در ارتباط با سرور";
+                ToastService.ShowError(msg);
+                throw new InvalidOperationException(msg);
             }
 
             if (!categoriesResponse!.IsSuccess)
             {
                 ToastService.ShowError(categoriesResponse.Message);
-                return;
+                throw new InvalidOperationException(categoriesResponse.Message);
             }
 
             _categories = categoriesResponse.Data;
 
-            if (_categories?.Count == 0)
+            if (_categories == null || _categories.Count == 0)
             {
                 var errorMessage = "هیچ دسته‌ی مجازی برای شما وجود ندارد. با پشتیبانی تماس بگیرید";
                 ToastService.ShowError(errorMessage);
                 throw new InvalidOperationException(errorMessage);
+            }
+
+            if (BookId == null)
+            { // Adding book
+                _book.CategoryId = _categories.First().Id;
             }
         }
 
