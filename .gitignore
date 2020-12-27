@@ -32,3 +32,13 @@
 /Server/ATA.Library.Server.Data/bin/Debug/netstandard2.1
 /Server/ATA.Library.Server.Model/bin/Debug/netstandard2.1
 /Server/ATA.Library.Server.Service/bin/Debug/netstandard2.1
+/Client/ATA.Library.Client.Dto/bin/Release/netstandard2.1
+/Client/ATA.Library.Client.Service/bin/Release/netstandard2.1
+/Client/Web/ATA.Library.Client.Web.Service/bin/Release/netstandard2.1
+/Client/Web/ATA.Library.Client.Web.UI/bin/Release/net5.0
+/Server/ATA.Library.Server.Api/bin/Release/net5.0
+/Server/ATA.Library.Server.Data/bin/Release/netstandard2.1
+/Server/ATA.Library.Server.Model/bin/Release/netstandard2.1
+/Server/ATA.Library.Server.Service/bin/Release/netstandard2.1
+/Shared/ATA.Library.Shared.Core/bin/Release/netstandard2.1
+/Shared/ATA.Library.Shared.Service/bin/Release/netstandard2.1
