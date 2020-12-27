@@ -1,9 +1,10 @@
-﻿using ATA.Library.Client.Service.HostServices.Category.Contracts;
+﻿using ATA.Library.Client.Service.HostServices.Book.Contracts;
+using ATA.Library.Client.Service.HostServices.Category.Contracts;
 using ATA.Library.Client.Web.Service.AppSetting;
 using ATA.Library.Server.Model.Book;
 using ATA.Library.Server.Model.Enums;
 using ATA.Library.Shared.Dto;
-using ATA.Library.Shared.Service.Extensions;
+using ATA.Library.Shared.Service.Exceptions;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -16,6 +17,9 @@ namespace ATA.Library.Client.Web.UI.Pages
 {
     public partial class BookForm
     {
+        [Inject]
+        private IBookHostService BookHostService { get; set; }
+
         [Inject]
         private ICategoryHostService CategoryHostService { get; set; }
 
@@ -70,7 +74,22 @@ namespace ATA.Library.Client.Web.UI.Pages
             else
             { // Editing book
                 // Get book from Db
-                // ...
+                var getBookResult = await BookHostService.GetBookById((int)BookId);
+
+                if (getBookResult == null)
+                {
+                    var msg = "ارتباط با سرور برقرار نشد. لطفا چند دقیقه بعد مجدد تلاش نمایید";
+                    ToastService.ShowError(msg);
+                    throw new BadRequestException(msg);
+                }
+
+                if (!getBookResult.IsSuccess)
+                {
+                    ToastService.ShowError(getBookResult.Message);
+                    throw new BadRequestException(getBookResult.Message ?? "Operation failed");
+                }
+
+                _book = getBookResult.Data;
             }
         }
 
@@ -82,7 +101,27 @@ namespace ATA.Library.Client.Web.UI.Pages
                 return;
             }
 
-            Console.WriteLine(_book.SerializeToJson());
+            if (_book.Id == default)
+            { // Adding book
+                var addResult = await BookHostService.AddBook(_book);
+
+                if (addResult!.IsSuccess)
+                {
+                    ToastService.ShowSuccess("کتاب با موفقیت اضافه شد");
+
+                    // todo: Modal to user for choose between
+                    // 1- Another book add
+                    // 2- Go to books
+                }
+                else
+                {
+                    ToastService.ShowError(addResult.Message);
+                }
+            }
+            else
+            { // Editing book
+
+            }
         }
 
         private async Task OnCoverImageFileSelection(InputFileChangeEventArgs e)
