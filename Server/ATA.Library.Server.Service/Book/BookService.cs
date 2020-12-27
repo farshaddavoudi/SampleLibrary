@@ -1,12 +1,8 @@
-﻿using ATA.Library.Server.Model.Book;
-using ATA.Library.Server.Model.Entities.Book;
-using ATA.Library.Server.Model.Enums;
+﻿using ATA.Library.Server.Model.Entities.Book;
 using ATA.Library.Server.Service.Book.Contracts;
 using ATA.Library.Server.Service.Contracts;
-using ATA.Library.Shared.Service.Exceptions;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
-using MimeTypes;
 using System;
 using System.IO;
 using System.Threading;
@@ -22,32 +18,35 @@ namespace ATA.Library.Server.Service.Book
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public async Task<string> SaveFileAndGetPathAsync(FileData file, CancellationToken cancellationToken)
+        public async Task<string> SaveCoverImageFileAndGetPathAsync(byte[] fileData, string fileExtension, CancellationToken cancellationToken)
         {
-            var filePath = FilePath(file);
+            string fileName = $"{Guid.NewGuid()}{fileExtension}";
 
-            var path = Path.Combine(_hostingEnvironment.ContentRootPath, filePath);
+            var filePath = Path.Combine("Uploads", "CoverImages", fileName);
 
-            await using var fileStream = File.Create(path);
+            var fullPath = Path.Combine(_hostingEnvironment.ContentRootPath, filePath);
 
-            await fileStream.WriteAsync(file.Data, cancellationToken);
+            await using var fileStream = File.Create(fullPath);
+
+            await fileStream.WriteAsync(fileData, cancellationToken);
 
             return filePath;
         }
 
-        private string FilePath(FileData file)
+        public async Task<string> SaveBookFileAndGetPathAsync(byte[] fileData, string fileExtension, CancellationToken cancellationToken)
         {
-            string fileExtenstion = MimeTypeMap.GetExtension(file.MimeType);
+            string fileName = $"{Guid.NewGuid()}{fileExtension}";
 
-            string fileName = $"{Guid.NewGuid()}.{fileExtenstion}";
+            var filePath = Path.Combine("Uploads", "BookFiles", fileName);
 
-            if (file.FileType == FileType.CoverImage)
-                return $"Uploads/CoverImages/{fileName}";
+            var fullPath = Path.Combine(_hostingEnvironment.ContentRootPath, filePath);
 
-            if (file.FileType == FileType.BookPdf)
-                return $"Uploads/BookFiles/{fileName}";
+            await using var fileStream = File.Create(fullPath);
 
-            throw new BadRequestException();
+            await fileStream.WriteAsync(fileData, cancellationToken);
+
+            return filePath;
         }
+
     }
 }

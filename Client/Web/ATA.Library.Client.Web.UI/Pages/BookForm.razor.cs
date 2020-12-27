@@ -2,12 +2,12 @@
 using ATA.Library.Client.Service.HostServices.Category.Contracts;
 using ATA.Library.Client.Web.Service.AppSetting;
 using ATA.Library.Server.Model.Book;
-using ATA.Library.Server.Model.Enums;
 using ATA.Library.Shared.Dto;
 using ATA.Library.Shared.Service.Exceptions;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using MimeTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,7 +95,7 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         private async Task HandleBookSubmit()
         {
-            if (_book.FileData.Any(f => f.FileType == FileType.BookPdf) == false)
+            if (_book.BookFileByteData == null)
             {
                 ToastService.ShowError("هیچ فایلی انتخاب نشده است");
                 return;
@@ -126,7 +126,8 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         private async Task OnCoverImageFileSelection(InputFileChangeEventArgs e)
         {
-            if (e.File.Size > AppSettings.FileUploadLimits!.MaxCoverImageSizeInKB * 1000)
+            var maxAllowedSize = AppSettings.FileUploadLimits!.MaxCoverImageSizeInKB * 1000;
+            if (e.File.Size > maxAllowedSize)
             {
                 ToastService.ShowError("حجم فایل بیشتر از مقدار مجاز می‌باشد");
                 return;
@@ -144,27 +145,22 @@ namespace ATA.Library.Client.Web.UI.Pages
 
             var buffers = new byte[coverImgFile.Size];
 
-            await coverImgFile.OpenReadStream().ReadAsync(buffers);
+            await coverImgFile.OpenReadStream(maxAllowedSize).ReadAsync(buffers);
 
             string imgMimeType = coverImgFile.ContentType;
 
             _coverImagePreview = $"data:{imgMimeType};base64,{Convert.ToBase64String(buffers)}";
 
-            if (_book.FileData.Any(f => f.FileType == FileType.CoverImage))
-                _book.FileData.Remove(_book.FileData.First(f => f.FileType == FileType.CoverImage));
+            _book.CoverImageByteData = buffers;
 
-            _book.FileData.Add(new FileData
-            {
-                FileType = FileType.CoverImage,
-                Data = buffers,
-                MimeType = imgMimeType,
-                Size = coverImgFile.Size
-            });
+            _book.CoverImageFileFormat = MimeTypeMap.GetExtension(imgMimeType);
         }
 
         private async Task OnBookFileSelection(InputFileChangeEventArgs e)
         {
-            if (e.File.Size > AppSettings.FileUploadLimits!.MaxBookFileSizeInMB * 1000000)
+            var maxAllowedSize = AppSettings.FileUploadLimits!.MaxBookFileSizeInMB * 1000000;
+
+            if (e.File.Size > maxAllowedSize)
             {
                 ToastService.ShowError("حجم فایل بیشتر از مقدار مجاز می‌باشد");
                 return;
@@ -180,20 +176,13 @@ namespace ATA.Library.Client.Web.UI.Pages
 
             var buffers = new byte[bookFile.Size];
 
-            await bookFile.OpenReadStream().ReadAsync(buffers);
+            await bookFile.OpenReadStream(maxAllowedSize).ReadAsync(buffers);
 
-            string fileMimeType = bookFile.ContentType;
+            _book.BookFileSize = bookFile.Size;
 
-            if (_book.FileData.Any(f => f.FileType == FileType.BookPdf))
-                _book.FileData.Remove(_book.FileData.First(f => f.FileType == FileType.BookPdf));
+            _book.BookFileByteData = buffers;
 
-            _book.FileData.Add(new FileData
-            {
-                FileType = FileType.BookPdf,
-                Data = buffers,
-                MimeType = fileMimeType,
-                Size = bookFile.Size
-            });
+            _book.BookFileFormat = MimeTypeMap.GetExtension(bookFile.ContentType);
         }
     }
 }

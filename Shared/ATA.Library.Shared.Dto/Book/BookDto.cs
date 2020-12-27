@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using ATA.Library.Shared.Dto;
 
 namespace ATA.Library.Server.Model.Book
 {
     public class BookDto : IATADto
     {
-        [Key]
-        public int Id { get; set; }
+        [Key] public int Id { get; set; }
 
         public bool IsArchived { get; set; }
 
@@ -22,7 +23,10 @@ namespace ATA.Library.Server.Model.Book
 
         public bool IsDownloadable { get; set; } = true;
 
-        public List<FileData> FileData { get; set; } = new List<FileData>();
+        [NotMapped]
+        public byte[]? CoverImageByteData { get; set; }
+
+        public string? CoverImageFileFormat { get; set; }
 
         public string? CoverImageUrl { get; set; }
 
@@ -34,7 +38,14 @@ namespace ATA.Library.Server.Model.Book
 
         public string? Author { get; set; }
 
-        public string? FileUrl { get; set; }
+        [NotMapped]
+        public byte[]? BookFileByteData { get; set; }
+
+        public string? BookFileFormat { get; set; }
+
+        public string? BookFileUrl { get; set; }
+
+        public long BookFileSize { get; set; }
 
         public CategoryDto? Category { get; set; }
 

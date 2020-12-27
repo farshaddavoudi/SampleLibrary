@@ -1,7 +1,7 @@
 ﻿using ATA.Library.Server.Model.Book;
 using ATA.Library.Server.Model.Entities.Book;
-using ATA.Library.Server.Model.Enums;
 using ATA.Library.Server.Service.Book.Contracts;
+using ATA.Library.Shared.Dto;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -84,14 +84,14 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
 
             // todo: Check user has access to add a book in category
 
-            foreach (var file in dto.FileData)
-            {
-                if (file.FileType == FileType.CoverImage)
-                    dto.CoverImageUrl = await _bookService.SaveFileAndGetPathAsync(file, cancellationToken);
+            dto.CoverImageUrl = dto.CoverImageByteData != null
+                ? await _bookService.SaveCoverImageFileAndGetPathAsync(dto.CoverImageByteData!,
+                    dto.CoverImageFileFormat!, cancellationToken)
+                : "/DefaultImageAddressUrl";
 
-                else if (file.FileType == FileType.BookPdf)
-                    dto.FileUrl = await _bookService.SaveFileAndGetPathAsync(file, cancellationToken);
-            }
+            dto.BookFileUrl =
+                await _bookService.SaveBookFileAndGetPathAsync(dto.BookFileByteData!, dto.BookFileFormat!,
+                    cancellationToken);
 
             var entity = _mapper.Map<BookEntity>(dto);
 

@@ -1,4 +1,4 @@
-﻿namespace ATA.Library.Server.Model.Enums
+﻿namespace ATA.Library.Shared.Dto
 {
     public enum FileType
     {

@@ -12,7 +12,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ApiResponseFormats\ApiResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApiResponseFormats\SecurityResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Book\BookDto.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Book\FileData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Category\CategoryDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\IArchivableDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\IATADto.cs" />
