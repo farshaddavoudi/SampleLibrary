@@ -1,4 +1,4 @@
-﻿using ATA.Library.Client.Service.HostServices.Category.Contracts;
+﻿using ATA.Library.Client.Web.Service.Category.Contracts;
 using ATA.Library.Shared.Dto;
 using Blazored.Modal;
 using Blazored.Modal.Services;
@@ -11,7 +11,7 @@ namespace ATA.Library.Client.Web.UI.Components
     public partial class CategoryForm
     {
         [Inject]
-        private ICategoryHostService CategoryHostService { get; set; }
+        private ICategoryWebService CategoryWebService { get; set; }
 
         [Inject]
         private IToastService ToastService { get; set; }
@@ -27,28 +27,15 @@ namespace ATA.Library.Client.Web.UI.Components
             if (Category.Id == default)
             { // Add
                 // Save into Db
-                var result = await CategoryHostService.AddCategory(Category);
+                await CategoryWebService.AddCategory(Category);
 
-                if (result!.IsSuccess)
-                {
-                    // Return to modal parent
-                    await CategoryModal.Close(ModalResult.Ok(Category));
-                }
-                else
-                {
-                    ToastService.ShowError(result.Message);
-                }
+                // Return to modal parent
+                await CategoryModal.Close(ModalResult.Ok(Category));
             }
             else
             { // Edit
                 // Update Db
-                var result = await CategoryHostService.EditCategory(Category);
-
-                if (result != null && !result.IsSuccess)
-                {
-                    ToastService.ShowError(result.Message);
-                    return;
-                }
+                await CategoryWebService.EditCategory(Category);
 
                 // Return to modal parent
                 await CategoryModal.Close(ModalResult.Ok(Category));

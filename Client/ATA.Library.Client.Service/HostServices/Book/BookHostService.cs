@@ -51,7 +51,7 @@ namespace ATA.Library.Client.Service.HostServices.Book
             if (httpResponseMessage.StatusCode != HttpStatusCode.NoContent)
                 return await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult?>();
 
-            return null;
+            return new ApiResult { IsSuccess = true };
         }
 
         public async Task<ApiResult?> DeleteBook(int bookId)
@@ -63,7 +63,7 @@ namespace ATA.Library.Client.Service.HostServices.Book
             if (httpResponseMessage.StatusCode != HttpStatusCode.NoContent)
                 return await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult?>();
 
-            return null;
+            return new ApiResult { IsSuccess = true };
         }
     }
 }

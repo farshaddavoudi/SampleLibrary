@@ -45,7 +45,7 @@ namespace ATA.Library.Client.Service.HostServices.Category
             if (httpResponseMessage.StatusCode != HttpStatusCode.NoContent)
                 return await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult?>();
 
-            return null;
+            return new ApiResult { IsSuccess = true };
         }
 
         public async Task<ApiResult?> DeleteCategory(CategoryDto category)
@@ -57,7 +57,7 @@ namespace ATA.Library.Client.Service.HostServices.Category
             if (httpResponseMessage.StatusCode != HttpStatusCode.NoContent)
                 return await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult?>();
 
-            return null;
+            return new ApiResult { IsSuccess = true };
         }
     }
 }

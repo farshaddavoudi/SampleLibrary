@@ -1,4 +1,4 @@
-﻿using ATA.Library.Client.Service.HostServices.Category.Contracts;
+﻿using ATA.Library.Client.Web.Service.Category.Contracts;
 using ATA.Library.Client.Web.UI.Components;
 using ATA.Library.Shared.Dto;
 using Blazored.Modal;
@@ -15,7 +15,7 @@ namespace ATA.Library.Client.Web.UI.Pages
         private List<CategoryDto> _categories;
 
         [Inject]
-        private ICategoryHostService CategoryHostService { get; set; }
+        private ICategoryWebService CategoryWebService { get; set; }
 
         [Inject]
         private IToastService ToastService { get; set; }
@@ -72,40 +72,19 @@ namespace ATA.Library.Client.Web.UI.Pages
 
             if (!result.Cancelled && (bool)result.Data)
             {
-                var hostResponse = await CategoryHostService.DeleteCategory(category);
+                await CategoryWebService.DeleteCategory(category);
 
-                if (hostResponse == null)
-                {
-                    ToastService.ShowSuccess("حذف دسته با موفقیت انجام شد");
+                ToastService.ShowSuccess("حذف دسته با موفقیت انجام شد");
 
-                    await LoadTableData();
-                }
-                else
-                {
-                    ToastService.ShowError(hostResponse.Message);
-                    return;
-                }
+                await LoadTableData();
             }
         }
 
         private async Task LoadTableData()
         {
-            var hostResponse = await CategoryHostService.GetCategories();
+            _categories = await CategoryWebService.GetCategories();
 
-            if (hostResponse == null)
-            {
-                ToastService.ShowError("خطایی رخ داده است. هیچ پاسخی از سمت سرور یافت نشد");
-                return;
-            }
-
-
-            if (!hostResponse.IsSuccess)
-            {
-                ToastService.ShowError(hostResponse.Message);
-                return;
-            }
-
-            _categories = hostResponse.Data;
+            StateHasChanged();
         }
     }
 }
