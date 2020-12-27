@@ -1,7 +1,6 @@
 ﻿using ATA.Library.Client.Service.HostServices.Category.Contracts;
 using ATA.Library.Server.Model.Book;
 using ATA.Library.Shared.Dto;
-using ATA.Library.Shared.Service.Extensions;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -26,6 +25,8 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         private BookDto _book = new BookDto();
 
+        private string _coverImagePreview;
+
         protected override async Task OnInitializedAsync()
         {
             var categoriesResponse = await CategoryHostService.GetCategories();
@@ -44,20 +45,12 @@ namespace ATA.Library.Client.Web.UI.Pages
 
             _categories = categoriesResponse.Data;
 
-            Console.WriteLine(_categories.SerializeToJson());
-
             if (_categories?.Count == 0)
             {
                 var errorMessage = "هیچ دسته‌ی مجازی برای شما وجود ندارد. با پشتیبانی تماس بگیرید";
                 ToastService.ShowError(errorMessage);
                 throw new InvalidOperationException(errorMessage);
             }
-
-            _book = new BookDto
-            {
-                CategoryId = 1,
-                Title = "نام کتاب"
-            };
         }
 
         private Task HandleBookSubmit()
@@ -65,9 +58,25 @@ namespace ATA.Library.Client.Web.UI.Pages
             throw new NotImplementedException();
         }
 
-        private Task OnCoverImageFileSelection(InputFileChangeEventArgs arg)
+        private async Task OnCoverImageFileSelection(InputFileChangeEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.File.Size > 500000)
+            {
+                ToastService.ShowError("حجم فایل بیشتر از مقدار مجاز می‌باشد");
+                return;
+            }
+
+            IBrowserFile coverImgFile = e.File;
+
+            var buffers = new byte[coverImgFile.Size];
+
+            await coverImgFile.OpenReadStream().ReadAsync(buffers);
+
+            string imgMimeType = coverImgFile.ContentType;
+
+            _coverImagePreview = $"data:{imgMimeType};base64,{Convert.ToBase64String(buffers)}";
+
+            Console.WriteLine(coverImgFile.Size);
         }
 
         private Task OnBookFileSelection(InputFileChangeEventArgs arg)

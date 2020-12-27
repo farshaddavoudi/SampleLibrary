@@ -49,6 +49,12 @@
             <div class="mb-3">
                 <label for="bookFile" class="form-label">بارگزاری فایل Pdf کتاب</label>
                 <InputFile id="bookFile" class="form-control" OnChange="OnBookFileSelection" />
+                @if (_coverImagePreview != null)
+                {
+                    <div class="row">
+                        <img src="@_coverImagePreview" />
+                    </div>
+                }
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">ذخیره</button>
