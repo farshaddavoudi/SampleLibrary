@@ -1,6 +1,9 @@
 ﻿using ATA.Library.Client.Service.HostServices.Category.Contracts;
+using ATA.Library.Client.Web.Service.AppSetting;
 using ATA.Library.Server.Model.Book;
+using ATA.Library.Server.Model.Enums;
 using ATA.Library.Shared.Dto;
+using ATA.Library.Shared.Service.Extensions;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -19,7 +22,8 @@ namespace ATA.Library.Client.Web.UI.Pages
         [Inject]
         private IToastService ToastService { get; set; }
 
-        private List<CategoryDto> _categories;
+        [Inject]
+        private AppSettings AppSettings { get; set; }
 
         [Parameter]
         public int? BookId { get; set; }
@@ -27,7 +31,9 @@ namespace ATA.Library.Client.Web.UI.Pages
         [Parameter]
         public string BookTitle { get; set; }
 
-        private BookDto _book = new BookDto();
+        private List<CategoryDto> _categories;
+
+        BookDto _book = new BookDto();
 
         private string _coverImagePreview;
 
@@ -61,18 +67,37 @@ namespace ATA.Library.Client.Web.UI.Pages
             { // Adding book
                 _book.CategoryId = _categories.First().Id;
             }
+            else
+            { // Editing book
+                // Get book from Db
+                // ...
+            }
         }
 
-        private Task HandleBookSubmit()
+        private async Task HandleBookSubmit()
         {
-            throw new NotImplementedException();
+            if (_book.FileData.Any(f => f.FileType == FileType.BookPdf) == false)
+            {
+                ToastService.ShowError("هیچ فایلی انتخاب نشده است");
+                return;
+            }
+
+            Console.WriteLine(_book.SerializeToJson());
         }
 
         private async Task OnCoverImageFileSelection(InputFileChangeEventArgs e)
         {
-            if (e.File.Size > 500000)
+            if (e.File.Size > AppSettings.FileUploadLimits!.MaxCoverImageSizeInKB * 1000)
             {
                 ToastService.ShowError("حجم فایل بیشتر از مقدار مجاز می‌باشد");
+                return;
+            }
+
+            var allowedMimeTypes = new List<string> { "image/jpeg", "image/png" };
+
+            if (!allowedMimeTypes.Contains(e.File.ContentType))
+            {
+                ToastService.ShowError("نوع فایل عکس انتخابی درست نمی‌باشد. فقط عکس‌های jpg و png مجاز هستند.");
                 return;
             }
 
@@ -86,12 +111,50 @@ namespace ATA.Library.Client.Web.UI.Pages
 
             _coverImagePreview = $"data:{imgMimeType};base64,{Convert.ToBase64String(buffers)}";
 
-            Console.WriteLine(coverImgFile.Size);
+            if (_book.FileData.Any(f => f.FileType == FileType.CoverImage))
+                _book.FileData.Remove(_book.FileData.First(f => f.FileType == FileType.CoverImage));
+
+            _book.FileData.Add(new FileData
+            {
+                FileType = FileType.CoverImage,
+                Data = buffers,
+                MimeType = imgMimeType,
+                Size = coverImgFile.Size
+            });
         }
 
-        private Task OnBookFileSelection(InputFileChangeEventArgs arg)
+        private async Task OnBookFileSelection(InputFileChangeEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.File.Size > AppSettings.FileUploadLimits!.MaxBookFileSizeInMB * 1000000)
+            {
+                ToastService.ShowError("حجم فایل بیشتر از مقدار مجاز می‌باشد");
+                return;
+            }
+
+            if (e.File.ContentType != "application/pdf")
+            {
+                ToastService.ShowError("فقط فایل‌های pdf امکان آپلود دارند.");
+                return;
+            }
+
+            IBrowserFile bookFile = e.File;
+
+            var buffers = new byte[bookFile.Size];
+
+            await bookFile.OpenReadStream().ReadAsync(buffers);
+
+            string fileMimeType = bookFile.ContentType;
+
+            if (_book.FileData.Any(f => f.FileType == FileType.BookPdf))
+                _book.FileData.Remove(_book.FileData.First(f => f.FileType == FileType.BookPdf));
+
+            _book.FileData.Add(new FileData
+            {
+                FileType = FileType.BookPdf,
+                Data = buffers,
+                MimeType = fileMimeType,
+                Size = bookFile.Size
+            });
         }
     }
 }

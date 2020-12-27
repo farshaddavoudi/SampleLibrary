@@ -48,6 +48,7 @@
             <div class="mb-3">
                 <label for="bookImageCover" class="form-label">بارگزاری عکس جلد کتاب</label>
                 <InputFile id="bookImageCover" class="form-control" OnChange="OnCoverImageFileSelection" />
+                <div class="form-text">حداکثر حجم عکس 500 کیلوبایت </div>
                 @if (_coverImagePreview != null)
                 {
                     <div class="row cover-preview-image-wrapper">
@@ -58,6 +59,7 @@
             <div class="mb-3">
                 <label for="bookFile" class="form-label">بارگزاری فایل Pdf کتاب</label>
                 <InputFile id="bookFile" class="form-control" OnChange="OnBookFileSelection" />
+                <div class="form-text">حداکثر حجم فایل 50 مگابایت </div>
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">ذخیره</button>

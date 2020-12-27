@@ -3,5 +3,7 @@
     public class AppSettings
     {
         public Urls? Urls { get; set; }
+
+        public FileUploadLimits? FileUploadLimits { get; set; }
     }
 }
