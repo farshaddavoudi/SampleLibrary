@@ -82,18 +82,18 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         private async Task OnCoverImageFileSelection(InputFileChangeEventArgs e)
         {
-            var maxAllowedSize = AppSettings.FileUploadLimits!.MaxCoverImageSizeInKB * 1000;
-            if (e.File.Size > maxAllowedSize)
-            {
-                ToastService.ShowError("حجم فایل بیشتر از مقدار مجاز می‌باشد");
-                return;
-            }
-
             var allowedMimeTypes = new List<string> { "image/jpeg", "image/png" };
 
             if (!allowedMimeTypes.Contains(e.File.ContentType))
             {
                 ToastService.ShowError("نوع فایل عکس انتخابی درست نمی‌باشد. فقط عکس‌های jpg و png مجاز هستند.");
+                return;
+            }
+
+            var maxAllowedSize = AppSettings.FileUploadLimits!.MaxCoverImageSizeInKB * 1000;
+            if (e.File.Size > maxAllowedSize)
+            {
+                ToastService.ShowError("حجم فایل بیشتر از مقدار مجاز می‌باشد");
                 return;
             }
 

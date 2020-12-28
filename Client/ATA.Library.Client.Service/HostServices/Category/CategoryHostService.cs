@@ -30,8 +30,6 @@ namespace ATA.Library.Client.Service.HostServices.Category
         {
             var httpResponseMessage = await _hostClient.PostAsJsonAsync("api/v1/category/add", category);
 
-            httpResponseMessage.EnsureSuccessStatusCode();
-
             return await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult>();
         }
 
@@ -39,8 +37,6 @@ namespace ATA.Library.Client.Service.HostServices.Category
         {
             var httpResponseMessage =
                 await _hostClient.PutAsJsonAsync($"api/v1/category/edit?categoryId={category.Id}", category);
-
-            httpResponseMessage.EnsureSuccessStatusCode();
 
             if (httpResponseMessage.StatusCode != HttpStatusCode.NoContent)
                 return await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult?>();
@@ -51,8 +47,6 @@ namespace ATA.Library.Client.Service.HostServices.Category
         public async Task<ApiResult?> DeleteCategory(CategoryDto category)
         {
             var httpResponseMessage = await _hostClient.DeleteAsync($"api/v1/category/delete?categoryId={category.Id}");
-
-            httpResponseMessage.EnsureSuccessStatusCode();
 
             if (httpResponseMessage.StatusCode != HttpStatusCode.NoContent)
                 return await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult?>();

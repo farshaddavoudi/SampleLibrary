@@ -1,7 +1,6 @@
 ﻿using ATA.Library.Server.Model.Book;
 using ATA.Library.Server.Model.Entities.Book;
 using ATA.Library.Server.Service.Book.Contracts;
-using ATA.Library.Shared.Dto;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -85,9 +84,9 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
             // todo: Check user has access to add a book in category
 
             dto.CoverImageUrl = dto.CoverImageByteData != null
-                ? await _bookService.SaveCoverImageFileAndGetPathAsync(dto.CoverImageByteData!,
+                ? await _bookService.SaveCoverImageFileAndGetPathAsync(dto.CoverImageByteData,
                     dto.CoverImageFileFormat!, cancellationToken)
-                : "/DefaultImageAddressUrl";
+                : "default-book-cover.png";
 
             dto.BookFileUrl =
                 await _bookService.SaveBookFileAndGetPathAsync(dto.BookFileByteData!, dto.BookFileFormat!,

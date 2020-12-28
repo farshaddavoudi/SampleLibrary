@@ -36,8 +36,6 @@ namespace ATA.Library.Client.Service.HostServices.Book
         {
             var httpResponseMessage = await _hostClient.PostAsJsonAsync("api/v1/book/add", book);
 
-            httpResponseMessage.EnsureSuccessStatusCode();
-
             return await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult>();
         }
 
@@ -45,8 +43,6 @@ namespace ATA.Library.Client.Service.HostServices.Book
         {
             var httpResponseMessage =
                 await _hostClient.PutAsJsonAsync($"api/v1/book/edit?bookId={book.Id}", book);
-
-            httpResponseMessage.EnsureSuccessStatusCode();
 
             if (httpResponseMessage.StatusCode != HttpStatusCode.NoContent)
                 return await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult?>();
@@ -57,8 +53,6 @@ namespace ATA.Library.Client.Service.HostServices.Book
         public async Task<ApiResult?> DeleteBook(int bookId)
         {
             var httpResponseMessage = await _hostClient.DeleteAsync($"api/v1/book/delete?categoryId={bookId}");
-
-            httpResponseMessage.EnsureSuccessStatusCode();
 
             if (httpResponseMessage.StatusCode != HttpStatusCode.NoContent)
                 return await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult?>();

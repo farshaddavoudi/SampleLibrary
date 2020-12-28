@@ -1,3 +1,27 @@
 ﻿@page "/books"
 @page "/books/{CategoryId:int}"
 @page "/books/{CategoryId:int}/{CategoryTitle}"
+
+@if (_books == null)
+{
+    <Loading />
+}
+else if (_books.Count == 0)
+{
+    <div>
+        هیچ کتابی برای این دسته وجود ندارد
+    </div>
+}
+else
+{
+    <div class="row">
+
+        @foreach (var book in _books)
+        {
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <Book BookDto="@book" @key="@book.Id" />
+            </div>
+        }
+
+    </div>
+}
