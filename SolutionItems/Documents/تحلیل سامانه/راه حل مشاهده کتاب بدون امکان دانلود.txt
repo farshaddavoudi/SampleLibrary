@@ -1,0 +1,3 @@
+﻿Using Syncfusion Blazor pdf viewer.
+
+// https://blazor.syncfusion.com/documentation/pdfviewer/getting-started/client-side-application/
