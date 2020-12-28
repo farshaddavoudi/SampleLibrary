@@ -38,6 +38,8 @@ namespace ATA.Library.Server.Api.Infrastructure.EfDbContext
                 if (appSettings.EFSecondLevelCacheSettings!.Enabled) { }
                 //options.AddInterceptors(serviceProvider.GetRequiredService<SecondLevelCacheInterceptor>());
             });
+
+
         }
     }
 }
