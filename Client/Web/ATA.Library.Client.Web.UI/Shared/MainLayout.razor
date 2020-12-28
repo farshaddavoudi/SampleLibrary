@@ -1,19 +1,21 @@
 ﻿@inherits LayoutComponentBase
 
-    <BlazoredToasts />
+<BlazoredToasts />
 
-    <div class="page">
-        <div class="sidebar">
-            <NavMenu />
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <div class="main">
+        <div class="top-row px-4">
+            <a href="book-form" class="ml-md-auto">افزودن کتاب</a>
+            <a href="categories" class="ml-md-auto">مدیریت دسته‌ها</a>
+            <a href="http://blazor.net" class="ml-md-auto">نام کاربر</a>
         </div>
 
-        <div class="main">
-            <div class="top-row px-4">
-                <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
-            </div>
-
-            <div class="content px-4">
-                @Body
-            </div>
+        <div class="content px-4">
+            @Body
         </div>
     </div>
+</div>
