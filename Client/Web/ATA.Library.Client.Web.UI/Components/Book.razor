@@ -1,9 +1,11 @@
 ﻿
 <div class="book-wrapper">
-    <img src="@_coverImageUrl" alt="@BookDto.Title" />
-    <div>
-        <p class="book-title">
-            @BookDto.Title
-        </p>
-    </div>
+    <a href="@($"book-detail/{BookDto.Id}/{BookDto.Title?.Replace(" ", "-")}")">
+        <img src="@_coverImageUrl" alt="@BookDto.Title" />
+        <div>
+            <p class="book-title">
+                @BookDto.Title
+            </p>
+        </div>
+    </a>
 </div>

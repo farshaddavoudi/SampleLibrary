@@ -1,0 +1,19 @@
+﻿@page "/book-detail/{BookId:int}"
+@page "/book-detail/{BookId:int}/{BookTitle}"
+
+@if (_book == null)
+{
+    <Loading />
+}
+else
+{
+    <div>
+        <img src="images/auth-loading.gif" />
+
+        <p> مولف: @_book.Author </p>
+
+        <p>حجم فایل: @_book.BookFileSize</p>
+
+        <button type="button" class="btn btn-primary" @onclick="ShowBook"> مشاهده</button>
+    </div>
+}

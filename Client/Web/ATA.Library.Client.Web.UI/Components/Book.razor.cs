@@ -18,7 +18,7 @@ namespace ATA.Library.Client.Web.UI.Components
         [Inject]
         private IWebAssemblyHostEnvironment HostEnvironment { get; set; }
 
-        protected override void OnInitialized()
+        protected override void OnParametersSet()
         {
             _coverImageUrl = HostEnvironment.IsDevelopment()
                 ? AppSettings.BookBaseUrls!.CoverBaseUrl

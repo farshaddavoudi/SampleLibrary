@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -65,7 +66,7 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
             var categoryBooks = await _bookService.GetAll().Where(b => b.CategoryId == categoryId)
                 .ToListAsync(cancellationToken);
 
-            return Ok(categoryBooks);
+            return Ok(_mapper.Map<List<BookDto>>(categoryBooks));
         }
 
         /// <summary>
