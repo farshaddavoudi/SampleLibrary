@@ -1,0 +1,3 @@
+﻿All uploads including book image covers and book pdf files will be saved at cdn address of ATA server, not into project files.
+
+All Size limitations and Upload path has been placed in appsettings.json, both in client and server side

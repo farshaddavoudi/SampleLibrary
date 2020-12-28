@@ -1,7 +1,6 @@
 ﻿
 <div class="book-wrapper">
-    @*<img src="@($"http://cdn.app.ataair.ir/portal/library/BookImages/{BookDto.CoverImageUrl}")" />*@
-    <img src="http://cdn.app.ataair.ir/portal/library/education/book-cover-1.png" />
+    <img src="@_coverImageUrl" alt="@BookDto.Title" />
     <div>
         <p class="book-title">
             @BookDto.Title
