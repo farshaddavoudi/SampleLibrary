@@ -1,5 +1,6 @@
 using ATA.Library.Client.Web.Service.AppSetting;
 using ATA.Library.Client.Web.UI.Infrastructure;
+using ATA.Library.Client.Web.UI.Infrastructure.SyncfusionComponent;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace ATA.Library.Client.Web.UI
     {
         public static async Task Main(string[] args)
         {
+            SyncfusionLicense.Register();
+
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
@@ -19,6 +22,7 @@ namespace ATA.Library.Client.Web.UI
             builder.Services.InstallServicesInAssemblies(blazorAppSettings);
 
             await builder.Build().RunAsync();
+
         }
     }
 }

@@ -2,8 +2,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    height: 80vh;
 }
 
 .no-book-image {
-    height: 80vh;
+    height: 470px;
+    width: 600px;
+    margin: auto;
+}
+
+.books-container {
+    margin-top: 2.5rem;
+}
+
+.no-book-found-text {
+    font-weight: bold;
+    font-size: 22px;
 }

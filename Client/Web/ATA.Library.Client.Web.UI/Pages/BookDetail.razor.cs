@@ -18,6 +18,9 @@ namespace ATA.Library.Client.Web.UI.Pages
         [Inject]
         private IBookWebService BookWebService { get; set; }
 
+        [Inject]
+        private NavigationManager NavigationManager { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             _book = await BookWebService.GetBookById(BookId);
@@ -25,7 +28,7 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         private async Task ShowBook()
         {
-
+            NavigationManager.NavigateTo($"/book-viewer/{BookId}/{_book.Title?.Replace(" ", "-")}");
         }
     }
 }

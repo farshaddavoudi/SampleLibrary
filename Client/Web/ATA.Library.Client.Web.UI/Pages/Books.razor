@@ -9,12 +9,15 @@
 else if (_books.Count == 0)
 {
     <div class="no-books-container">
-        <img class="no-book-image" src="/images/components/no-book-found.jpg" />
+        <div class="row">
+            <img class="col-12 no-book-image" src="/images/components/no-book-found.jpg" />
+            <h6 class="col-12 no-book-found-text">هیچ کتابی یافت نشد</h6>
+        </div>
     </div>
 }
 else
 {
-    <div class="row">
+    <div class="row books-container">
 
         @foreach (var book in _books)
         {
