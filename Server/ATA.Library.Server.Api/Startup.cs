@@ -1,4 +1,5 @@
 using ATA.Library.Server.Api.Infrastructure;
+using ATA.Library.Server.Api.Infrastructure.EfDbContext;
 using ATA.Library.Server.Api.Infrastructure.OData;
 using ATA.Library.Server.Api.Infrastructure.Swagger;
 using ATA.Library.Server.Api.Middlewares;
@@ -60,7 +61,7 @@ namespace ATA.Library.Server.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // app.InitializeDatabase(env);
+            app.ExecuteMigrations(env);
 
             app.UseRequestResponseLogging();
 
