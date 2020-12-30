@@ -1,6 +1,8 @@
 ﻿using ATA.Library.Client.Web.Service.Book.Contracts;
+using ATA.Library.Client.Web.UI.Extensions;
 using ATA.Library.Server.Model.Book;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System.Threading.Tasks;
 
 namespace ATA.Library.Client.Web.UI.Pages
@@ -19,7 +21,7 @@ namespace ATA.Library.Client.Web.UI.Pages
         private IBookWebService BookWebService { get; set; }
 
         [Inject]
-        private NavigationManager NavigationManager { get; set; }
+        private IJSRuntime JsRuntime { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -28,7 +30,7 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         private async Task ShowBook()
         {
-            NavigationManager.NavigateTo($"/book-viewer/{BookId}/{_book.Title?.Replace(" ", "-")}");
+            await JsRuntime.NavigateToUrlInNewTab($"/book-viewer/{BookId}/{_book.Title?.Replace(" ", "-")}");
         }
     }
 }
