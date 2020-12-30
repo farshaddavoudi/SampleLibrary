@@ -119,6 +119,8 @@ namespace ATA.Library.Server.Api.Infrastructure.Swagger
 
                     return versions.Any(v => $"v{v}" == docName);
                 });
+
+                options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
             });
 
             services.AddSwaggerGenNewtonsoftSupport(); // explicit opt-in
