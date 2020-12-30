@@ -19,5 +19,10 @@ namespace ATA.Library.Client.Web.UI.Extensions
         {
             return await jsRuntime.InvokeAsync<string>("getCookie", cookieName);
         }
+
+        public static async Task NavigateToUrlInNewTab(this IJSRuntime jsRuntime, string url)
+        {
+            await jsRuntime.InvokeVoidAsync("open", url, "_blank");
+        }
     }
 }

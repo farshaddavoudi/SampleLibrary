@@ -22,7 +22,7 @@ else
         @foreach (var book in _books)
         {
             <div class="col-sm-6 col-lg-4 col-xl-3">
-                <Book BookDto="@book" @key="@book.Id" />
+                <Book BookDto="@book" @key="@book.Id" StateChangeRequest="StateChangeRequested" />
             </div>
         }
 

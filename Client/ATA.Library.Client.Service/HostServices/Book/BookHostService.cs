@@ -52,7 +52,7 @@ namespace ATA.Library.Client.Service.HostServices.Book
 
         public async Task<ApiResult?> DeleteBook(int bookId)
         {
-            var httpResponseMessage = await _hostClient.DeleteAsync($"api/v1/book/delete?categoryId={bookId}");
+            var httpResponseMessage = await _hostClient.DeleteAsync($"api/v1/book/delete?bookId={bookId}");
 
             if (httpResponseMessage.StatusCode != HttpStatusCode.NoContent)
                 return await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult?>();

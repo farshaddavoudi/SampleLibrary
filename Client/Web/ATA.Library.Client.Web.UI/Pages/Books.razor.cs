@@ -36,12 +36,21 @@ namespace ATA.Library.Client.Web.UI.Pages
 
                 var defaultCategory = categories.First();
 
-                NavigationManager.NavigateTo($"books/{defaultCategory.Id}/{defaultCategory.CategoryName?.Replace(" ", "-")}");
+                CategoryId = defaultCategory.Id;
+
+                NavigationManager.NavigateTo($"books/{CategoryId}/{defaultCategory.CategoryName?.Replace(" ", "-")}");
             }
             else
             {
                 _books = await BookWebService.GetBooksByCategory((int)CategoryId);
             }
+        }
+
+        private async Task StateChangeRequested()
+        {
+            _books = await BookWebService.GetBooksByCategory((int)CategoryId!);
+
+            StateHasChanged();
         }
     }
 }
