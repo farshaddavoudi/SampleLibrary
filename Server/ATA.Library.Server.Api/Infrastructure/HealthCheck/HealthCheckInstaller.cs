@@ -19,10 +19,9 @@ namespace ATA.Library.Server.Api.Infrastructure.HealthCheck
 
                 .AddDiskStorageHealthCheck(s => s.AddDrive("C:\\", 10240), // 10240 MB (10 GB) free minimum
                     name: "DiskStorage",
-                    tags: new[] {"server"});
+                    tags: new[] {"server"})
 
-            //.AddCheck<RandomHealthCheck>("RandomHealthCheck", null, new []{"some-tag"});
-
+                .AddCheck<ATASecurityHealthCheck>("ATASecurity", null, new[] {"service"});
         }
     }
 }
