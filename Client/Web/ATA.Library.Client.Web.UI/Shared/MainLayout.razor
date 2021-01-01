@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using ATA.Library.Shared.Core
+@inherits LayoutComponentBase
 
 <BlazoredToasts />
 
@@ -11,12 +12,16 @@
         <div class="top-row px-4">
             <div class="top-row-right-links">
                 <span href="book-form" class="ml-md-auto">
-                    فرشاد داودی / ش.پ: 980923
+                    <AuthorizeView>
+                        @($"{context.User.Identity!.Name} / ش.پ: {_personnelCode}")
+                    </AuthorizeView>
                 </span>
             </div>
             <div class="top-row-left-links">
-                <a href="book-form" class="ml-md-auto">افزودن کتاب</a>
-                <a href="categories" class="ml-md-auto">مدیریت دسته‌ها</a>
+                <AuthorizeView Roles="@AppStrings.Claims.Administrator">
+                    <a href="book-form" class="ml-md-auto">افزودن کتاب</a>
+                    <a href="categories" class="ml-md-auto">مدیریت دسته‌ها</a>
+                </AuthorizeView>
                 <a href="http://blazor.net" class="ml-md-auto">خروج </a>
             </div>
         </div>
@@ -26,3 +31,20 @@
         </div>
     </div>
 </div>
+
+@code
+{
+    private string _personnelCode;
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationStateTask { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateTask;
+
+        var userPersonnelCodeClaim = authState.User.Claims.Single(c => c.Type == AppStrings.Claims.PersonnelCode);
+
+        _personnelCode = userPersonnelCodeClaim.Value;
+    }
+}
