@@ -60,8 +60,6 @@ namespace ATA.Library.Client.Web.UI.Pages
                 : $"{AppSettings.BookBaseUrls!.FileBaseUrl}/{_book.BookFileUrl}";
 
             await JsRuntime.NavigateToUrlInNewTab(fileUrl);
-
-            //NavigationManager.NavigateTo(fileUrl!);
         }
     }
 }
