@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using ATA.Library.Shared.Dto;
 
-namespace ATA.Library.Server.Model.Book
+namespace ATA.Library.Shared.Dto
 {
-    public class BookDto : IATADto
+    public partial class BookDto : IATADto
     {
         [Key] public int Id { get; set; }
 

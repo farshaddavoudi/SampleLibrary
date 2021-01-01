@@ -1,5 +1,4 @@
 ﻿using ATA.Library.Client.Service.HostServices.Book.Contracts;
-using ATA.Library.Server.Model.Book;
 using ATA.Library.Shared.Dto;
 using System.Collections.Generic;
 using System.Net;

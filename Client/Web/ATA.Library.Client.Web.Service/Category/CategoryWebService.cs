@@ -47,7 +47,7 @@ namespace ATA.Library.Client.Web.Service.Category
             {
                 var errorMessage = "هیچ دسته‌ی مجازی برای شما وجود ندارد. با پشتیبانی تماس بگیرید";
                 _toastService.ShowError(errorMessage);
-                throw new InvalidOperationException(errorMessage);
+                return new List<CategoryDto>();
             }
 
             return categories;

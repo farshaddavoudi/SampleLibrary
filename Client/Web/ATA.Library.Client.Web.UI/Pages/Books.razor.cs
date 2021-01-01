@@ -1,6 +1,6 @@
 ﻿using ATA.Library.Client.Web.Service.Book.Contracts;
 using ATA.Library.Client.Web.Service.Category.Contracts;
-using ATA.Library.Server.Model.Book;
+using ATA.Library.Shared.Dto;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;

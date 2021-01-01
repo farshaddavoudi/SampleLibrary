@@ -1,6 +1,6 @@
 ﻿using ATA.Library.Client.Service.HostServices.Book.Contracts;
 using ATA.Library.Client.Web.Service.Book.Contracts;
-using ATA.Library.Server.Model.Book;
+using ATA.Library.Shared.Dto;
 using ATA.Library.Shared.Service.Exceptions;
 using Blazored.Toast.Services;
 using System.Collections.Generic;
