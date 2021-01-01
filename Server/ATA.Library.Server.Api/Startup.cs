@@ -4,9 +4,11 @@ using ATA.Library.Server.Api.Infrastructure.OData;
 using ATA.Library.Server.Api.Infrastructure.Swagger;
 using ATA.Library.Server.Api.Middlewares;
 using ATA.Library.Server.Model.AppSettings;
+using HealthChecks.UI.Client;
 using Humanizer;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Routing;
@@ -94,6 +96,12 @@ namespace ATA.Library.Server.Api
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/health", new HealthCheckOptions
+                    {
+                        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                    })
+                    .RequireHost(_appSettings.Urls!.HealthCheckHost!);
+
                 endpoints.MapControllers();
                 endpoints.EnableDependencyInjection();
                 endpoints.Select().Filter().Expand().MaxTop(100).OrderBy().Count();
