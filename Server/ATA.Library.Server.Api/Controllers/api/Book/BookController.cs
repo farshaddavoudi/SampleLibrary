@@ -1,6 +1,6 @@
-﻿using ATA.Library.Server.Model.Book;
-using ATA.Library.Server.Model.Entities.Book;
+﻿using ATA.Library.Server.Model.Entities.Book;
 using ATA.Library.Server.Service.Book.Contracts;
+using ATA.Library.Shared.Dto;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

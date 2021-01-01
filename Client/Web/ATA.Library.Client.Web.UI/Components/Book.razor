@@ -1,4 +1,5 @@
-﻿
+﻿@using ATA.Library.Shared.Core
+
 <div class="book-wrapper">
     <a href="@($"book-detail/{BookDto.Id}/{BookDto.Title?.Replace(" ", "-")}")">
         <img src="@_coverImageUrl" alt="@BookDto.Title" />
@@ -8,9 +9,11 @@
             </p>
         </div>
     </a>
-    <div class="management-buttons">
-        <button type="button" class="btn btn-outline-primary" @onclick="EditBook"> ویرایش</button>
-        <button type="button" class="btn btn-outline-danger" @onclick="DeleteBook"> حذف</button>
-    </div>
+    <AuthorizeView Roles="@AppStrings.Claims.Administrator">
+        <div class="management-buttons">
+            <button type="button" class="btn btn-outline-primary" @onclick="EditBook"> ویرایش</button>
+            <button type="button" class="btn btn-outline-danger" @onclick="DeleteBook"> حذف</button>
+        </div>
+    </AuthorizeView>
 
 </div>

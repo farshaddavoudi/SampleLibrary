@@ -3,6 +3,9 @@
     public class Urls
     {
         public string? WorkflowBaseUrl { get; set; }
+
         public string? SecurityBaseUrl { get; set; }
+
+        public string? HealthCheckHost { get; set; }
     }
 }

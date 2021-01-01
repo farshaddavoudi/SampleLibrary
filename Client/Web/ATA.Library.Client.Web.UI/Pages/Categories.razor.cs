@@ -4,12 +4,14 @@ using ATA.Library.Shared.Dto;
 using Blazored.Modal;
 using Blazored.Modal.Services;
 using Blazored.Toast.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ATA.Library.Client.Web.UI.Pages
 {
+    [Authorize(Roles = "Administrator")]
     public partial class Categories
     {
         private List<CategoryDto> _categories;

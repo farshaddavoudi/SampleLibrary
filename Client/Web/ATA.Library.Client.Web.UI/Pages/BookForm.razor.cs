@@ -1,7 +1,6 @@
 ﻿using ATA.Library.Client.Web.Service.AppSetting;
 using ATA.Library.Client.Web.Service.Book.Contracts;
 using ATA.Library.Client.Web.Service.Category.Contracts;
-using ATA.Library.Server.Model.Book;
 using ATA.Library.Shared.Dto;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;

@@ -7,14 +7,21 @@
 }
 else
 {
-    <div>
-        <img src="images/auth-loading.gif" />
+    <div class="book-wrapper">
+        <img src="@_coverImageUrl" />
 
-        <p> مولف: @_book.Author </p>
+        <h3 class="book-title">
+            @_book.Title
+        </h3>
 
-        <p>حجم فایل: @_book.BookFileSize</p>
+        <h6> مولف: @_book.Author </h6>
 
-        <button type="button" class="btn btn-primary" @onclick="ShowBook"> مشاهده</button>
+
+        @*<button type="button" class="btn btn-primary" @onclick="ShowBook"> مشاهده</button>*@
+
+        <button type="button" class="btn btn-primary download-button" @onclick="DownloadBook">
+            @($"Download ({_book.BookSizeToDisplay})")
+        </button>
     </div>
 
 }

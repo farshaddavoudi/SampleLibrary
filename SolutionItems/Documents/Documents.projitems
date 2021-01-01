@@ -14,6 +14,7 @@
     <Content Include="$(MSBuildThisFileDirectory)تحلیل سامانه\آپلود فایل‌ها.txt" />
     <Content Include="$(MSBuildThisFileDirectory)تحلیل سامانه\راه حل مشاهده کتاب بدون امکان دانلود.txt" />
     <Content Include="$(MSBuildThisFileDirectory)تحلیل سامانه\سناریوی دسترسی‌ها.txt" />
+    <Content Include="$(MSBuildThisFileDirectory)تحلیل سامانه\کلیات سامانه.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)SSO Auth\ATA.Core.dll" />

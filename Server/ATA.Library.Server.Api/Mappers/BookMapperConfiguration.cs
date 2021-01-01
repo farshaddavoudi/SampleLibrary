@@ -1,5 +1,5 @@
-﻿using ATA.Library.Server.Model.Book;
-using ATA.Library.Server.Model.Entities.Book;
+﻿using ATA.Library.Server.Model.Entities.Book;
+using ATA.Library.Shared.Dto;
 using AutoMapper;
 
 namespace ATA.Library.Server.Api.Mappers
