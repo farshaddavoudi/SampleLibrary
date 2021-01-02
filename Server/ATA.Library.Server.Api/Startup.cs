@@ -97,10 +97,9 @@ namespace ATA.Library.Server.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHealthChecks("/health", new HealthCheckOptions
-                    {
-                        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-                    })
-                    .RequireHost(_appSettings.Urls!.HealthCheckHost!);
+                {
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                });
 
                 endpoints.MapControllers();
                 endpoints.EnableDependencyInjection();

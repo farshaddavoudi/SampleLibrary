@@ -6,6 +6,5 @@
 
         public string? SecurityBaseUrl { get; set; }
 
-        public string? HealthCheckHost { get; set; }
     }
 }
