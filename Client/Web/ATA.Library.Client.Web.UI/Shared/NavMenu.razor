@@ -1,29 +1,29 @@
-﻿@using ATA.Library.Client.Web.Service.Enums
-<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">کتابخانه‌ی آتا</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
+﻿<div class="navbar-default sidebar " role="navigation">
+    <div class="top-left-part hidden-sm hidden-xs">
+        <a class="logo" href="http://home.ataair.ir">
+            <b><img src="/images/ata-layout/eliteadmin-logo-dark.png" alt="home"></b>
+            <span class="hidden-xs">
+                <img src="/images/ata-layout/logo-text-dark.png" alt="home">
+            </span>
+        </a>
+    </div>
+    <div class="sidebar-nav navbar-collapse slimscrollsidebar">
+        <ul class="nav" id="side-menu">
+            <li class="sidebar-search hidden-sm hidden-md hidden-lg hidden-xs">
+            </li>
+            <li>
+                <NavLink class="waves-effect" href="/book-form" Match="NavLinkMatch.All">
+                    <i class="fas fa-home"></i>
+                    <span class="hide-menu">افزودن کتاب</span>
+                </NavLink>
+            </li>
 
-@if (_categories == null)
-{
-    <Loading LoadingType="@LoadingType.RedRing" />
-}
-else
-{
-    <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-        <ul class="nav flex-column">
-            @foreach (var category in _categories)
-            {
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="@($"books/{category.Id}/{category.CategoryName?.Replace(" ", "-")}")" Match="NavLinkMatch.All">
-                        @category.CategoryName
-                    </NavLink>
-                </li>
-            }
+            <li>
+                <NavLink class="waves-effect" href="/categories" Match="NavLinkMatch.All">
+                    <i class="fas fa-home"></i>
+                    <span class="hide-menu">مدیریت دسته‌ها</span>
+                </NavLink>
+            </li>
         </ul>
     </div>
-}
-
-
+</div>
