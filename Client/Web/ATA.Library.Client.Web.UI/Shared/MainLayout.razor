@@ -8,25 +8,21 @@
     <NavMenu />
 
     <div class="main">
-        <div class="top-row px-4">
-            <div class="top-row-right-links">
-                <span href="book-form" class="ml-md-auto">
-                    <AuthorizeView>
-                        @($"{context.User.Identity!.Name} / ش.پ: {_personnelCode}")
-                    </AuthorizeView>
-                </span>
-            </div>
-            <div class="top-row-left-links">
-                <AuthorizeView Roles="@AppStrings.Claims.Administrator">
-                    <a href="book-form" class="ml-md-auto">افزودن کتاب</a>
-                    <a href="categories" class="ml-md-auto">مدیریت دسته‌ها</a>
-                </AuthorizeView>
-                <a href="http://blazor.net" class="ml-md-auto">خروج </a>
-            </div>
+        <div class="top-row">
+            <TopNavBar />
         </div>
 
-        <div class="content px-4">
-            @Body
+        <div class="content inner-content">
+            <div id="inside-content" data-ng-controller="playerController" class="ng-scope">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">کتابخانه مجازی آتا</h3>
+                            @Body
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

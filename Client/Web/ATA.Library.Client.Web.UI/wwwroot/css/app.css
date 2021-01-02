@@ -107,10 +107,12 @@ a, .btn-link {
     display: inline-block;
     direction: ltr;
 }
-
+.inner-content {
+    padding-right: 240px;
+    padding-left: 1.1rem;
+}
 body {
-    background: #4f5467;
-    font-family: 'web-vazir', tahoma, 'segoe ui';
+    background: #edf1f5;
     margin: 0;
     overflow-x: hidden;
     color: #686868;
@@ -1725,7 +1727,7 @@ pre {
     color: #fff;
     padding: 0 12px;
     line-height: 60px;
-    min-height: 60px
+    min-height: 53px
 }
 
     .nav.navbar-top-links > li > a:hover,
@@ -11866,5 +11868,10 @@ a.fc-event:not([href]):not([tabindex]) {
     font-family: inherit !important;
     direction: ltr;
 }
-
+.sidenav-item {
+    position: relative;
+}
+.sidenav-item a {
+    width: 100%
+}
 /*#endregion*/
