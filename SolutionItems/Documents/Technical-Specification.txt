@@ -10,10 +10,11 @@
 		> Connecting to Security client
 	* Independent Server and Client approach with only a shared layer for common models and services 
 	* Using HealthChecks for check Database, Server DiskStorage, SSO Service and etc; all hosted by healthcheck.app.ataair.ir
+		> Do not have any authentication for the endpoint.
 
 Client:
 	* Blazor
-	* Bootstrap 4
+	* Bootstrap 5 rtl
 	* Using SASS instead of CSS for styles
 	* Using HttpClientFactory typed client
 		> Connecting to Security client
