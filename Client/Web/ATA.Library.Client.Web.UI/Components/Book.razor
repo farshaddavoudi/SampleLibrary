@@ -1,19 +1,26 @@
 ﻿@using ATA.Library.Shared.Core
 
-<div class="book-wrapper">
-    <a href="@($"book-detail/{BookDto.Id}/{BookDto.Title?.Replace(" ", "-")}")">
-        <img src="@_coverImageUrl" alt="@BookDto.Title" />
-        <div>
-            <p class="book-title">
-                @BookDto.Title
-            </p>
+<div class="book">
+    <div class="front">
+        <div class="cover" style="background-image: url(@_coverImageUrl)">
+            <p class=author>@BookDto.Author</p>
         </div>
-    </a>
-    <AuthorizeView Roles="@AppStrings.Claims.Administrator">
-        <div class="management-buttons">
-            <button type="button" class="btn btn-outline-primary" @onclick="EditBook"> ویرایش</button>
-            <button type="button" class="btn btn-outline-danger" @onclick="DeleteBook"> حذف</button>
-        </div>
-    </AuthorizeView>
-
+    </div>
+    <div class="left-side">
+        <h2>
+            <span></span>
+        </h2>
+    </div>
 </div>
+<h5>@BookDto.Title</h5>
+<p>@BookDto.Description</p>
+<a href="#">دانلود</a>
+
+
+<AuthorizeView Roles="@AppStrings.Claims.Administrator">
+    <div class="management-buttons">
+        <button type="button" class="btn btn-outline-primary" @onclick="EditBook"> ویرایش</button>
+        <button type="button" class="btn btn-outline-danger" @onclick="DeleteBook"> حذف</button>
+    </div>
+</AuthorizeView>
+

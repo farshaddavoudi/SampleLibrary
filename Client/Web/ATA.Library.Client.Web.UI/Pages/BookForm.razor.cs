@@ -1,10 +1,12 @@
 ﻿using ATA.Library.Client.Web.Service.AppSetting;
 using ATA.Library.Client.Web.Service.Book.Contracts;
 using ATA.Library.Client.Web.Service.Category.Contracts;
+using ATA.Library.Client.Web.UI.Extensions;
 using ATA.Library.Shared.Dto;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
 using MimeTypes;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,8 @@ namespace ATA.Library.Client.Web.UI.Pages
 {
     public partial class BookForm
     {
+        private List<CategoryDto> _categories;
+
         [Inject]
         private IBookWebService BookWebService { get; set; }
 
@@ -27,13 +31,15 @@ namespace ATA.Library.Client.Web.UI.Pages
         [Inject]
         private AppSettings AppSettings { get; set; }
 
+        [Inject]
+        private IJSRuntime JsRuntime { get; set; }
+
         [Parameter]
         public int? BookId { get; set; }
 
         [Parameter]
         public string BookTitle { get; set; }
 
-        private List<CategoryDto> _categories;
 
         BookDto _book = new BookDto();
 
@@ -41,6 +47,8 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            await JsRuntime.SetLayoutTitle("افزودن کتاب");
+
             _categories = await CategoryWebService.GetCategories();
 
             if (BookId == null)

@@ -1,11 +1,13 @@
 ﻿using ATA.Library.Client.Web.Service.Category.Contracts;
 using ATA.Library.Client.Web.UI.Components;
+using ATA.Library.Client.Web.UI.Extensions;
 using ATA.Library.Shared.Dto;
 using Blazored.Modal;
 using Blazored.Modal.Services;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -22,11 +24,16 @@ namespace ATA.Library.Client.Web.UI.Pages
         [Inject]
         private IToastService ToastService { get; set; }
 
+        [Inject]
+        private IJSRuntime JsRuntime { get; set; }
+
         [CascadingParameter]
         private IModalService ModalService { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
+            await JsRuntime.SetLayoutTitle("مدیریت دسته‌ها");
+
             await LoadTableData();
         }
 

@@ -31,14 +31,7 @@ namespace ATA.Library.Client.Web.UI.Shared
 
         private void OnUserProfileClick()
         {
-            if (string.IsNullOrWhiteSpace(_userDropdownCssClass))
-            {
-                _userDropdownCssClass = "open";
-            }
-            else
-            {
-                _userDropdownCssClass = string.Empty;
-            }
+            _userDropdownCssClass = string.IsNullOrWhiteSpace(_userDropdownCssClass) ? "open" : string.Empty;
         }
 
         private void OnUserImageLoadFailed()

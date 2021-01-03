@@ -1,9 +1,13 @@
 ﻿@page "/"
 @inject NavigationManager NavigationManager
 
+<Title Value="کتابخانه‌ی مجازی آتا"></Title>
+
 @code {
+
     protected override void OnInitialized()
     {
         NavigationManager.NavigateTo("/books", true);
     }
+
 }

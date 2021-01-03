@@ -3,6 +3,8 @@
 @page "/books/{CategoryId:int}/{CategoryTitle}"
 @using ATA.Library.Client.Web.Service.Enums
 
+<Title Value="کتابخانه‌ی مجازی آتا"></Title>
+
 @if (_books == null)
 {
     <Loading LoadingType="@LoadingType.RedRing" />
@@ -34,17 +36,14 @@ else
                 }
                 else
                 {
-                    @foreach (var book in _books)
-                    {
-                        <div @key="@book" id="@($"book{book.Id}")" class="tab-pane active">
-
-                            <div class="col-sm-6 col-lg-4 col-xl-3">
+                    <div class="row shelf">
+                        @foreach (var book in _books)
+                        {
+                            <div @key="@book" id="@($"book{book.Id}")" class="col-sm-12 col-md-3">
                                 <Book BookDto="@book" @key="@book.Id" StateChangeRequest="StateChangeRequested" />
                             </div>
-
-                            <div class="clearfix"></div>
-                        </div>
-                    }
+                        }
+                    </div>
                 }
             </div>
         </div>

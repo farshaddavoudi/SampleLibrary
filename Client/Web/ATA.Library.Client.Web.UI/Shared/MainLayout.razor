@@ -1,5 +1,4 @@
-﻿@using ATA.Library.Shared.Core
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 
 <BlazoredToasts />
 
@@ -17,7 +16,9 @@
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
                         <div class="white-box">
-                            <h3 class="box-title">کتابخانه مجازی آتا</h3>
+                            <h3 id="ata-layout-box-title" class="box-title">
+                                کتابخانه‌ی مجازی آتا
+                            </h3>
                             @Body
                         </div>
                     </div>
@@ -27,19 +28,3 @@
     </div>
 </div>
 
-@code
-{
-    private string _personnelCode;
-
-    [CascadingParameter]
-    private Task<AuthenticationState> AuthenticationStateTask { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        var authState = await AuthenticationStateTask;
-
-        var userPersonnelCodeClaim = authState.User.Claims.Single(c => c.Type == AppStrings.Claims.PersonnelCode);
-
-        _personnelCode = userPersonnelCodeClaim.Value;
-    }
-}

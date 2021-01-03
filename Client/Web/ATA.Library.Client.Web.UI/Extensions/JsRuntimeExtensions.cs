@@ -24,5 +24,10 @@ namespace ATA.Library.Client.Web.UI.Extensions
         {
             await jsRuntime.InvokeVoidAsync("open", url, "_blank");
         }
+
+        public static async Task SetLayoutTitle(this IJSRuntime jsRuntime, string title)
+        {
+            await jsRuntime.InvokeVoidAsync("setLayoutTitle", title);
+        }
     }
 }
