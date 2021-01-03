@@ -1,6 +1,7 @@
 ﻿using ATA.Library.Server.Model.Entities.Book;
 using ATA.Library.Server.Service.Book.Contracts;
 using ATA.Library.Shared.Dto;
+using ATA.Library.Shared.Service.Exceptions;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -79,6 +80,9 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
         {
             if (dto == null)
                 throw new ArgumentNullException(nameof(dto));
+
+            if (dto.BookFileByteData == null)
+                throw new BadRequestException(nameof(BookDto.BookFileByteData));
 
             // todo: Check user has access to add a book in category
 

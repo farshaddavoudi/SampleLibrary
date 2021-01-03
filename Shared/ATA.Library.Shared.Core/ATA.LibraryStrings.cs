@@ -4,7 +4,7 @@
     {
         public static readonly string ATASecurityAppKeyName = "library";
 
-        public static readonly string AppPersianFullName = "سامانه‌ی کتابخانه‌ی مجازی آتا";
+        public static readonly string AppPersianFullName = "‌کتابخانه‌ی مجازی آتا";
 
         public static readonly string AppEnglishFullName = "ATA Virtual Library";
 
@@ -26,6 +26,13 @@
             public static readonly string PersonnelCode = nameof(PersonnelCode);
 
             public static readonly string Username = nameof(Username);
+        }
+
+        public class UploadLimits
+        {
+            public static readonly int MaxCoverImageSizeInKB = 500;
+
+            public static readonly int MaxBookFileSizeInMB = 50;
         }
 
         public static class Regex

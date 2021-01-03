@@ -1,6 +1,7 @@
 ﻿using ATA.Library.Client.Web.Service.Book.Contracts;
 using ATA.Library.Client.Web.Service.Category.Contracts;
 using ATA.Library.Client.Web.UI.Extensions;
+using ATA.Library.Shared.Core;
 using ATA.Library.Shared.Dto;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -36,7 +37,7 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         protected override async Task OnParametersSetAsync()
         {
-            await JsRuntime.SetLayoutTitle("کتابخانه‌ی مجازی آتا");
+            await JsRuntime.SetLayoutTitle(AppStrings.AppPersianFullName);
 
             _categories = await CategoryWebService.GetCategories();
 

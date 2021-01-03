@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ATA.Library.Shared.Core;
 
 namespace ATA.Library.Shared.Dto
 {
-    public partial class BookDto : IATADto
+    public partial class BookDto : IATADto, IValidatableObject
     {
         [Key] public int Id { get; set; }
 
@@ -49,6 +51,17 @@ namespace ATA.Library.Shared.Dto
         public override string ToString()
         {
             return $"Book Id and name: {Id} | {Title}";
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (CoverImageByteData != null && CoverImageByteData.Length > AppStrings.UploadLimits.MaxCoverImageSizeInKB * 1000)
+                yield return new ValidationResult("حجم عکس کتاب بیشتر از حد مجاز می‌باشد",
+                    new[] { nameof(CoverImageByteData) });
+
+            if (BookFileByteData != null && BookFileByteData.Length > AppStrings.UploadLimits.MaxBookFileSizeInMB * 1000000)
+                yield return new ValidationResult("حجم فایل کتاب بیشتر از حد مجاز می‌باشد",
+                    new[] { nameof(BookFileByteData) });
         }
     }
 }

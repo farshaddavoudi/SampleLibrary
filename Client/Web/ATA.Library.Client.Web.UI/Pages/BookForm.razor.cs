@@ -2,6 +2,7 @@
 using ATA.Library.Client.Web.Service.Book.Contracts;
 using ATA.Library.Client.Web.Service.Category.Contracts;
 using ATA.Library.Client.Web.UI.Extensions;
+using ATA.Library.Shared.Core;
 using ATA.Library.Shared.Dto;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
@@ -97,7 +98,7 @@ namespace ATA.Library.Client.Web.UI.Pages
                 return;
             }
 
-            var maxAllowedSize = AppSettings.FileUploadLimits!.MaxCoverImageSizeInKB * 1000;
+            var maxAllowedSize = AppStrings.UploadLimits.MaxCoverImageSizeInKB * 1000;
             if (e.File.Size > maxAllowedSize)
             {
                 ToastService.ShowError("حجم فایل بیشتر از مقدار مجاز می‌باشد");
@@ -121,7 +122,7 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         private async Task OnBookFileSelection(InputFileChangeEventArgs e)
         {
-            var maxAllowedSize = AppSettings.FileUploadLimits!.MaxBookFileSizeInMB * 1000000;
+            var maxAllowedSize = AppStrings.UploadLimits.MaxBookFileSizeInMB * 1000000;
 
             if (e.File.Size > maxAllowedSize)
             {
