@@ -470,7 +470,7 @@ box-shadow: 0px 20px 46px -8px rgba(0,0,0,0.41);
 }
 .tab-content {
     margin-top: 15px;
-	border: 1px solid #ebebeb;
+	/*border: 1px solid #ebebeb;*/
 	
 }
 #full-icon-box .tab-content .tab-pane.nodata {

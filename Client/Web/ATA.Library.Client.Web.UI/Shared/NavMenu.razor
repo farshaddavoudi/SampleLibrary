@@ -19,19 +19,22 @@
             </li>
 
 
-            <li class="sidenav-item">
-                <NavLink class="waves-effect" href="/book-form" Match="NavLinkMatch.All">
-                    <i class="fas fa-plus"></i>
-                    <span class="hide-menu">افزودن کتاب</span>
-                </NavLink>
-            </li>
+            <AuthorizeView Roles="@AppStrings.Claims.Administrator">
 
-            <li class="sidenav-item">
-                <NavLink class="waves-effect" href="/categories" Match="NavLinkMatch.All">
-                    <i class="fas fa-cogs"></i>
-                    <span class="hide-menu">مدیریت دسته‌ها</span>
-                </NavLink>
-            </li>
+                <li class="sidenav-item">
+                    <NavLink class="waves-effect" href="/categories" Match="NavLinkMatch.All">
+                        <i class="fas fa-cogs"></i>
+                        <span class="hide-menu">مدیریت دسته‌ها</span>
+                    </NavLink>
+                </li>
+
+                <li class="sidenav-item">
+                    <NavLink class="waves-effect" href="/book-form" Match="NavLinkMatch.All">
+                        <i class="fas fa-plus"></i>
+                        <span class="hide-menu">افزودن کتاب</span>
+                    </NavLink>
+                </li>
+            </AuthorizeView>
         </ul>
     </div>
 </div>

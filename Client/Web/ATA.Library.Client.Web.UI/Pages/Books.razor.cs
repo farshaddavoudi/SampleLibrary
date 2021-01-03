@@ -1,8 +1,9 @@
 ﻿using ATA.Library.Client.Web.Service.Book.Contracts;
 using ATA.Library.Client.Web.Service.Category.Contracts;
+using ATA.Library.Client.Web.UI.Extensions;
 using ATA.Library.Shared.Dto;
-using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,10 +32,12 @@ namespace ATA.Library.Client.Web.UI.Pages
         private NavigationManager NavigationManager { get; set; }
 
         [Inject]
-        private IToastService ToastService { get; set; }
+        private IJSRuntime JsRuntime { get; set; }
 
         protected override async Task OnParametersSetAsync()
         {
+            await JsRuntime.SetLayoutTitle("کتابخانه‌ی مجازی آتا");
+
             _categories = await CategoryWebService.GetCategories();
 
             if (_categories.Count == 0)
