@@ -26,14 +26,14 @@ namespace ATA.Library.Client.Service.HostServices.Category
             return await _hostClient.GetFromJsonAsync<ApiResult<List<CategoryDto>>>("api/v1/category/get-all");
         }
 
-        public async Task<ApiResult?> AddCategory(CategoryDto category)
+        public async Task<ApiResult?> PostAddCategory(CategoryDto category)
         {
             var httpResponseMessage = await _hostClient.PostAsJsonAsync("api/v1/category/add", category);
 
             return await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult>();
         }
 
-        public async Task<ApiResult?> EditCategory(CategoryDto category)
+        public async Task<ApiResult?> PutEditCategory(CategoryDto category)
         {
             var httpResponseMessage =
                 await _hostClient.PutAsJsonAsync($"api/v1/category/edit?categoryId={category.Id}", category);

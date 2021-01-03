@@ -10,9 +10,9 @@ namespace ATA.Library.Client.Service.HostServices.Book.Contracts
 
         Task<ApiResult<List<BookDto>>?> GetBooksByCategory(int categoryId);
 
-        Task<ApiResult?> AddBook(BookDto book);
+        Task<ApiResult?> PostAddBook(BookDto book);
 
-        Task<ApiResult?> EditBook(BookDto book);
+        Task<ApiResult?> PutEditBook(BookDto book);
 
         Task<ApiResult?> DeleteBook(int bookId);
     }

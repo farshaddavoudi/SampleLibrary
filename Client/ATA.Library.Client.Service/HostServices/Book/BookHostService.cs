@@ -31,14 +31,14 @@ namespace ATA.Library.Client.Service.HostServices.Book
             return await _hostClient.GetFromJsonAsync<ApiResult<List<BookDto>>>($"api/v1/book/get-by-category?categoryId={categoryId}");
         }
 
-        public async Task<ApiResult?> AddBook(BookDto book)
+        public async Task<ApiResult?> PostAddBook(BookDto book)
         {
             var httpResponseMessage = await _hostClient.PostAsJsonAsync("api/v1/book/add", book);
 
             return await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult>();
         }
 
-        public async Task<ApiResult?> EditBook(BookDto book)
+        public async Task<ApiResult?> PutEditBook(BookDto book)
         {
             var httpResponseMessage =
                 await _hostClient.PutAsJsonAsync($"api/v1/book/edit?bookId={book.Id}", book);

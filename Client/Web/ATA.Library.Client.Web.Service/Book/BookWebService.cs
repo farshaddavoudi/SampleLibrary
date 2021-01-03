@@ -65,7 +65,7 @@ namespace ATA.Library.Client.Web.Service.Book
 
         public async Task AddBook(BookDto book)
         {
-            var addResult = await _bookHostService.AddBook(book);
+            var addResult = await _bookHostService.PostAddBook(book);
 
             if (addResult == null)
             {
@@ -83,7 +83,7 @@ namespace ATA.Library.Client.Web.Service.Book
 
         public async Task EditBook(BookDto book)
         {
-            var editResult = await _bookHostService.EditBook(book);
+            var editResult = await _bookHostService.PutEditBook(book);
 
             if (editResult == null)
             {

@@ -55,7 +55,7 @@ namespace ATA.Library.Client.Web.Service.Category
 
         public async Task AddCategory(CategoryDto category)
         {
-            var addResult = await _categoryHostService.AddCategory(category);
+            var addResult = await _categoryHostService.PostAddCategory(category);
 
             if (addResult == null)
             {
@@ -73,7 +73,7 @@ namespace ATA.Library.Client.Web.Service.Category
 
         public async Task EditCategory(CategoryDto category)
         {
-            var editResult = await _categoryHostService.EditCategory(category);
+            var editResult = await _categoryHostService.PutEditCategory(category);
 
             if (editResult == null)
             {
