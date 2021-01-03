@@ -6,25 +6,51 @@
 {
     <Loading />
 }
-else if (_books.Count == 0)
-{
-    <div class="no-books-container">
-        <div class="row">
-            <img class="col-12 no-book-image" src="/images/components/no-book-found.jpg" />
-            <h6 class="col-12 no-book-found-text">هیچ کتابی یافت نشد</h6>
-        </div>
-    </div>
-}
 else
 {
-    <div class="row books-container">
+    <div class="category-wrapper row">
 
-        @foreach (var book in _books)
-        {
-            <div class="col-sm-6 col-lg-4 col-xl-3">
-                <Book BookDto="@book" @key="@book.Id" StateChangeRequest="StateChangeRequested" />
+        <div class="vtabs customvtab">
+            <ul class="nav tabs-vertical">
+                @foreach (var category in _categories)
+                {
+                    <li class="tab nav-item">
+                        <NavLink class="nav-link" href="@($"books/{category.Id}/{category.CategoryName?.Replace(" ", "-")}")" Match="NavLinkMatch.All">
+                            @category.CategoryName
+                        </NavLink>
+                    </li>
+                }
+            </ul>
+            <div class="tab-content">
+                @if (_books.Count == 0)
+                {
+                    <div class="no-books-container">
+                        <div class="row">
+                            <img class="col-12 no-book-image" src="/images/components/no-book-found.jpg" />
+                            <h6 class="col-12 no-book-found-text">هیچ کتابی یافت نشد</h6>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @foreach (var book in _books)
+                    {
+                        <div @key="@book" id="@($"book{book.Id}")" class="tab-pane active">
+
+                            <div class="col-sm-6 col-lg-4 col-xl-3">
+                                <Book BookDto="@book" @key="@book.Id" StateChangeRequest="StateChangeRequested" />
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    }
+                }
             </div>
-        }
+        </div>
+
+
+
 
     </div>
+
 }

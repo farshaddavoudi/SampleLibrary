@@ -11874,4 +11874,8 @@ a.fc-event:not([href]):not([tabindex]) {
 .sidenav-item a {
     width: 100%
 }
+.book-wrapper a img {
+    width: 100%;
+    height: 260px;
+}
 /*#endregion*/

@@ -1,6 +1,7 @@
 ﻿using ATA.Library.Client.Web.Service.Book.Contracts;
 using ATA.Library.Client.Web.Service.Category.Contracts;
 using ATA.Library.Shared.Dto;
+using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace ATA.Library.Client.Web.UI.Pages
 {
     public partial class Books
     {
+        private List<CategoryDto> _categories;
+
         private List<BookDto> _books;
 
         [Parameter]
@@ -27,14 +30,19 @@ namespace ATA.Library.Client.Web.UI.Pages
         [Inject]
         private NavigationManager NavigationManager { get; set; }
 
+        [Inject]
+        private IToastService ToastService { get; set; }
+
         protected override async Task OnParametersSetAsync()
         {
+            _categories = await CategoryWebService.GetCategories();
+
+            if (_categories.Count == 0)
+                return;
+
             if (CategoryId == null)
             {
-                // Default category books
-                var categories = await CategoryWebService.GetCategories();
-
-                var defaultCategory = categories.First();
+                var defaultCategory = _categories.First();
 
                 CategoryId = defaultCategory.Id;
 
