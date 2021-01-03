@@ -42,7 +42,7 @@ html, body {
 }
 
 .blazored-toast-container {
-    z-index: 2;
+    z-index: 12;
 }
 
 a, .btn-link {

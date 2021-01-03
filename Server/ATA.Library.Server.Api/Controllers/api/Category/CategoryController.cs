@@ -16,7 +16,6 @@ namespace ATA.Library.Server.Api.Controllers.api.Category
     /// Book Categories based on subjects and related units
     /// </summary>
     [ApiVersion("1")]
-    [AllowAnonymous]
     public class CategoryController : BaseApiController
     {
         private readonly ICategoryService _categoryService;

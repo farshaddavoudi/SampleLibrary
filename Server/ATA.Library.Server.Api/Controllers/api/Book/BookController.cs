@@ -2,7 +2,6 @@
 using ATA.Library.Server.Service.Book.Contracts;
 using ATA.Library.Shared.Dto;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +17,6 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
     /// Books management
     /// </summary>
     [ApiVersion("1")]
-    [AllowAnonymous]
     public class BookController : BaseApiController
     {
         private readonly IBookService _bookService;
