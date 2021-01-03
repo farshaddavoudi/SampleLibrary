@@ -1,10 +1,11 @@
 ﻿@page "/books"
 @page "/books/{CategoryId:int}"
 @page "/books/{CategoryId:int}/{CategoryTitle}"
+@using ATA.Library.Client.Web.Service.Enums
 
 @if (_books == null)
 {
-    <Loading />
+    <Loading LoadingType="@LoadingType.RedRing" />
 }
 else
 {
