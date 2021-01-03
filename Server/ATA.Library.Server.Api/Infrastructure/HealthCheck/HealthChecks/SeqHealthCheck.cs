@@ -24,6 +24,8 @@ namespace ATA.Library.Server.Api.Infrastructure.HealthCheck.HealthChecks
             var connection = new SeqConnection(_appSettings.Seq!.ServerUrl, _appSettings.Seq!.ApiKey);
 
             // If Seq is not running, below code will fail and HealthCheck result would be unhealthy.
+            await connection.Users.LoginAsync(_appSettings.Seq.Username, _appSettings.Seq.Password, cancellationToken);
+
             await connection.Apps.ListAsync(cancellationToken);
 
             return HealthCheckResult.Healthy("Logger Service is OK");
