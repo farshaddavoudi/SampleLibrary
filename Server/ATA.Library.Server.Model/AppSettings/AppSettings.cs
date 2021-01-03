@@ -6,6 +6,8 @@
 
         public Urls? Urls { get; set; }
 
+        public Seq? Seq { get; set; }
+
         public RedisServerSettings? RedisServerSettings { get; set; }
 
         public EasyCachingSettings? EasyCachingSettings { get; set; }

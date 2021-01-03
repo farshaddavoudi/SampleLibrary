@@ -1,8 +1,8 @@
-﻿using System.ServiceProcess;
-using ATA.Library.Server.Api.Infrastructure.HealthCheck.HealthChecks;
+﻿using ATA.Library.Server.Api.Infrastructure.HealthCheck.HealthChecks;
 using ATA.Library.Server.Model.AppSettings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 
 namespace ATA.Library.Server.Api.Infrastructure.HealthCheck
@@ -15,13 +15,15 @@ namespace ATA.Library.Server.Api.Infrastructure.HealthCheck
             services.AddHealthChecks()
                 .AddSqlServer(appSettings.ConnectionStrings!.AppDbConnectionString,
                     name: "SQLServer",
-                    tags: new[] {"database"})
+                    tags: new[] { "database" })
 
                 .AddDiskStorageHealthCheck(s => s.AddDrive("C:\\", 10240), // 10240 MB (10 GB) free minimum
                     name: "DiskStorage",
-                    tags: new[] {"server"})
+                    tags: new[] { "server" })
 
-                .AddCheck<ATASecurityHealthCheck>("ATASecurity", null, new[] {"service"});
+                .AddCheck<ATASecurityHealthCheck>("ATASecurity", null, new[] { "service" })
+
+                .AddCheck<SeqHealthCheck>("Seq", HealthStatus.Degraded, new[] { "service" });
         }
     }
 }

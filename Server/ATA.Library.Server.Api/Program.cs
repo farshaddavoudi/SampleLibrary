@@ -65,13 +65,6 @@ namespace ATA.Library.Server.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    /*.UseHttpSys(options => // Just for local tests without IIS, Or self-hosted scenarios on Windows ...
-                                {
-                                    options.Authentication.Schemes = AuthenticationSchemes.Negotiate | AuthenticationSchemes.NTLM;
-                                    options.Authentication.AllowAnonymous = true;
-                                    // options.UrlPrefixes.Add("https://localhost:5001/");
-                                })*/
-                    webBuilder.UseIISIntegration();
                     webBuilder.UseStartup<Startup>();
                 })
                 .ConfigureAppConfiguration(configuration =>
