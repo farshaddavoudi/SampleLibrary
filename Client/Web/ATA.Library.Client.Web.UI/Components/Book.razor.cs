@@ -1,5 +1,6 @@
 ﻿using ATA.Library.Client.Web.Service.AppSetting;
 using ATA.Library.Client.Web.Service.Book.Contracts;
+using ATA.Library.Shared.Core;
 using ATA.Library.Shared.Dto;
 using Blazored.Modal;
 using Blazored.Modal.Services;
@@ -13,6 +14,8 @@ namespace ATA.Library.Client.Web.UI.Components
     public partial class Book
     {
         private string _coverImageUrl;
+
+        private string _rolesCanManageBook;
 
         [Parameter]
         public BookDto BookDto { get; set; }
@@ -43,6 +46,10 @@ namespace ATA.Library.Client.Web.UI.Components
             _coverImageUrl = HostEnvironment.IsDevelopment()
                 ? AppSettings.BookBaseUrls!.CoverBaseUrl
                 : $"{AppSettings.BookBaseUrls!.CoverBaseUrl}/{BookDto.CoverImageUrl}";
+
+            _rolesCanManageBook = $"{AppStrings.Claims.Administrator},{BookDto.Category!.AdminRole}";
+
+            base.OnParametersSet();
         }
 
         private void EditBook()

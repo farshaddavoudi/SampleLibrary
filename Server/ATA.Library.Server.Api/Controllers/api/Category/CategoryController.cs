@@ -43,8 +43,6 @@ namespace ATA.Library.Server.Api.Controllers.api.Category
         [HttpGet("get-all")]
         public async Task<IActionResult> GetCategories(CancellationToken cancellationToken)
         {
-            // todo: filter it with authorized categories
-
             var categories = await _categoryService.GetAsync(cancellationToken);
             return Ok(_mapper.Map<List<CategoryDto>>(categories));
         }

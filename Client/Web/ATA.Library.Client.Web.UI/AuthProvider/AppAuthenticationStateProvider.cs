@@ -94,11 +94,11 @@ namespace ATA.Library.Client.Web.UI.AuthProvider
                             if (role.Tag == null)
                                 throw new DomainLogicException($"Role should have tag. Details: {role.SerializeToJson()}");
 
-                            if (role.IsAdmin)
-                            {
-                                if (!claims.Any(c => c.Type == ClaimTypes.Role && c.Value == AppStrings.Claims.Administrator))
-                                    claims.Add(new Claim(ClaimTypes.Role, AppStrings.Claims.Administrator));
-                            }
+                            //if (role.IsAdmin)
+                            //{
+                            //    if (!claims.Any(c => c.Type == ClaimTypes.Role && c.Value == AppStrings.Claims.Administrator))
+                            //        claims.Add(new Claim(ClaimTypes.Role, AppStrings.Claims.Administrator));
+                            //}
 
                             if (!claims.Any(c => c.Type == ClaimTypes.Role && c.Value == role.Tag))
                                 claims.Add(new Claim(ClaimTypes.Role, role.Tag));

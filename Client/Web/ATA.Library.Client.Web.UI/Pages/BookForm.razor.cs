@@ -1,17 +1,18 @@
-﻿using ATA.Library.Client.Web.Service.AppSetting;
-using ATA.Library.Client.Web.Service.Book.Contracts;
+﻿using ATA.Library.Client.Web.Service.Book.Contracts;
 using ATA.Library.Client.Web.Service.Category.Contracts;
 using ATA.Library.Client.Web.UI.Extensions;
 using ATA.Library.Shared.Core;
 using ATA.Library.Shared.Dto;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using MimeTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ATA.Library.Client.Web.UI.Pages
@@ -19,6 +20,9 @@ namespace ATA.Library.Client.Web.UI.Pages
     public partial class BookForm
     {
         private List<CategoryDto> _categories;
+
+        [CascadingParameter]
+        private Task<AuthenticationState> AuthenticationStateTask { get; set; }
 
         [Inject]
         private IBookWebService BookWebService { get; set; }
@@ -28,9 +32,6 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         [Inject]
         private IToastService ToastService { get; set; }
-
-        [Inject]
-        private AppSettings AppSettings { get; set; }
 
         [Inject]
         private IJSRuntime JsRuntime { get; set; }
@@ -51,6 +52,25 @@ namespace ATA.Library.Client.Web.UI.Pages
             await JsRuntime.SetLayoutTitle("افزودن کتاب");
 
             _categories = await CategoryWebService.GetCategories();
+
+            var authState = await AuthenticationStateTask;
+
+            var userRoles = authState.User.Claims.Where(c => c.Type == ClaimTypes.Role)
+                .Select(c => c.Value).ToList();
+
+            if (!userRoles.Contains(AppStrings.Claims.Administrator))
+            {
+                // Check which categories contain userRoles
+                var allowedCategories = new List<CategoryDto>();
+
+                foreach (var category in _categories)
+                {
+                    if (userRoles.Contains(category.AdminRole))
+                        allowedCategories.Add(category);
+                }
+
+                _categories = allowedCategories;
+            }
 
             if (BookId == null)
             { // Adding book

@@ -60,9 +60,9 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
         [HttpGet("get-by-category")]
         public async Task<IActionResult> GetBooksByCategory(int categoryId, CancellationToken cancellationToken)
         {
-            // todo: Check user has access to this category
-
-            var categoryBooks = await _bookService.GetAll().Where(b => b.CategoryId == categoryId)
+            var categoryBooks = await _bookService.GetAll()
+                .Include(b => b.Category)
+                .Where(b => b.CategoryId == categoryId)
                 .ToListAsync(cancellationToken);
 
             return Ok(_mapper.Map<List<BookDto>>(categoryBooks));
@@ -83,8 +83,6 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
 
             if (dto.BookFileByteData == null)
                 throw new BadRequestException(nameof(BookDto.BookFileByteData));
-
-            // todo: Check user has access to add a book in category
 
             dto.CoverImageUrl = dto.CoverImageByteData != null
                 ? await _bookService.SaveCoverImageFileAndGetPathAsync(dto.CoverImageByteData,
@@ -121,8 +119,6 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
             if (entity == null)
                 return NotFound($"هیچ کتابی با این شناسه پیدا نشد. شناسه‌ی ارسالی = {bookId}");
 
-            // todo: Check user has access to edit this book
-
             dto.CreatedAt = entity.CreatedAt; //fix CreateAt mapping issue
 
             _mapper.Map(dto, entity);
@@ -146,8 +142,6 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
 
             if (entity == null)
                 return NotFound($"هیچ کتابی با این شناسه پیدا نشد. شناسه‌ی ارسالی = {bookId}");
-
-            // todo: Check user has access to this book
 
             await _bookService.DeleteAsync(bookId, cancellationToken);
 

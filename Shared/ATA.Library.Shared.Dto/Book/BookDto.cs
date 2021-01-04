@@ -33,6 +33,7 @@ namespace ATA.Library.Shared.Dto
         [Required(ErrorMessage = "عنوان کتاب را وارد نمایید")]
         public string? Title { get; set; }
 
+        [StringLength(200, ErrorMessage = "حداکثر 200 کارکتر می‌توانید توضیحات وارد نمایید")]
         public string? Description { get; set; }
 
         public string? Author { get; set; }

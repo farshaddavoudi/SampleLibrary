@@ -28,13 +28,19 @@
                     </NavLink>
                 </li>
 
-                <li class="sidenav-item">
-                    <NavLink class="waves-effect" href="/book-form" Match="NavLinkMatch.All">
-                        <i class="fas fa-plus"></i>
-                        <span class="hide-menu">افزودن کتاب</span>
-                    </NavLink>
-                </li>
             </AuthorizeView>
+
+            @if (!string.IsNullOrWhiteSpace(_categoriesAdminRoles))
+            {
+                <AuthorizeView Roles="@_categoriesAdminRoles">
+                    <li class="sidenav-item">
+                        <NavLink class="waves-effect" href="/book-form" Match="NavLinkMatch.All">
+                            <i class="fas fa-plus"></i>
+                            <span class="hide-menu">افزودن کتاب</span>
+                        </NavLink>
+                    </li>
+                </AuthorizeView>
+            }
         </ul>
     </div>
 </div>
