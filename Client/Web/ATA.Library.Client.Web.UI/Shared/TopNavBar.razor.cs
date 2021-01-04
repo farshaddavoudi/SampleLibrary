@@ -10,6 +10,7 @@ namespace ATA.Library.Client.Web.UI.Shared
     {
         private string _userDropdownCssClass;
         private string _userName;
+        private string _personnelCode;
         private string _userProfileImageAddress;
 
         [CascadingParameter]
@@ -23,9 +24,9 @@ namespace ATA.Library.Client.Web.UI.Shared
 
             var userPersonnelCodeClaim = authState.User.Claims.Single(c => c.Type == AppStrings.Claims.PersonnelCode);
 
-            var personnelCode = userPersonnelCodeClaim.Value;
+            _personnelCode = userPersonnelCodeClaim.Value;
 
-            _userProfileImageAddress = $"http://cdn.app.ataair.ir/img/pers/{personnelCode}.png";
+            _userProfileImageAddress = $"http://cdn.app.ataair.ir/img/pers/{_personnelCode}.png";
 
         }
 

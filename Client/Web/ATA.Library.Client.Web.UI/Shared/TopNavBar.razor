@@ -5,7 +5,7 @@
             <li class="dropdown @_userDropdownCssClass">
                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" @onclick="OnUserProfileClick">
                     <img src="@_userProfileImageAddress" @onerror="OnUserImageLoadFailed" alt="user-img" width="36" class="img-circle"><span class="hidden-xs">
-                        @_userName
+                        <span class="user-name">@_userName / @_personnelCode</span>
                     </span>
                 </a>
                 <ul class="dropdown-menu dropdown-user scale-up">
