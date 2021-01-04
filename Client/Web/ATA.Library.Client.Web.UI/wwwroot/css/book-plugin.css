@@ -210,9 +210,12 @@
     background-color: #fff;
 }
 
-.bk-list li .bk-front>div {
+.bk-list li .bk-front > div {
     border-radius: 0 3px 3px 0;
     box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.1);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .bk-list li .bk-front:after {
@@ -242,8 +245,9 @@
 }
 
 .bk-left h2 {
-    width: 400px;
-    height: 40px;
+    height: 100%;
+    margin-top: 220px;
+    white-space: nowrap;
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
     transform-origin: 0 0;
@@ -313,11 +317,11 @@
 
 /* Book 1 */
 
-.book-1 .bk-front>div,
+.book-1 .bk-front > div,
 .book-1 .bk-back,
 .book-1 .bk-left,
 .book-1 .bk-front:after {
-    background-color: #ff924a;
+    background-color: #fe3c3c;
 }
 
 .book-1 .bk-cover {
@@ -325,24 +329,24 @@
     background-position: 10px 40px;
 }
 
-.book-1 .bk-cover h2 {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
-}
+    .book-1 .bk-cover h2 {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        padding: 10px 30px;
+        background: rgb(0 0 0 / 50%);
+        color: #fff;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    }
 
-.book-1 .bk-cover h2 span:first-child,
-.book-1 .bk-left h2 span:first-child {
-    text-transform: uppercase;
-    font-weight: 400;
-    font-size: 13px;
-    padding-right: 20px;
-}
+        .book-1 .bk-cover h2 span:first-child,
+        .book-1 .bk-left h2 span:first-child {
+            text-transform: uppercase;
+            font-weight: 900;
+            font-size: 15px;
+            padding-right: 20px;
+        }
 
 .book-1 .bk-cover h2 span:first-child {
     display: block;

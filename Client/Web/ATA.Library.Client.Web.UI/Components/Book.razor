@@ -1,20 +1,61 @@
-﻿@using ATA.Library.Shared.Core
-
-<div class="book">
-    <div class="front">
-        <div class="cover" style="background-image: url(@_coverImageUrl)">
-            <p class=author>@BookDto.Author</p>
+﻿@using DNTPersianUtils.Core
+<div class="bk-book book-1 bk-bookdefault">
+    <div class="bk-front">
+        <div class="bk-cover-back"></div>
+        <div class="bk-cover" style="background-image: url(@_coverImageUrl);">
+            <h2>
+                <span>@BookDto.Title</span>
+            </h2>
         </div>
     </div>
-    <div class="left-side">
+
+    <div class="bk-page">
+        <div class="bk-content bk-content-current">
+            <p>
+                @BookDto.Description
+            </p>
+        </div>
+    </div>
+
+    <div class="bk-back">
+        <p>
+            <span>
+                نام نویسنده:
+                @BookDto.Author
+            </span>
+            <br />
+            <span>
+                تاریخ بارگذاری:
+                @BookDto.CreatedAt.ToShortPersianDateString()
+            </span>
+            <br />
+            <span>
+
+            </span>
+        </p>
+    </div>
+
+    <div class="bk-right"></div>
+
+    <div class="bk-left">
         <h2>
-            <span></span>
+            <span>هواپیمایی آتا</span>
         </h2>
     </div>
+
+    <div class="bk-top"></div>
+
+    <div class="bk-bottom"></div>
 </div>
-<h5>@BookDto.Title</h5>
-<p>@BookDto.Description</p>
-<a href="#">دانلود</a>
+
+<div class="bk-info">
+    <button class="bk-bookback">جزئیات</button>
+    <button class="bk-bookview">خلاصه کتاب</button>
+    <a href="@BookDto.BookFileUrl" target="_blank">دانلود</a>
+    <!-- <h3>
+        <span></span>
+    </h3> -->
+</div>
 
 
 <AuthorizeView Roles="@_rolesCanManageBook">

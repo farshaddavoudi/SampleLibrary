@@ -37,69 +37,14 @@ else
                 else
                 {
                     <div class="main">
-
-
                         <ul id="bk-list" class="bk-list clearfix">
-                            <li>
-                                <div class="bk-book book-1 bk-bookdefault">
-                                    <div class="bk-front">
-                                        <div class="bk-cover-back"></div>
-                                        <div class="bk-cover" style="background-image: url(images/2.png);">
-                                            <h2>
-                                                <span>A Catwork Orange</span>
-                                            </h2>
-                                        </div>
-                                    </div>
-
-                                    <div class="bk-page">
-                                        <div class="bk-content bk-content-current">
-                                            <p>خلاصه</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="bk-back">
-                                        <p>
-                                            <span>Anthony</span>
-                                            <br />
-                                            <span>Anthony</span>
-                                            <br />
-                                            <span>Catwork</span>
-                                        </p>
-                                    </div>
-
-                                    <div class="bk-right"></div>
-
-                                    <div class="bk-left">
-                                        <h2>
-                                            <span>هواپیمایی آتا</span>
-                                        </h2>
-                                    </div>
-
-                                    <div class="bk-top"></div>
-
-                                    <div class="bk-bottom"></div>
-                                </div>
-
-                                <div class="bk-info">
-                                    <button class="bk-bookback">جزئیات</button>
-                                    <button class="bk-bookview">خلاصه کتاب</button>
-                                    <a href="#">مشاهده</a>
-                                    <!-- <h3>
-                                        <span></span>
-                                    </h3> -->
-                                </div>
-                            </li>
+                            @foreach (var book in _books)
+                            {
+                                <li @key="@book" id="@($"book{book.Id}")">
+                                    <Book BookDto="@book" @key="@book.Id" StateChangeRequest="StateChangeRequested" />
+                                </li>
+                            }
                         </ul>
-
-
-
-
-                        @*@foreach (var book in _books)
-                        {
-                            <div @key="@book" id="@($"book{book.Id}")" class="col-sm-12 col-md-3">
-                                <Book BookDto="@book" @key="@book.Id" StateChangeRequest="StateChangeRequested" />
-                            </div>
-                        }*@
                     </div>
                 }
             </div>
