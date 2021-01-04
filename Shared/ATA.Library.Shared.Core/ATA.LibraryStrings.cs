@@ -6,7 +6,9 @@
 
         public static readonly string AppPersianFullName = "‌کتابخانه‌ی مجازی آتا";
 
-        public static readonly string AppEnglishFullName = "ATA Library";
+        public static readonly string AppEnglishFullName = "ATA Virtual Library";
+
+        public static readonly string AppProjectName = "ATA.Library";
 
         public static readonly string ATAAuthTokenKey = "SSOToken";
 

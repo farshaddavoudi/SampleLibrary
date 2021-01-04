@@ -32,7 +32,7 @@ namespace ATA.Library.Server.Api
                 .Build();
 
             Log.Logger = new LoggerConfiguration()
-                .Enrich.WithProperty("ApplicationName", AppStrings.AppEnglishFullName)
+                .Enrich.WithProperty("ApplicationName", AppStrings.AppProjectName)
                 .Enrich.FromLogContext()
                 .Enrich.WithExceptionDetails()
                 .Enrich.WithMachineName()
