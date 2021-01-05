@@ -56,7 +56,7 @@ namespace ATA.Library.Client.Web.UI.Shared
         {
             await JsRuntime.DeleteCookieAsync(AppStrings.ATAAuthTokenKey);
             HostClient.DefaultRequestHeaders.Remove(AppStrings.ATAAuthTokenKey);
-            NavigationManager.NavigateTo("/", true);
+            NavigationManager.NavigateTo("http://security.app.ataair.ir/Application/Logout.aspx", true);
         }
     }
 }
