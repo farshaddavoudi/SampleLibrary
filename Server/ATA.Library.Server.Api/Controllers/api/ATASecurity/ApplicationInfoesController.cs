@@ -19,7 +19,7 @@ namespace ATA.Library.Server.Api.Controllers.api.ATASecurity
     [Route("api/v{version:apiVersion}/[controller]")]// api/v1/[controller]
     [ApiController]
     [AllowAnonymous]
-    [ApiExplorerSettings(IgnoreApi = false)]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ApplicationInfoesController
     {
         private readonly IHttpClientFactory _httpClientFactory;

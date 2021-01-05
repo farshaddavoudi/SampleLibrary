@@ -23,6 +23,7 @@ namespace ATA.Library.Server.Api.Controllers.api.Syncfusion
     [ApiController]
     [ApiVersion("1")]
     [AllowAnonymous]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class PdfViewerController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
