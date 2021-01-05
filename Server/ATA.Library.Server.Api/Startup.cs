@@ -72,7 +72,6 @@ namespace ATA.Library.Server.Api
             if (env.IsProduction())
                 app.UseHsts();
 
-
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
@@ -89,6 +88,8 @@ namespace ATA.Library.Server.Api
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.LogUserInfoIntoSerilog();
 
             // app.UseCustomHangfire(_appSettings.JobSettings!);
 
