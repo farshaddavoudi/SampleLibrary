@@ -58,9 +58,9 @@ namespace ATA.Library.Client.Web.UI.Shared
 
         private async Task Logout()
         {
-            await JsRuntime.DeleteCookieAsync(AppStrings.ATAAuthTokenKey);
+            await JsRuntime.DeleteCookieAsync(AppStrings.ATAAuthTokenKey); // workaround: not working
             HostClient.DefaultRequestHeaders.Remove(AppStrings.ATAAuthTokenKey);
-            NavigationManager.NavigateTo($"http://security.app.ataair.ir/Application/Logout.aspx?ReturnUrl={AppSettings.Urls!.AppAddress}", true);
+            NavigationManager.NavigateTo($"http://security.app.ataair.ir/Application/Login.aspx?ReturnUrl={AppSettings.Urls!.AppAddress}", true);
         }
     }
 }
