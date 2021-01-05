@@ -51,7 +51,9 @@
 <div class="bk-info">
     <button class="bk-bookback">جزئیات</button>
     <button class="bk-bookview">خلاصه کتاب</button>
-    <a href="@BookDto.BookFileUrl" target="_blank">دانلود</a>
+    <button css="bk-bookview" @onclick="ViewOrDownloadBook">
+        @(BookDto.IsDownloadable ? $"دانلود (حجم: {BookDto.BookSizeToDisplay})" : "مشاهده")
+    </button>
     <!-- <h3>
         <span></span>
     </h3> -->

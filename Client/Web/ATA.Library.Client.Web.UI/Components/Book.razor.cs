@@ -1,5 +1,6 @@
 ﻿using ATA.Library.Client.Web.Service.AppSetting;
 using ATA.Library.Client.Web.Service.Book.Contracts;
+using ATA.Library.Client.Web.UI.Extensions;
 using ATA.Library.Shared.Core;
 using ATA.Library.Shared.Dto;
 using Blazored.Modal;
@@ -7,6 +8,7 @@ using Blazored.Modal.Services;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.JSInterop;
 using System.Threading.Tasks;
 
 namespace ATA.Library.Client.Web.UI.Components
@@ -41,6 +43,9 @@ namespace ATA.Library.Client.Web.UI.Components
         [Inject]
         private IToastService ToastService { get; set; }
 
+        [Inject]
+        private IJSRuntime JsRuntime { get; set; }
+
         protected override void OnParametersSet()
         {
             _coverImageUrl = HostEnvironment.IsDevelopment()
@@ -74,6 +79,22 @@ namespace ATA.Library.Client.Web.UI.Components
                 ToastService.ShowSuccess("حذف کتاب با موفقیت انجام شد");
 
                 await StateChangeRequest.InvokeAsync();
+            }
+        }
+
+        private async Task ViewOrDownloadBook()
+        {
+            if (BookDto.IsDownloadable)
+            {
+                var fileUrl = HostEnvironment.IsDevelopment()
+                    ? AppSettings.BookBaseUrls!.FileBaseUrl
+                    : $"{AppSettings.BookBaseUrls!.FileBaseUrl}/{BookDto.BookFileUrl}";
+
+                await JsRuntime.NavigateToUrlInNewTab(fileUrl);
+            }
+            else
+            {
+                await JsRuntime.NavigateToUrlInNewTab($"/book-viewer/{BookDto.Id}/{BookDto.Title?.Replace(" ", "-")}");
             }
         }
     }

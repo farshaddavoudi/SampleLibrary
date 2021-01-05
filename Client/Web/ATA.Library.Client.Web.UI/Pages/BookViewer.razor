@@ -2,14 +2,14 @@
 
 @layout EmptyLayout
 
-@if (BookId == null)
+@if (_serverUrl == null)
 {
     <Loading />
 }
 else
 {
-    <SfPdfViewer DocumentPath="@BookId"
-                 ServiceUrl="https://localhost:44361/api/v1/pdf-viewer"
+    <SfPdfViewer DocumentPath="@BookId.ToString()"
+                 ServiceUrl="@_serverUrl"
                  Height="100vh"
                  Width="100vw"
                  EnableDownload="false"
