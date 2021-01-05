@@ -1,4 +1,5 @@
-﻿using ATA.Library.Client.Web.UI.Extensions;
+﻿using ATA.Library.Client.Web.Service.AppSetting;
+using ATA.Library.Client.Web.UI.Extensions;
 using ATA.Library.Shared.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -28,6 +29,9 @@ namespace ATA.Library.Client.Web.UI.Shared
         [Inject]
         private NavigationManager NavigationManager { get; set; }
 
+        [Inject]
+        private AppSettings AppSettings { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             var authState = await AuthenticationStateTask;
@@ -56,7 +60,7 @@ namespace ATA.Library.Client.Web.UI.Shared
         {
             await JsRuntime.DeleteCookieAsync(AppStrings.ATAAuthTokenKey);
             HostClient.DefaultRequestHeaders.Remove(AppStrings.ATAAuthTokenKey);
-            NavigationManager.NavigateTo("http://security.app.ataair.ir/Application/Logout.aspx", true);
+            NavigationManager.NavigateTo($"http://security.app.ataair.ir/Application/Logout.aspx?ReturnUrl={AppSettings.Urls!.AppAddress}", true);
         }
     }
 }
