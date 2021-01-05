@@ -17,6 +17,7 @@ namespace ATA.Library.Shared.Dto
         [Required(ErrorMessage = "عنوان دسته را وارد نمایید")]
         public string? CategoryName { get; set; }
 
+        [Required(ErrorMessage = "نقش مدیر دسته را وارد نمایید")]
         public string? AdminRole { get; set; }
 
         public override string ToString()

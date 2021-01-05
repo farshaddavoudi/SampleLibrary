@@ -22,3 +22,8 @@ function getCookie(cookieName) {
     }
     return "";
 }
+
+// https://www.w3schools.com/js/js_cookies.asp
+function deleteCookie(cookieName) {
+    document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}

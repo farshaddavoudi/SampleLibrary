@@ -1,7 +1,10 @@
-﻿using ATA.Library.Shared.Core;
+﻿using ATA.Library.Client.Web.UI.Extensions;
+using ATA.Library.Shared.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.JSInterop;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ATA.Library.Client.Web.UI.Shared
@@ -15,6 +18,12 @@ namespace ATA.Library.Client.Web.UI.Shared
 
         [CascadingParameter]
         private Task<AuthenticationState> AuthenticationStateTask { get; set; }
+
+        [Inject]
+        private IJSRuntime JsRuntime { get; set; }
+
+        [Inject]
+        private HttpClient HostClient { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -38,6 +47,12 @@ namespace ATA.Library.Client.Web.UI.Shared
         private void OnUserImageLoadFailed()
         {
             _userProfileImageAddress = "/images/ata-layout/user-default.jpg";
+        }
+
+        private async Task Logout()
+        {
+            await JsRuntime.DeleteCookieAsync(AppStrings.ATAAuthTokenKey);
+            HostClient.DefaultRequestHeaders.Remove(AppStrings.ATAAuthTokenKey);
         }
     }
 }
