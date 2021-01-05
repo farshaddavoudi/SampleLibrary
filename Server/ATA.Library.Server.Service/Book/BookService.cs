@@ -2,6 +2,7 @@
 using ATA.Library.Server.Model.Entities.Book;
 using ATA.Library.Server.Service.Book.Contracts;
 using ATA.Library.Server.Service.Contracts;
+using ATA.Library.Shared.Service.Exceptions;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using System;
@@ -50,5 +51,14 @@ namespace ATA.Library.Server.Service.Book
             return fileName;
         }
 
+        public async Task<string> GetBookFileAbsoluteUrl(int bookId, CancellationToken cancellationToken)
+        {
+            var book = await GetByIdAsync(bookId, cancellationToken);
+
+            if (book == null)
+                throw new BadRequestException("کتابی با این مشخصات پیدا نشد");
+
+            return $"{_appSettings.FileUploadPath!.BookFile}/{book.BookFileUrl}";
+        }
     }
 }

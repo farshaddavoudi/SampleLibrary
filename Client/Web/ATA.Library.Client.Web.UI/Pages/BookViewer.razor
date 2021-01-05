@@ -2,11 +2,16 @@
 
 @layout EmptyLayout
 
-@if (string.IsNullOrWhiteSpace(DocumentPath))
+@if (BookId == null)
 {
     <Loading />
 }
 else
 {
-    <SfPdfViewer DocumentPath="@DocumentPath" Height="100vh" Width="100vw" />
+    <SfPdfViewer DocumentPath="@BookId"
+                 ServiceUrl="https://localhost:44361/api/v1/pdf-viewer"
+                 Height="100vh"
+                 Width="100vw"
+                 EnableDownload="false"
+                 EnablePrint="false"></SfPdfViewer>
 }

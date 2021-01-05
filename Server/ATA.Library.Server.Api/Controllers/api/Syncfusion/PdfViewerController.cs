@@ -1,35 +1,45 @@
-﻿using ATA.Library.Shared.Service.Extensions;
+﻿using ATA.Library.Server.Service.Book.Contracts;
+using ATA.Library.Shared.Service.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using Syncfusion.EJ2.PdfViewer;
-using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ATA.Library.Server.Api.Controllers.api.Syncfusion
 {
     /// <summary>
-    /// PdfViewer Service from Syncfusion.
-    /// Copied from: https://www.syncfusion.com/kb/10346/how-to-create-pdf-viewer-web-service-application-in-asp-net-core
+    /// PdfViewer Service from Syncfusion (Refactored).
+    /// Source from: https://www.syncfusion.com/kb/10346/how-to-create-pdf-viewer-web-service-application-in-asp-net-core
     /// </summary>
 
     [Route("api/v{version:apiVersion}/[controller]")]// api/v1/[controller]
     [ApiController]
     [ApiVersion("1")]
+    [AllowAnonymous]
     public class PdfViewerController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
-
+        private readonly IBookService _bookService;
         //Initialize the memory cache object   
         public IMemoryCache Cache;
 
-        public PdfViewerController(IWebHostEnvironment webHostEnvironment, IMemoryCache cache)
+        #region Constructor Injections
+
+        public PdfViewerController(IWebHostEnvironment webHostEnvironment, IMemoryCache cache, IBookService bookService)
         {
             _webHostEnvironment = webHostEnvironment;
             Cache = cache;
+            _bookService = bookService;
         }
+
+        #endregion
 
         /// <summary>
         /// Post action for Loading the PDF documents   
@@ -38,36 +48,25 @@ namespace ATA.Library.Server.Api.Controllers.api.Syncfusion
         /// <returns></returns>
         [HttpPost("Load")]
         [AcceptVerbs("Post")]
-        public IActionResult Load([FromBody] Dictionary<string, string> jsonObject)
+        public async Task<IActionResult> Load([FromBody] Dictionary<string, string> jsonObject, CancellationToken cancellationToken)
         {
             //Initialize the PDF viewer object with memory cache object
-            PdfRenderer pdfviewer = new PdfRenderer(Cache);
-            MemoryStream stream = new MemoryStream();
-            object jsonResult = new object();
-            if (jsonObject != null && jsonObject.ContainsKey("document"))
+            PdfRenderer pdfViewer = new PdfRenderer(Cache);
+
+            MemoryStream stream;
+
+            using (var client = new WebClient())
             {
-                if (bool.Parse(jsonObject["isFileName"]))
-                {
-                    //string documentPath = GetDocumentPath(jsonObject["document"]);
-                    string documentPath = "text-assing";
-                    if (!string.IsNullOrEmpty(documentPath))
-                    {
-                        byte[] bytes = System.IO.File.ReadAllBytes(documentPath);
-                        stream = new MemoryStream(bytes);
-                    }
-                    else
-                    {
-                        return this.Content(jsonObject["document"] + " is not found");
-                    }
-                }
-                else
-                {
-                    byte[] bytes = Convert.FromBase64String(jsonObject["document"]);
-                    stream = new MemoryStream(bytes);
-                }
+                var bookAbsoluteUrl =
+                    await _bookService.GetBookFileAbsoluteUrl(jsonObject["document"].ToInt(), cancellationToken);
+
+                var bookFileBytes = await client.DownloadDataTaskAsync(bookAbsoluteUrl);
+
+                stream = new MemoryStream(bookFileBytes);
             }
 
-            jsonResult = pdfviewer.Load(stream, jsonObject);
+            var jsonResult = pdfViewer.Load(stream, jsonObject);
+
             return Content(JsonConvert.SerializeObject(jsonResult));
         }
 
@@ -81,8 +80,8 @@ namespace ATA.Library.Server.Api.Controllers.api.Syncfusion
         public IActionResult Bookmarks([FromBody] Dictionary<string, string> jsonObject)
         {
             //Initialize the PDF Viewer object with memory cache object
-            PdfRenderer pdfviewer = new PdfRenderer(Cache);
-            var jsonResult = pdfviewer.GetBookmarks(jsonObject);
+            PdfRenderer pdfViewer = new PdfRenderer(Cache);
+            var jsonResult = pdfViewer.GetBookmarks(jsonObject);
             return Content(JsonConvert.SerializeObject(jsonResult));
         }
 
@@ -96,8 +95,8 @@ namespace ATA.Library.Server.Api.Controllers.api.Syncfusion
         public IActionResult RenderPdfPages([FromBody] Dictionary<string, string> jsonObject)
         {
             //Initialize the PDF Viewer object with memory cache object
-            PdfRenderer pdfviewer = new PdfRenderer(Cache);
-            object jsonResult = pdfviewer.GetPage(jsonObject);
+            PdfRenderer pdfViewer = new PdfRenderer(Cache);
+            object jsonResult = pdfViewer.GetPage(jsonObject);
             return Content(JsonConvert.SerializeObject(jsonResult));
         }
 
@@ -111,8 +110,8 @@ namespace ATA.Library.Server.Api.Controllers.api.Syncfusion
         public IActionResult RenderThumbnailImages([FromBody] Dictionary<string, string> jsonObject)
         {
             //Initialize the PDF Viewer object with memory cache object
-            PdfRenderer pdfviewer = new PdfRenderer(Cache);
-            object result = pdfviewer.GetThumbnailImages(jsonObject);
+            PdfRenderer pdfViewer = new PdfRenderer(Cache);
+            object result = pdfViewer.GetThumbnailImages(jsonObject);
             return Content(JsonConvert.SerializeObject(result));
         }
 
@@ -126,8 +125,8 @@ namespace ATA.Library.Server.Api.Controllers.api.Syncfusion
         public IActionResult RenderAnnotationComments([FromBody] Dictionary<string, string> jsonObject)
         {
             //Initialize the PDF Viewer object with memory cache object
-            PdfRenderer pdfviewer = new PdfRenderer(Cache);
-            object jsonResult = pdfviewer.GetAnnotationComments(jsonObject);
+            PdfRenderer pdfViewer = new PdfRenderer(Cache);
+            object jsonResult = pdfViewer.GetAnnotationComments(jsonObject);
             return Content(JsonConvert.SerializeObject(jsonResult));
         }
 
@@ -140,32 +139,10 @@ namespace ATA.Library.Server.Api.Controllers.api.Syncfusion
         [AcceptVerbs("Post")]
         public IActionResult ExportAnnotations([FromBody] Dictionary<string, string> jsonObject)
         {
-            PdfRenderer pdfviewer = new PdfRenderer(Cache);
-            string? jsonResult = pdfviewer.GetAnnotationComments(jsonObject).SerializeToJson();
+            PdfRenderer pdfViewer = new PdfRenderer(Cache);
+            string? jsonResult = pdfViewer.GetAnnotationComments(jsonObject).SerializeToJson();
             return Content(jsonResult);
         }
-
-        //[AcceptVerbs("Post")]
-        //[HttpPost]
-        ////Post action to import annotations
-        //public IActionResult ImportAnnotations([FromBody] Dictionary<string, string> jsonObject)
-        //{
-        //    PdfRenderer pdfviewer = new PdfRenderer(Cache);
-        //    string jsonResult = string.Empty;
-        //    if (jsonObject != null && jsonObject.ContainsKey("fileName"))
-        //    {
-        //        string documentPath = GetDocumentPath(jsonObject["fileName"]);
-        //        if (!string.IsNullOrEmpty(documentPath))
-        //        {
-        //            jsonResult = System.IO.File.ReadAllText(documentPath);
-        //        }
-        //        else
-        //        {
-        //            return this.Content(jsonObject["document"] + " is not found");
-        //        }
-        //    }
-        //    return Content(jsonResult);
-        //}
 
         /// <summary>
         /// Post action for unloading and disposing the PDF document resources  
@@ -177,9 +154,9 @@ namespace ATA.Library.Server.Api.Controllers.api.Syncfusion
         public IActionResult Unload([FromBody] Dictionary<string, string> jsonObject)
         {
             //Initialize the PDF Viewer object with memory cache object
-            PdfRenderer pdfviewer = new PdfRenderer(Cache);
-            pdfviewer.ClearCache(jsonObject);
-            return this.Content("Document cache is cleared");
+            PdfRenderer pdfViewer = new PdfRenderer(Cache);
+            pdfViewer.ClearCache(jsonObject);
+            return Content("Document cache is cleared");
         }
 
         /// <summary>
@@ -191,8 +168,8 @@ namespace ATA.Library.Server.Api.Controllers.api.Syncfusion
         public IActionResult Download([FromBody] Dictionary<string, string> jsonObject)
         {
             //Initialize the PDF Viewer object with memory cache object
-            PdfRenderer pdfviewer = new PdfRenderer(Cache);
-            string documentBase = pdfviewer.GetDocumentAsBase64(jsonObject);
+            PdfRenderer pdfViewer = new PdfRenderer(Cache);
+            string documentBase = pdfViewer.GetDocumentAsBase64(jsonObject);
             return Content(documentBase);
         }
 
@@ -205,26 +182,9 @@ namespace ATA.Library.Server.Api.Controllers.api.Syncfusion
         public IActionResult PrintImages([FromBody] Dictionary<string, string> jsonObject)
         {
             //Initialize the PDF Viewer object with memory cache object
-            PdfRenderer pdfviewer = new PdfRenderer(Cache);
-            object pageImage = pdfviewer.GetPrintImage(jsonObject);
+            PdfRenderer pdfViewer = new PdfRenderer(Cache);
+            object pageImage = pdfViewer.GetPrintImage(jsonObject);
             return Content(JsonConvert.SerializeObject(pageImage));
         }
-
-        //Gets the path of the PDF document
-        //private string GetDocumentPath(string document)
-        //{
-        //    string documentPath = string.Empty;
-        //    if (!System.IO.File.Exists(document))
-        //    {
-        //        var path = _hostingEnvironment.ContentRootPath;
-        //        if (System.IO.File.Exists(path + "\\Data\\" + document))
-        //            documentPath = path + "\\Data\\" + document;
-        //    }
-        //    else
-        //    {
-        //        documentPath = document;
-        //    }
-        //    return documentPath;
-        //}
     }
 }

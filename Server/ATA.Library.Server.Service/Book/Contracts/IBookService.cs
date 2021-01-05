@@ -12,5 +12,7 @@ namespace ATA.Library.Server.Service.Book.Contracts
 
         Task<string> SaveBookFileAndGetPathAsync(byte[] fileData, string fileExtension,
             CancellationToken cancellationToken);
+
+        Task<string> GetBookFileAbsoluteUrl(int bookId, CancellationToken cancellationToken);
     }
 }
