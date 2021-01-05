@@ -25,6 +25,9 @@ namespace ATA.Library.Client.Web.UI.Shared
         [Inject]
         private HttpClient HostClient { get; set; }
 
+        [Inject]
+        private NavigationManager NavigationManager { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             var authState = await AuthenticationStateTask;
@@ -53,6 +56,7 @@ namespace ATA.Library.Client.Web.UI.Shared
         {
             await JsRuntime.DeleteCookieAsync(AppStrings.ATAAuthTokenKey);
             HostClient.DefaultRequestHeaders.Remove(AppStrings.ATAAuthTokenKey);
+            NavigationManager.NavigateTo("/", true);
         }
     }
 }
