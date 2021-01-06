@@ -21,6 +21,8 @@ namespace ATA.Library.Client.Web.UI.Pages
     {
         private List<CategoryDto> _categories;
 
+        private bool _showUploadLoading = false;
+
         [CascadingParameter]
         private Task<AuthenticationState> AuthenticationStateTask { get; set; }
 
@@ -91,6 +93,10 @@ namespace ATA.Library.Client.Web.UI.Pages
                 return;
             }
 
+            // Start Loading
+            _showUploadLoading = true;
+            StateHasChanged();
+
             if (_book.Id == default)
             { // Adding book
                 await BookWebService.AddBook(_book);
@@ -106,6 +112,9 @@ namespace ATA.Library.Client.Web.UI.Pages
             { // Editing book
 
             }
+
+            // Start Loading
+            _showUploadLoading = false;
         }
 
         private async Task OnCoverImageFileSelection(InputFileChangeEventArgs e)

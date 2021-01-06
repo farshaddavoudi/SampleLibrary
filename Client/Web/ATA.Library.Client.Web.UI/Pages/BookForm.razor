@@ -5,7 +5,7 @@
     <Title Value="افزودن کتاب"></Title>
 
     <div class="form-wrapper">
-        @if (_categories == null)
+        @if (_categories == null || _showUploadLoading)
         {
             <Loading />
         }

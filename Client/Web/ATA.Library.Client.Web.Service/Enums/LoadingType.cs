@@ -5,5 +5,7 @@
         BlueAirplane,
 
         RedRing,
+
+        GrayRing
     }
 }
