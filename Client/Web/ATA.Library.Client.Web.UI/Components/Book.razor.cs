@@ -46,6 +46,15 @@ namespace ATA.Library.Client.Web.UI.Components
         [Inject]
         private IJSRuntime JsRuntime { get; set; }
 
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await JsRuntime.InitializeBookPlugin();
+            }
+
+        }
+
         protected override void OnParametersSet()
         {
             _coverImageUrl = HostEnvironment.IsDevelopment()

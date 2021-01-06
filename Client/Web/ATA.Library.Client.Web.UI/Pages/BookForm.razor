@@ -2,67 +2,72 @@
 @page "/book-form/{BookId:int}"
 @page "/book-form/{BookId:int}/{BookTitle}"
 
-    <Title Value="افزودن کتاب"></Title>
+<Title Value="افزودن کتاب"></Title>
 
-    <div class="form-wrapper">
-        @if (_categories == null || _showUploadLoading)
-        {
-            <Loading />
-        }
-        else
-        {
-            <EditForm Model="_book" OnValidSubmit="HandleBookSubmit">
-                <DataAnnotationsValidator />
-                <div class="mb-3">
-                    <label for="bookCategory" class="form-label"> دسته مرتبط</label>
-                    <InputSelect id="bookCategory" @bind-Value="_book.CategoryId" class="form-control">
-                        @foreach (var category in _categories)
-                            {
-                            <option @key="category" value="@category?.Id">@category?.CategoryName</option>
-                            }
-                    </InputSelect>
-                </div>
-                <div class="mb-3">
-                    <label for="bookTitle" class="form-label">عنوان </label>
-                    <InputText class="form-control" id="bookTitle" @bind-Value="_book.Title" placeholder="عنوان کتاب" />
-                    <ValidationMessage For="()=> _book.Title" />
-                </div>
-                <div class="mb-3">
-                    <label for="bookAuthor" class="form-label">نویسنده / مولف</label>
-                    <InputText class="form-control" id="bookAuthor" @bind-Value="_book.Author" placeholder="نام نویسنده یا مولف کتاب" />
-                    <ValidationMessage For="()=> _book.Author" />
-                </div>
-                <div class="mb-3">
-                    <label for="bookDescription" class="form-label">توضیحات</label>
-                    <InputTextArea class="form-control" id="bookDescription" @bind-Value="_book.Description" placeholder="توضیحات کتاب را وارد نمایید" />
-                    <ValidationMessage For="()=> _book.Description" />
-                </div>
-                <div class="mb-3 form-check">
+<div class="form-wrapper">
+    @if (_categories == null || _showUploadLoading)
+    {
+        <Loading />
+    }
+    else
+    {
+        <EditForm class="row" Model="_book" OnValidSubmit="HandleBookSubmit">
+            <DataAnnotationsValidator />
+            <div class="mb-3 col-md-6 col-sm-12">
+                <label for="bookCategory" class="form-label"> دسته مرتبط</label>
+                <InputSelect id="bookCategory" @bind-Value="_book.CategoryId" class="form-control">
+                    @foreach (var category in _categories)
+                        {
+                        <option @key="category" value="@category?.Id">@category?.CategoryName</option>
+                        }
+                </InputSelect>
+            </div>
+            <div class="mb-3 col-md-6 col-sm-12">
+                <label for="bookTitle" class="form-label">عنوان </label>
+                <InputText class="form-control" id="bookTitle" @bind-Value="_book.Title" placeholder="عنوان کتاب" />
+                <ValidationMessage For="()=> _book.Title" />
+            </div>
+            <div class="mb-3 col-md-12 col-sm-12">
+                <label for="bookAuthor" class="form-label">نویسنده / مولف</label>
+                <InputText class="form-control" id="bookAuthor" @bind-Value="_book.Author" placeholder="نام نویسنده یا مولف کتاب" />
+                <ValidationMessage For="()=> _book.Author" />
+            </div>
+
+            <div class="mb-3 col-md-12">
+                <label for="bookDescription" class="form-label">توضیحات</label>
+                <InputTextArea class="form-control min-h100" id="bookDescription" @bind-Value="_book.Description" placeholder="توضیحات کتاب را وارد نمایید" />
+                <ValidationMessage For="()=> _book.Description" />
+            </div>
+
+            <div class="mb-3 col-md-6 col-sm-12">
+                <label for="bookImageCover" class="form-label">بارگزاری عکس جلد کتاب</label>
+                <InputFile id="bookImageCover" class="form-control" OnChange="OnCoverImageFileSelection" />
+                <div class="form-text">حداکثر حجم عکس 500 کیلوبایت </div>
+                @if (_coverImagePreview != null)
+                {
+                    <div class="row cover-preview-image-wrapper">
+                        <img src="@_coverImagePreview" />
+                    </div>
+                }
+            </div>
+            <div class="mb-3 col-md-6 col-sm-12">
+                <label for="bookFile" class="form-label">بارگزاری فایل Pdf کتاب</label>
+                <InputFile id="bookFile" class="form-control" OnChange="OnBookFileSelection" />
+                <div class="form-text">حداکثر حجم فایل 50 مگابایت </div>
+            </div>
+            <div class="form row">
+                <div class="mb-3  col-md-9 col-sm-12 form-check">
                     <InputCheckbox id="isDownloadable" @bind-Value="_book.IsDownloadable" class="form-check-input" />
 
                     <label class="form-check-label" for="isDownloadable">
                         امکان دانلود کتاب برای کاربر
                     </label>
                 </div>
-                <div class="mb-3">
-                    <label for="bookImageCover" class="form-label">بارگزاری عکس جلد کتاب</label>
-                    <InputFile id="bookImageCover" class="form-control" OnChange="OnCoverImageFileSelection" />
-                    <div class="form-text">حداکثر حجم عکس 500 کیلوبایت </div>
-                    @if (_coverImagePreview != null)
-                    {
-                        <div class="row cover-preview-image-wrapper">
-                            <img src="@_coverImagePreview" />
-                        </div>
-                    }
+                <div class="mb-3 col-md-3 col-sm-12 e-text-left">
+                    <button type="submit" class="btn btn-primary w-100">ذخیره</button>
                 </div>
-                <div class="mb-3">
-                    <label for="bookFile" class="form-label">بارگزاری فایل Pdf کتاب</label>
-                    <InputFile id="bookFile" class="form-control" OnChange="OnBookFileSelection" />
-                    <div class="form-text">حداکثر حجم فایل 50 مگابایت </div>
-                </div>
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">ذخیره</button>
-                </div>
-            </EditForm>
-        }
-    </div>
+            </div>
+
+        </EditForm>
+    }
+</div>

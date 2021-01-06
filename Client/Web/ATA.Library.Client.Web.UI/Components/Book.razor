@@ -1,11 +1,22 @@
 ﻿@using DNTPersianUtils.Core
+
+
+<AuthorizeView Roles="@_rolesCanManageBook">
+    <div class="management-buttons">
+        <span @onclick="DeleteBook"><i class="fas fa-trash-alt"></i></span>
+        <span @onclick="EditBook"><i class="fas fa-edit"></i></span>
+        @*<button type="button" class="btn btn-outline-primary" @onclick="EditBook"> ویرایش</button>
+            <button type="button" class="btn btn-outline-danger" @onclick="DeleteBook"> حذف</button>*@
+    </div>
+</AuthorizeView>
+
 <div class="bk-book book-1 bk-bookdefault">
     <div class="bk-front">
         <div class="bk-cover-back"></div>
         <div class="bk-cover" style="background-image: url(@_coverImageUrl);">
-            <h2>
-                <span>@BookDto.Title</span>
-            </h2>
+            @*<h2>
+                    <span></span>
+                </h2>*@
         </div>
     </div>
 
@@ -30,8 +41,18 @@
             </span>
             <br />
             <span>
-
+                حجم:
+                @BookDto.BookSizeToDisplay
             </span>
+            @if (!string.IsNullOrWhiteSpace(BookDto.Description))
+            {
+                <br />
+                <span>
+                    توضیحات:
+                    @BookDto.Description
+                </span>
+            }
+
         </p>
     </div>
 
@@ -49,21 +70,17 @@
 </div>
 
 <div class="bk-info">
-    <button class="bk-bookback">جزئیات</button>
-    <button class="bk-bookview">خلاصه کتاب</button>
-    <button css="bk-bookview" @onclick="ViewOrDownloadBook">
-        @(BookDto.IsDownloadable ? $"دانلود (حجم: {BookDto.BookSizeToDisplay})" : "مشاهده")
-    </button>
-    <!-- <h3>
-        <span></span>
-    </h3> -->
+
+    <span class="bk-bookback">جزئیات</span>
+    <span class="bk-bookview" @onclick="ViewOrDownloadBook">
+        @(BookDto.IsDownloadable ? "دانلود" : "مشاهده")
+    </span>
+    <h3>
+        <span>@BookDto.Title</span>
+    </h3>
+
 </div>
 
 
-<AuthorizeView Roles="@_rolesCanManageBook">
-    <div class="management-buttons">
-        <button type="button" class="btn btn-outline-primary" @onclick="EditBook"> ویرایش</button>
-        <button type="button" class="btn btn-outline-danger" @onclick="DeleteBook"> حذف</button>
-    </div>
-</AuthorizeView>
+
 

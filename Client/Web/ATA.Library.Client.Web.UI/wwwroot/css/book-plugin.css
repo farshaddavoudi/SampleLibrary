@@ -1,14 +1,16 @@
 .bk-list {
     list-style: none;
     position: relative;
+    text-align: center;
 }
 
     .bk-list li {
         position: relative;
-        width: 250px;
-        float: left;
+        width: 170px;
+        float: right;
+        /* height: 340px; */
         z-index: 1;
-        margin: 0px 50px 40px 0;
+        margin: 0px 0px 10px 30px;
         -webkit-perspective: 1800px;
         perspective: 1800px;
     }
@@ -19,14 +21,15 @@
 
 .bk-info {
     position: relative;
-    margin-top: 380px;
+    margin-top: 265px;
 }
 
     .bk-info h3 {
-        padding: 25px 0 10px;
-        margin-bottom: 20px;
+        padding: 0;
+        margin-bottom: 0px;
         text-align: center;
         font-size: 26px;
+        margin: 0;
     }
 
         .bk-info h3 span:first-child {
@@ -35,43 +38,53 @@
             text-transform: uppercase;
             padding-bottom: 5px;
             display: block;
-            color: #777;
+            color: #000;
         }
 
-    .bk-info p {
-        line-height: 24px;
-        color: #444;
-        min-height: 160px;
+.bk-bookback, .bk-bookview {
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.bk-bookback {
+    border-left: 1px solid #c5c5c5;
+    padding-left: 5px;
+}
+
+.bk-info p {
+    line-height: 24px;
+    color: #444;
+    min-height: 160px;
+}
+
+.bk-info button {
+    background: #FC756F;
+    border: none;
+    color: #fff;
+    display: inline-block;
+    padding: 3px 15px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-right: 4px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+    .bk-info button.bk-active,
+    .bk-info button:active {
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 -1px 1px rgba(0, 0, 0, 0.2);
     }
 
-    .bk-info button {
-        background: #FC756F;
-        border: none;
-        color: #fff;
-        display: inline-block;
-        padding: 3px 15px;
-        font-weight: 700;
-        font-size: 14px;
-        text-transform: uppercase;
-        cursor: pointer;
-        margin-right: 4px;
-        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+    .no-touch .bk-info button:hover,
+    .bk-info button.bk-active {
+        background: #d0544e;
     }
-
-        .bk-info button.bk-active,
-        .bk-info button:active {
-            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 -1px 1px rgba(0, 0, 0, 0.2);
-        }
-
-        .no-touch .bk-info button:hover,
-        .bk-info button.bk-active {
-            background: #d0544e;
-        }
 
 .bk-list li .bk-book {
     position: absolute;
     width: 100%;
-    height: 300px;
+    height: 250px;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
     -webkit-transition: -webkit-transform .5s;
@@ -113,8 +126,8 @@
     -webkit-transform: translate3d(0, 0, 19px);
     transform: translate3d(0, 0, 19px);
     display: none;
-    width: 250px;
-    height: 340px;
+    width: 170px;
+    height: 245px;
     top: 5px;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -124,8 +137,8 @@
 .bk-list li .bk-front,
 .bk-list li .bk-back,
 .bk-list li .bk-front > div {
-    width: 250px;
-    height: 350px;
+    width: 170px;
+    height: 250px;
 }
 
 .bk-list li .bk-left,
@@ -167,7 +180,7 @@
 }
 
 .bk-list li .bk-left {
-    height: 350px;
+    height: 249px;
     -webkit-transform: rotate3d(0, 1, 0, -90deg);
     transform: rotate3d(0, 1, 0, -90deg);
 }
@@ -246,7 +259,7 @@
 
 .bk-left h2 {
     height: 100%;
-    margin-top: 220px;
+    margin-top: 160px;
     white-space: nowrap;
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
@@ -280,7 +293,6 @@
 
 .bk-content p {
     padding: 0 0 10px;
-    -webkit-font-smoothing: antialiased;
     color: #000;
     font-size: 13px;
     line-height: 20px;
@@ -352,14 +364,9 @@
             display: block;
         }
 
-        .book-1 .bk-cover h2 span:last-child,
-        .book-1 .bk-left h2 span:last-child {
-            font-family: "Big Caslon", "Book Antiqua", "Palatino Linotype", Georgia, serif;
-        }
 
-.book-1 .bk-content p {
-    font-family: Georgia, Times, "Times New Roman", serif;
-}
+
+
 
 .book-1 .bk-left h2 {
     color: #fff;

@@ -1,10 +1,11 @@
 ﻿@page "/categories"
+@using ATA.Library.Client.Web.Service.Enums
 
 <Title Value="مدیریت دسته‌ها"></Title>
 
 @if (_categories == null)
 {
-    <Loading />
+    <Loading LoadingType="@LoadingType.GrayRing" />
 }
 else
 {

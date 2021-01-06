@@ -21,7 +21,7 @@ namespace ATA.Library.Client.Web.UI.Pages
     {
         private List<CategoryDto> _categories;
 
-        private bool _showUploadLoading = false;
+        private bool _showUploadLoading;
 
         [CascadingParameter]
         private Task<AuthenticationState> AuthenticationStateTask { get; set; }
@@ -128,6 +128,7 @@ namespace ATA.Library.Client.Web.UI.Pages
             }
 
             var maxAllowedSize = AppStrings.UploadLimits.MaxCoverImageSizeInKB * 1000;
+
             if (e.File.Size > maxAllowedSize)
             {
                 ToastService.ShowError("حجم فایل بیشتر از مقدار مجاز می‌باشد");

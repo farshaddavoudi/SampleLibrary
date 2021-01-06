@@ -2,7 +2,7 @@
 {
     public enum LoadingType
     {
-        BlueAirplane,
+        Security,
 
         RedRing,
 

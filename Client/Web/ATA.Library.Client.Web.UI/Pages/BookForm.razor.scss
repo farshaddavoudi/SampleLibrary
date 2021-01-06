@@ -3,8 +3,13 @@
     width: 60%;
     margin: auto;
     margin-bottom: 3rem;
+    border: 1px solid #ebebeb;
+    border-radius: 10px;
+    padding: 30px;
 }
-
+.form-wrapper .form .form-check {
+    padding: 20px 20px 0 0;
+}
 .cover-preview-image-wrapper {
     margin: 1rem auto;
 }
