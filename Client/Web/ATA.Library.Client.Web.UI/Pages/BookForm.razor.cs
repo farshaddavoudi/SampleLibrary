@@ -180,10 +180,12 @@ namespace ATA.Library.Client.Web.UI.Pages
 
             _book.BookFileFormat = MimeTypeMap.GetExtension(bookFile.ContentType);
 
+            var bookName = e.File.Name.Length > 50 ? e.File.Name.Substring(0, 50) : e.File.Name;
+
             _bookFileUrl = await BookWebService.UploadBookFile(new UploadBookFileDto
             {
                 BookData = buffers,
-                BookName = e.File.Name.Replace(" ", "-").Substring(0, 50)
+                BookName = bookName.Replace(" ", "-")
             });
 
             _uploadStatus = UploadStatus.Finished;
