@@ -4,6 +4,7 @@ using ATA.Library.Client.Web.UI.Extensions;
 using ATA.Library.Shared.Core;
 using ATA.Library.Shared.Dto;
 using Blazored.Toast.Services;
+using Humanizer;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
@@ -21,7 +22,7 @@ namespace ATA.Library.Client.Web.UI.Pages
     {
         private List<CategoryDto> _categories;
 
-        private bool _showUploadLoading;
+        private string _uploadStatus;
 
         [CascadingParameter]
         private Task<AuthenticationState> AuthenticationStateTask { get; set; }
@@ -93,10 +94,6 @@ namespace ATA.Library.Client.Web.UI.Pages
                 return;
             }
 
-            // Start Loading
-            _showUploadLoading = true;
-            StateHasChanged();
-
             if (_book.Id == default)
             { // Adding book
                 await BookWebService.AddBook(_book);
@@ -113,8 +110,6 @@ namespace ATA.Library.Client.Web.UI.Pages
 
             }
 
-            // Start Loading
-            _showUploadLoading = false;
         }
 
         private async Task OnCoverImageFileSelection(InputFileChangeEventArgs e)
@@ -166,6 +161,8 @@ namespace ATA.Library.Client.Web.UI.Pages
                 return;
             }
 
+            _uploadStatus = $"Uploading {e.File.Size.Bytes().Humanize()}...";
+
             IBrowserFile bookFile = e.File;
 
             var buffers = new byte[bookFile.Size];
@@ -177,6 +174,10 @@ namespace ATA.Library.Client.Web.UI.Pages
             _book.BookFileByteData = buffers;
 
             _book.BookFileFormat = MimeTypeMap.GetExtension(bookFile.ContentType);
+
+            await Task.Delay(10000);
+
+            _uploadStatus = $"Successfully Uploaded";
         }
     }
 }
