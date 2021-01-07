@@ -80,7 +80,9 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpPost("file-upload")]
-        [RequestFormLimits(MultipartBodyLengthLimit = 209715200)]
+        //[RequestFormLimits(MultipartBodyLengthLimit = 209715200)] //=200MB
+        //[RequestSizeLimit(209715200)] //=200MB
+        [DisableRequestSizeLimit]
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Create))]
         public async Task<IActionResult> UploadBookFile(IFormFile file, CancellationToken cancellationToken)
         {

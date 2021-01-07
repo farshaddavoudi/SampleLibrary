@@ -68,13 +68,6 @@ namespace ATA.Library.Server.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-
-                    webBuilder.UseKestrel(options =>
-                    {
-                        options.Limits.MaxRequestBodySize = AppStrings.UploadLimits.MaxBookFileSizeInMB * 1100000;
-                    });
-
-                    webBuilder.UseIIS();
                 })
                 .ConfigureAppConfiguration(configuration =>
                 {

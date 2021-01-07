@@ -168,42 +168,107 @@ namespace ATA.Library.Client.Web.UI.Pages
 
             IBrowserFile bookFile = e.File;
 
-            //var buffers = new byte[bookFile.Size];
+            var buffers = new byte[bookFile.Size];
+
+            //Console.WriteLine("buffer read started");
 
             //await bookFile.OpenReadStream(maxAllowedSize).ReadAsync(buffers);
 
-            //_book.BookFileSize = bookFile.Size;
+            //Console.WriteLine("Buffer read finished");
 
-            //_book.BookFileFormat = MimeTypeMap.GetExtension(bookFile.ContentType);
+            _book.BookFileSize = bookFile.Size;
 
-            //var bookName = e.File.Name.Length > 50 ? e.File.Name.Substring(0, 50) : e.File.Name;
+            _book.BookFileFormat = MimeTypeMap.GetExtension(bookFile.ContentType);
+
+            var bookName = e.File.Name.Length > 50 ? e.File.Name.Substring(0, 50) : e.File.Name;
 
             //var content = new MultipartFormDataContent { { new ByteArrayContent(buffers), "file", bookName.Replace(" ", "-") } };
 
             //_book.BookFileUrl = await BookWebService.UploadBookFile(content);
 
 
-
-
-
             string apiResponse;
 
             var form = new MultipartFormDataContent();
 
-
-
-            await using (var fileStream = e.File.OpenReadStream(maxAllowedSize))
+            using (var client = new HttpClient())
             {
-                HostClient.Timeout = TimeSpan.FromHours(1);
+                client.BaseAddress = HostClient.BaseAddress;
 
-                form.Add(new StreamContent(fileStream), "file", "bookName");
-                using (var response = await HostClient.PostAsync("api/v1/book/file-upload", form))
+                client.DefaultRequestHeaders.Add(AppStrings.ATAAuthTokenKey, "e1c52d03-2d0b-4006-bf20-f761480985f6");
+
+                client.Timeout = TimeSpan.FromHours(1);
+
+                await using (var fileStream = e.File.OpenReadStream(maxAllowedSize))
                 {
-                    response.EnsureSuccessStatusCode();
-                    apiResponse = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine(apiResponse);
+                    Console.WriteLine("buffer read started");
+
+                    await fileStream.ReadAsync(buffers);
+
+                    Console.WriteLine("Buffer read finished");
+
+                    var content = new MultipartFormDataContent { { new ByteArrayContent(buffers), "file", bookName.Replace(" ", "-") } };
+
+                    form.Add(content);
+
+                    //var content = new MultipartFormDataContent { { new ByteArrayContent(buffers), "file", bookName.Replace(" ", "-") } };
+
+                    Console.WriteLine("Api Call send");
+
+                    using (var response = await client.PostAsync("api/v1/book/file-upload", content))
+                    {
+                        Console.WriteLine("Answer from Api");
+                        response.EnsureSuccessStatusCode();
+                        apiResponse = await response.Content.ReadAsStringAsync();
+                        Console.WriteLine(apiResponse);
+                    }
                 }
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //string apiResponse;
+
+            //var form = new MultipartFormDataContent();
+
+            //using (var client = new HttpClient())
+            //{
+            //    client.BaseAddress = HostClient.BaseAddress;
+
+            //    client.DefaultRequestHeaders.Add(AppStrings.ATAAuthTokenKey, "e1c52d03-2d0b-4006-bf20-f761480985f6");
+
+            //    client.Timeout = TimeSpan.FromHours(1);
+
+            //    await using (var fileStream = e.File.OpenReadStream(maxAllowedSize))
+            //    {
+            //        form.Add(new StreamContent(fileStream), "file", "bookName");
+
+            //        //var content = new MultipartFormDataContent { { new ByteArrayContent(buffers), "file", bookName.Replace(" ", "-") } };
+
+            //        Console.WriteLine("Api Call send");
+
+            //        using (var response = await client.PostAsync("api/v1/book/file-upload", form))
+            //        {
+            //            Console.WriteLine("Answer from Api");
+            //            response.EnsureSuccessStatusCode();
+            //            apiResponse = await response.Content.ReadAsStringAsync();
+            //            Console.WriteLine(apiResponse);
+            //        }
+            //    }
+            //}
 
 
 
