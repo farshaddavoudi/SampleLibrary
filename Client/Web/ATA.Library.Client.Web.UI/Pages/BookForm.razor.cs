@@ -21,9 +21,9 @@ namespace ATA.Library.Client.Web.UI.Pages
 {
     public partial class BookForm
     {
-        private List<CategoryDto> _categories;
+        BookDto _book = new();
 
-        private string? _bookFileUrl;
+        private List<CategoryDto> _categories;
 
         private UploadStatus? _uploadStatus;
 
@@ -50,8 +50,6 @@ namespace ATA.Library.Client.Web.UI.Pages
         [Parameter]
         public string BookTitle { get; set; }
 
-
-        BookDto _book = new BookDto();
 
         private string _coverImagePreview;
 
@@ -93,16 +91,8 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         private async Task HandleBookSubmit()
         {
-            if (string.IsNullOrWhiteSpace(_bookFileUrl))
-            {
-                ToastService.ShowError("هیچ فایلی انتخاب نشده است");
-                return;
-            }
-
             if (_book.Id == default)
             { // Adding book
-                _book.BookFileUrl = _bookFileUrl;
-
                 await BookWebService.AddBook(_book);
 
                 ToastService.ShowSuccess("کتاب با موفقیت اضافه شد");
@@ -184,7 +174,7 @@ namespace ATA.Library.Client.Web.UI.Pages
 
             var bookName = e.File.Name.Length > 50 ? e.File.Name.Substring(0, 50) : e.File.Name;
 
-            _bookFileUrl = await BookWebService.UploadBookFile(new UploadBookFileDto
+            _book.BookFileUrl = await BookWebService.UploadBookFile(new UploadBookFileDto
             {
                 BookData = buffers,
                 BookName = bookName.Replace(" ", "-")
