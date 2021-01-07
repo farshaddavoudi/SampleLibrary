@@ -101,6 +101,8 @@ namespace ATA.Library.Client.Web.UI.Pages
 
             if (_book.Id == default)
             { // Adding book
+                _book.BookFileUrl = _bookFileUrl;
+
                 await BookWebService.AddBook(_book);
 
                 ToastService.ShowSuccess("کتاب با موفقیت اضافه شد");
