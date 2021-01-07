@@ -2,9 +2,11 @@
 using ATA.Library.Server.Service.Book.Contracts;
 using ATA.Library.Shared.Dto;
 using AutoMapper;
+using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,13 +23,15 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
     {
         private readonly IBookService _bookService;
         private readonly IMapper _mapper;
+        private readonly ILogger _logger;
 
         #region Constructor Injections
 
-        public BookController(IBookService bookService, IMapper mapper)
+        public BookController(IBookService bookService, IMapper mapper, ILogger logger)
         {
             _bookService = bookService;
             _mapper = mapper;
+            _logger = logger;
         }
 
         #endregion
@@ -77,10 +81,21 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Create))]
         public async Task<IActionResult> UploadBookFile(UploadBookFileDto fileDto, CancellationToken cancellationToken)
         {
-            var fileUrl =
-                await _bookService.SaveBookFileAndGetPathAsync(fileDto.BookData!, fileDto.BookName!, cancellationToken);
+            try
+            {
+                _logger.LogInformation($"Upload Started in WebApi => fileDto: {fileDto.BookData!.Length}");
 
-            return StatusCode(StatusCodes.Status201Created, fileUrl);
+                var fileUrl =
+                        await _bookService.SaveBookFileAndGetPathAsync(fileDto.BookData!, fileDto.BookName!, cancellationToken);
+
+                _logger.LogInformation("Upload Ended in WebApi");
+
+                return StatusCode(StatusCodes.Status201Created, fileUrl);
+            }
+            catch (Exception)
+            {
+                throw new ConnectionAbortedException("ارتباط قطع شد");
+            }
         }
 
         /// <summary>
