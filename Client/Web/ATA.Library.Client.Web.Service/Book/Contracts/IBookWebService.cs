@@ -1,5 +1,6 @@
 ﻿using ATA.Library.Shared.Dto;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ATA.Library.Client.Web.Service.Book.Contracts
@@ -12,7 +13,7 @@ namespace ATA.Library.Client.Web.Service.Book.Contracts
 
         Task AddBook(BookDto book);
 
-        Task<string> UploadBookFile(UploadBookFileDto bookFileDto);
+        Task<string> UploadBookFile(MultipartFormDataContent fileContent);
 
         Task EditBook(BookDto book);
 

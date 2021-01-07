@@ -1,14 +1,15 @@
 ﻿using ATA.Library.Server.Model.Entities.Book;
 using ATA.Library.Server.Service.Book.Contracts;
+using ATA.Library.Shared.Core;
 using ATA.Library.Shared.Dto;
+using ATA.Library.Shared.Service.Exceptions;
 using AutoMapper;
-using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,15 +24,13 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
     {
         private readonly IBookService _bookService;
         private readonly IMapper _mapper;
-        private readonly ILogger _logger;
 
         #region Constructor Injections
 
-        public BookController(IBookService bookService, IMapper mapper, ILogger logger)
+        public BookController(IBookService bookService, IMapper mapper)
         {
             _bookService = bookService;
             _mapper = mapper;
-            _logger = logger;
         }
 
         #endregion
@@ -74,29 +73,29 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
         /// <summary>
         /// Upload book pdf file into server
         /// </summary>
-        /// <param name="fileDto"></param>
+        /// <param name="file"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpPost("file-upload")]
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Create))]
-        public async Task<IActionResult> UploadBookFile(UploadBookFileDto fileDto, CancellationToken cancellationToken)
+        public async Task<IActionResult> UploadBookFile(IFormFile file, CancellationToken cancellationToken)
         {
-            try
-            {
-                _logger.LogInformation($"Upload Started in WebApi => fileDto: {fileDto.BookData!.Length}");
+            if (file.Length == 0)
+                throw new ArgumentNullException(nameof(file));
 
-                var fileUrl =
-                        await _bookService.SaveBookFileAndGetPathAsync(fileDto.BookData!, fileDto.BookName!, cancellationToken);
+            if (file.Length > AppStrings.UploadLimits.MaxBookFileSizeInMB * 1000000)
+                throw new BadRequestException("حجم فایل کتاب بیشتر از حد مجاز می‌باشد");
 
-                _logger.LogInformation("Upload Ended in WebApi");
+            await using var memoryStream = new MemoryStream();
 
-                return StatusCode(StatusCodes.Status201Created, fileUrl);
-            }
-            catch (Exception)
-            {
-                throw new ConnectionAbortedException("ارتباط قطع شد");
-            }
+            await file.CopyToAsync(memoryStream, cancellationToken);
+
+            var fileUrl =
+                await _bookService.SaveBookFileAndGetPathAsync(memoryStream.ToArray(), file.Name, cancellationToken);
+
+            return StatusCode(StatusCodes.Status201Created, fileUrl);
         }
+
 
         /// <summary>
         /// Add a book

@@ -4,6 +4,7 @@ using ATA.Library.Shared.Dto;
 using ATA.Library.Shared.Service.Exceptions;
 using Blazored.Toast.Services;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ATA.Library.Client.Web.Service.Book
@@ -81,9 +82,9 @@ namespace ATA.Library.Client.Web.Service.Book
             }
         }
 
-        public async Task<string> UploadBookFile(UploadBookFileDto bookFileDto)
+        public async Task<string> UploadBookFile(MultipartFormDataContent fileContent)
         {
-            var uploadResult = await _bookHostService.PostUploadBookFile(bookFileDto);
+            var uploadResult = await _bookHostService.PostUploadBookFile(fileContent);
 
             if (uploadResult == null)
             {

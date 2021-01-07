@@ -1,5 +1,6 @@
 ﻿using ATA.Library.Shared.Dto;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ATA.Library.Client.Service.HostServices.Book.Contracts
@@ -10,7 +11,7 @@ namespace ATA.Library.Client.Service.HostServices.Book.Contracts
 
         Task<ApiResult<List<BookDto>>?> GetBooksByCategory(int categoryId);
 
-        Task<ApiResult<string>?> PostUploadBookFile(UploadBookFileDto bookFileDto);
+        Task<ApiResult<string>?> PostUploadBookFile(MultipartFormDataContent fileContent);
 
         Task<ApiResult?> PostAddBook(BookDto book);
 

@@ -1,3 +1,4 @@
+using ATA.Library.Server.Model.AppSettings;
 using ATA.Library.Shared.Core;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,9 +27,7 @@ namespace ATA.Library.Server.Api
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile(
-                    $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json",
-                    optional: true)
+                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
                 .Build();
 
             Log.Logger = new LoggerConfiguration()
@@ -40,8 +39,11 @@ namespace ATA.Library.Server.Api
                 .Enrich.WithClientAgent()
                 .WriteTo.Debug()
                 .WriteTo.Console()
-                .WriteTo.Seq(configuration["AppSettings:Seq:ServerUrl"],
-                    apiKey: configuration["AppSettings:Seq:ApiKey"])
+                .WriteTo.Seq(
+                    //MagicString=>[AppSettings:Seq:ServerUrl]
+                    configuration[$"{nameof(AppSettings)}:{nameof(Model.AppSettings.Seq)}:{nameof(Model.AppSettings.Seq.ServerUrl)}"],
+                    //MagicString=>["AppSettings:Seq:ApiKey"]
+                    apiKey: configuration[$"{nameof(AppSettings)}:{nameof(Model.AppSettings.Seq)}:{nameof(Model.AppSettings.Seq.ApiKey)}"])
                 .Enrich.WithProperty("Environment", environment)
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();
@@ -66,6 +68,13 @@ namespace ATA.Library.Server.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+
+                    webBuilder.UseKestrel(options =>
+                    {
+                        options.Limits.MaxRequestBodySize = AppStrings.UploadLimits.MaxBookFileSizeInMB * 1100000;
+                    });
+
+                    webBuilder.UseIIS();
                 })
                 .ConfigureAppConfiguration(configuration =>
                 {

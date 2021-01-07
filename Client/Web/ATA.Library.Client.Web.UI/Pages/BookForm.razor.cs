@@ -14,6 +14,7 @@ using MimeTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -174,11 +175,9 @@ namespace ATA.Library.Client.Web.UI.Pages
 
             var bookName = e.File.Name.Length > 50 ? e.File.Name.Substring(0, 50) : e.File.Name;
 
-            _book.BookFileUrl = await BookWebService.UploadBookFile(new UploadBookFileDto
-            {
-                BookData = buffers,
-                BookName = bookName.Replace(" ", "-")
-            });
+            var content = new MultipartFormDataContent { { new ByteArrayContent(buffers), "file", bookName.Replace(" ", "-") } };
+
+            _book.BookFileUrl = await BookWebService.UploadBookFile(content);
 
             _uploadStatus = UploadStatus.Finished;
 
