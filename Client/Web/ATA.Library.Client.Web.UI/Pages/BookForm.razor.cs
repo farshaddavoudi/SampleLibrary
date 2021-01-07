@@ -24,6 +24,8 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         private string _uploadStatus;
 
+        private int? _progress;
+
         [CascadingParameter]
         private Task<AuthenticationState> AuthenticationStateTask { get; set; }
 
@@ -163,17 +165,30 @@ namespace ATA.Library.Client.Web.UI.Pages
 
             _uploadStatus = $"Uploading {e.File.Size.Bytes().Humanize()}...";
 
-            IBrowserFile bookFile = e.File;
+            _progress = 0;
 
-            var buffers = new byte[bookFile.Size];
+            int countSize = 0;
 
-            await bookFile.OpenReadStream(maxAllowedSize).ReadAsync(buffers);
+            await using (var fileStream = e.File.OpenReadStream(maxAllowedSize))
+            {
+                var buffers = new byte[e.File.Size];
 
-            _book.BookFileSize = bookFile.Size;
+                int count;
 
-            _book.BookFileByteData = buffers;
+                while ((count = await fileStream.ReadAsync(buffers, 0, buffers.Length)) != 0)
+                {
+                    countSize += count;
+                    _progress = (int)((decimal)countSize / e.File.Size * 100);
+                }
 
-            _book.BookFileFormat = MimeTypeMap.GetExtension(bookFile.ContentType);
+                _book.BookFileSize = e.File.Size;
+
+                _book.BookFileByteData = buffers;
+
+                _book.BookFileFormat = MimeTypeMap.GetExtension(e.File.ContentType);
+            }
+
+
 
             await Task.Delay(10000);
 
