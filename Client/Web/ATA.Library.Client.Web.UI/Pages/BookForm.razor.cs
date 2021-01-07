@@ -189,8 +189,13 @@ namespace ATA.Library.Client.Web.UI.Pages
             string apiResponse;
 
             var form = new MultipartFormDataContent();
+
+
+
             await using (var fileStream = e.File.OpenReadStream(maxAllowedSize))
             {
+                HostClient.Timeout = TimeSpan.FromHours(1);
+
                 form.Add(new StreamContent(fileStream), "file", "bookName");
                 using (var response = await HostClient.PostAsync("api/v1/book/file-upload", form))
                 {
