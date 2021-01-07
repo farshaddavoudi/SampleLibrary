@@ -10,7 +10,7 @@ namespace ATA.Library.Server.Service.Book.Contracts
         Task<string> SaveCoverImageFileAndGetPathAsync(byte[] fileData, string fileExtension,
             CancellationToken cancellationToken);
 
-        Task<string> SaveBookFileAndGetPathAsync(byte[] fileData, string fileExtension,
+        Task<string> SaveBookFileAndGetPathAsync(byte[] fileData, string bookName,
             CancellationToken cancellationToken);
 
         Task<string> GetBookFileAbsoluteUrl(int bookId, CancellationToken cancellationToken);

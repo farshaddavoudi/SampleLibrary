@@ -23,6 +23,8 @@ namespace ATA.Library.Client.Web.UI.Pages
     {
         private List<CategoryDto> _categories;
 
+        private string? _bookFileUrl;
+
         private UploadStatus? _uploadStatus;
 
         private string _uploadStatusTitle;
@@ -91,7 +93,7 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         private async Task HandleBookSubmit()
         {
-            if (_book.BookFileByteData == null)
+            if (string.IsNullOrWhiteSpace(_bookFileUrl))
             {
                 ToastService.ShowError("هیچ فایلی انتخاب نشده است");
                 return;
@@ -176,11 +178,13 @@ namespace ATA.Library.Client.Web.UI.Pages
 
             _book.BookFileSize = bookFile.Size;
 
-            _book.BookFileByteData = buffers;
-
             _book.BookFileFormat = MimeTypeMap.GetExtension(bookFile.ContentType);
 
-            await Task.Delay(5000);
+            _bookFileUrl = await BookWebService.UploadBookFile(new UploadBookFileDto
+            {
+                BookData = buffers,
+                BookName = e.File.Name.Replace(" ", "-").Substring(0, 50)
+            });
 
             _uploadStatus = UploadStatus.Finished;
 

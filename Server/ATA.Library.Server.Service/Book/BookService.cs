@@ -38,9 +38,9 @@ namespace ATA.Library.Server.Service.Book
             return fileName;
         }
 
-        public async Task<string> SaveBookFileAndGetPathAsync(byte[] fileData, string fileExtension, CancellationToken cancellationToken)
+        public async Task<string> SaveBookFileAndGetPathAsync(byte[] fileData, string bookName, CancellationToken cancellationToken)
         {
-            string fileName = $"{Guid.NewGuid()}{fileExtension}";
+            string fileName = $"{bookName}-{Guid.NewGuid()}.pdf";
 
             var fullPath = $@"{_appSettings.FileUploadPath!.BookFile}\{fileName}";
 

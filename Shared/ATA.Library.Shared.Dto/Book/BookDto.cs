@@ -38,11 +38,10 @@ namespace ATA.Library.Shared.Dto
 
         public string? Author { get; set; }
 
-        [NotMapped]
-        public byte[]? BookFileByteData { get; set; }
-
         public string? BookFileFormat { get; set; }
 
+
+        [Required(ErrorMessage = "هیچ کتابی انتخاب نشده است")]
         public string? BookFileUrl { get; set; }
 
         public long BookFileSize { get; set; }
@@ -59,10 +58,6 @@ namespace ATA.Library.Shared.Dto
             if (CoverImageByteData != null && CoverImageByteData.Length > AppStrings.UploadLimits.MaxCoverImageSizeInKB * 1000)
                 yield return new ValidationResult("حجم عکس کتاب بیشتر از حد مجاز می‌باشد",
                     new[] { nameof(CoverImageByteData) });
-
-            if (BookFileByteData != null && BookFileByteData.Length > AppStrings.UploadLimits.MaxBookFileSizeInMB * 1000000)
-                yield return new ValidationResult("حجم فایل کتاب بیشتر از حد مجاز می‌باشد",
-                    new[] { nameof(BookFileByteData) });
         }
     }
 }

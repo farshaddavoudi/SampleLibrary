@@ -81,6 +81,26 @@ namespace ATA.Library.Client.Web.Service.Book
             }
         }
 
+        public async Task<string> UploadBookFile(UploadBookFileDto bookFileDto)
+        {
+            var uploadResult = await _bookHostService.PostUploadBookFile(bookFileDto);
+
+            if (uploadResult == null)
+            {
+                var msg = "ارتباط با سرور برقرار نشد. لطفا چند دقیقه بعد مجدد تلاش نمایید";
+                _toastService.ShowError(msg);
+                throw new DomainLogicException(msg);
+            }
+
+            if (!uploadResult.IsSuccess)
+            {
+                _toastService.ShowError(uploadResult.Message);
+                throw new DomainLogicException(uploadResult.Message ?? "HttpPost call failed");
+            }
+
+            return uploadResult.Data!;
+        }
+
         public async Task EditBook(BookDto book)
         {
             var editResult = await _bookHostService.PutEditBook(book);

@@ -31,6 +31,13 @@ namespace ATA.Library.Client.Service.HostServices.Book
             return await _hostClient.GetFromJsonAsync<ApiResult<List<BookDto>>>($"api/v1/book/get-by-category?categoryId={categoryId}");
         }
 
+        public async Task<ApiResult<string>?> PostUploadBookFile(UploadBookFileDto bookFileDto)
+        {
+            var httpResponseMessage = await _hostClient.PostAsJsonAsync("api/v1/book/file-upload", bookFileDto);
+
+            return await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult<string>>();
+        }
+
         public async Task<ApiResult?> PostAddBook(BookDto book)
         {
             var httpResponseMessage = await _hostClient.PostAsJsonAsync("api/v1/book/add", book);

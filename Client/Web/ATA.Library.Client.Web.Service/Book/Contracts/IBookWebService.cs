@@ -12,6 +12,8 @@ namespace ATA.Library.Client.Web.Service.Book.Contracts
 
         Task AddBook(BookDto book);
 
+        Task<string> UploadBookFile(UploadBookFileDto bookFileDto);
+
         Task EditBook(BookDto book);
 
         Task DeleteBook(int bookId);

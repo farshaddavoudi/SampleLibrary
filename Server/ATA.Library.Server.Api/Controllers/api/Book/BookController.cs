@@ -1,7 +1,6 @@
 ﻿using ATA.Library.Server.Model.Entities.Book;
 using ATA.Library.Server.Service.Book.Contracts;
 using ATA.Library.Shared.Dto;
-using ATA.Library.Shared.Service.Exceptions;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -69,6 +68,22 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
         }
 
         /// <summary>
+        /// Upload book pdf file into server
+        /// </summary>
+        /// <param name="fileDto"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpPost("file-upload")]
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Create))]
+        public async Task<IActionResult> UploadBookFile(UploadBookFileDto fileDto, CancellationToken cancellationToken)
+        {
+            var fileUrl =
+                await _bookService.SaveBookFileAndGetPathAsync(fileDto.BookData!, fileDto.BookName!, cancellationToken);
+
+            return StatusCode(StatusCodes.Status201Created, fileUrl);
+        }
+
+        /// <summary>
         /// Add a book
         /// </summary>
         /// <param name="dto"></param>
@@ -81,17 +96,10 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
             if (dto == null)
                 throw new ArgumentNullException(nameof(dto));
 
-            if (dto.BookFileByteData == null)
-                throw new BadRequestException(nameof(BookDto.BookFileByteData));
-
             dto.CoverImageUrl = dto.CoverImageByteData != null
                 ? await _bookService.SaveCoverImageFileAndGetPathAsync(dto.CoverImageByteData,
                     dto.CoverImageFileFormat!, cancellationToken)
                 : "default-book-cover.png";
-
-            dto.BookFileUrl =
-                await _bookService.SaveBookFileAndGetPathAsync(dto.BookFileByteData!, dto.BookFileFormat!,
-                    cancellationToken);
 
             var entity = _mapper.Map<BookEntity>(dto);
 
