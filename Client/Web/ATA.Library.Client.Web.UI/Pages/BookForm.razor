@@ -1,6 +1,7 @@
 ﻿@page "/book-form"
 @page "/book-form/{BookId:int}"
 @page "/book-form/{BookId:int}/{BookTitle}"
+@using ATA.Library.Client.Web.Service.Enums
 
 <Title Value="افزودن کتاب"></Title>
 
@@ -54,8 +55,22 @@
                 <label for="bookFile" class="form-label">بارگزاری فایل Pdf کتاب</label>
                 <InputFile id="bookFile" class="form-control" OnChange="OnBookFileSelection" />
                 <div class="form-text">حداکثر حجم فایل 50 مگابایت </div>
-                <h1>@_uploadStatus</h1>
-                <h1>@_progress.ToString() %</h1>
+                @if (_uploadStatus != null)
+                {
+                    <div class="uploading-progress-wrapper">
+                        @if (_uploadStatus == UploadStatus.Started)
+                        {
+                            <img src="/images/components/Loading/circle_red_loading.gif" class="img-uploading" />
+                        }
+                        else
+                        {
+                            <img src="/images/components/check.png" class="img-check" />
+                        }
+                        <span style="color: @(_uploadStatus == UploadStatus.Finished ? "green" : "black")">
+                            @_uploadStatusTitle
+                        </span>
+                    </div>
+                }
             </div>
             <div class="form row">
                 <div class="mb-3  col-md-9 col-sm-12 form-check">
@@ -66,7 +81,14 @@
                     </label>
                 </div>
                 <div class="mb-3 col-md-3 col-sm-12 e-text-left">
-                    <button type="submit" class="btn btn-primary w-100">ذخیره</button>
+                    @if (_uploadStatus == UploadStatus.Started)
+                    {
+                        <button type="button" disabled="disabled" class="btn btn-primary disabled w-100">در حال بارگزاری فایل</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-primary w-100">ذخیره</button>
+                    }
                 </div>
             </div>
 

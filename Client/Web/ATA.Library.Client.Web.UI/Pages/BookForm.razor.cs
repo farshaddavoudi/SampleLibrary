@@ -1,5 +1,6 @@
 ﻿using ATA.Library.Client.Web.Service.Book.Contracts;
 using ATA.Library.Client.Web.Service.Category.Contracts;
+using ATA.Library.Client.Web.Service.Enums;
 using ATA.Library.Client.Web.UI.Extensions;
 using ATA.Library.Shared.Core;
 using ATA.Library.Shared.Dto;
@@ -22,9 +23,9 @@ namespace ATA.Library.Client.Web.UI.Pages
     {
         private List<CategoryDto> _categories;
 
-        private string _uploadStatus;
+        private UploadStatus? _uploadStatus;
 
-        private int? _progress;
+        private string _uploadStatusTitle;
 
         [CascadingParameter]
         private Task<AuthenticationState> AuthenticationStateTask { get; set; }
@@ -163,36 +164,27 @@ namespace ATA.Library.Client.Web.UI.Pages
                 return;
             }
 
-            _uploadStatus = $"Uploading {e.File.Size.Bytes().Humanize()}...";
+            _uploadStatus = UploadStatus.Started;
 
-            _progress = 0;
+            _uploadStatusTitle = $"Uploading {e.File.Size.Bytes().Humanize("0.0")} ...";
 
-            int countSize = 0;
+            IBrowserFile bookFile = e.File;
 
-            await using (var fileStream = e.File.OpenReadStream(maxAllowedSize))
-            {
-                var buffers = new byte[e.File.Size];
+            var buffers = new byte[bookFile.Size];
 
-                int count;
+            await bookFile.OpenReadStream(maxAllowedSize).ReadAsync(buffers);
 
-                while ((count = await fileStream.ReadAsync(buffers, 0, buffers.Length)) != 0)
-                {
-                    countSize += count;
-                    _progress = (int)((decimal)countSize / e.File.Size * 100);
-                }
+            _book.BookFileSize = bookFile.Size;
 
-                _book.BookFileSize = e.File.Size;
+            _book.BookFileByteData = buffers;
 
-                _book.BookFileByteData = buffers;
+            _book.BookFileFormat = MimeTypeMap.GetExtension(bookFile.ContentType);
 
-                _book.BookFileFormat = MimeTypeMap.GetExtension(e.File.ContentType);
-            }
+            await Task.Delay(5000);
 
+            _uploadStatus = UploadStatus.Finished;
 
-
-            await Task.Delay(10000);
-
-            _uploadStatus = $"Successfully Uploaded";
+            _uploadStatusTitle = $"Successfully Uploaded";
         }
     }
 }
