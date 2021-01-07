@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,13 +25,15 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
     {
         private readonly IBookService _bookService;
         private readonly IMapper _mapper;
+        private readonly ILogger<BookController> _logger;
 
         #region Constructor Injections
 
-        public BookController(IBookService bookService, IMapper mapper)
+        public BookController(IBookService bookService, IMapper mapper, ILogger<BookController> logger)
         {
             _bookService = bookService;
             _mapper = mapper;
+            _logger = logger;
         }
 
         #endregion
@@ -77,9 +80,12 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpPost("file-upload")]
+        [RequestFormLimits(MultipartBodyLengthLimit = 209715200)]
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Create))]
         public async Task<IActionResult> UploadBookFile(IFormFile file, CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Start uploading the file");
+
             if (file.Length == 0)
                 throw new ArgumentNullException(nameof(file));
 
@@ -92,6 +98,8 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
 
             var fileUrl =
                 await _bookService.SaveBookFileAndGetPathAsync(memoryStream.ToArray(), file.Name, cancellationToken);
+
+            _logger.LogInformation("Finish uploading the file");
 
             return StatusCode(StatusCodes.Status201Created, fileUrl);
         }

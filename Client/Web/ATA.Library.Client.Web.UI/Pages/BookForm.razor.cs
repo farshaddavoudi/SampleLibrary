@@ -45,6 +45,9 @@ namespace ATA.Library.Client.Web.UI.Pages
         [Inject]
         private IJSRuntime JsRuntime { get; set; }
 
+        [Inject]
+        private HttpClient HostClient { get; set; }
+
         [Parameter]
         public int? BookId { get; set; }
 
@@ -165,19 +168,61 @@ namespace ATA.Library.Client.Web.UI.Pages
 
             IBrowserFile bookFile = e.File;
 
-            var buffers = new byte[bookFile.Size];
+            //var buffers = new byte[bookFile.Size];
 
-            await bookFile.OpenReadStream(maxAllowedSize).ReadAsync(buffers);
+            //await bookFile.OpenReadStream(maxAllowedSize).ReadAsync(buffers);
 
-            _book.BookFileSize = bookFile.Size;
+            //_book.BookFileSize = bookFile.Size;
 
-            _book.BookFileFormat = MimeTypeMap.GetExtension(bookFile.ContentType);
+            //_book.BookFileFormat = MimeTypeMap.GetExtension(bookFile.ContentType);
 
-            var bookName = e.File.Name.Length > 50 ? e.File.Name.Substring(0, 50) : e.File.Name;
+            //var bookName = e.File.Name.Length > 50 ? e.File.Name.Substring(0, 50) : e.File.Name;
 
-            var content = new MultipartFormDataContent { { new ByteArrayContent(buffers), "file", bookName.Replace(" ", "-") } };
+            //var content = new MultipartFormDataContent { { new ByteArrayContent(buffers), "file", bookName.Replace(" ", "-") } };
 
-            _book.BookFileUrl = await BookWebService.UploadBookFile(content);
+            //_book.BookFileUrl = await BookWebService.UploadBookFile(content);
+
+
+
+
+
+            string apiResponse;
+
+            var form = new MultipartFormDataContent();
+            await using (var fileStream = e.File.OpenReadStream(maxAllowedSize))
+            {
+                form.Add(new StreamContent(fileStream), "file", "bookName");
+                using (var response = await HostClient.PostAsync("api/v1/book/file-upload", form))
+                {
+                    response.EnsureSuccessStatusCode();
+                    apiResponse = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine(apiResponse);
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+            //var streamContent = new StreamContent(e.File.OpenReadStream(maxAllowedSize), (int)e.File.Size);
+
+            //var httpResponseMessage = await HostClient.PostAsync("api/v1/book/file-upload", streamContent);
+
+            //var result = await httpResponseMessage.Content.ReadFromJsonAsync<ApiResult<string>>();
+
+            //_book.BookFileUrl = result.Data;
+
+
+
+
+
+
 
             _uploadStatus = UploadStatus.Finished;
 
