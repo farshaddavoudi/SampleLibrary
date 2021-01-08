@@ -1,9 +1,10 @@
-﻿@page "/books"
+﻿@page "/"
+@page "/books"
 @page "/books/{CategoryId:int}"
 @page "/books/{CategoryId:int}/{CategoryTitle}"
 @using ATA.Library.Client.Web.Service.Enums
 
-<Title Value="کتابخانه‌ی مجازی آتا"></Title>
+<Title Value="@(AppStrings.AppPersianFullName)"></Title>
 
 @if (_books == null)
 {
@@ -17,8 +18,8 @@ else
             <ul class="nav tabs-vertical">
                 @foreach (var category in _categories)
                 {
-                    <li class="tab nav-item">
-                        <NavLink class="nav-link" href="@($"books/{category.Id}/{category.CategoryName?.Replace(" ", "-")}")" Match="NavLinkMatch.All">
+                    <li @key="@category" class="tab nav-item">
+                        <NavLink id="@($"categoryId{category.Id}")" class="nav-link" href="@($"books/{category.Id}/{category.CategoryName?.Replace(" ", "-")}")" Match="NavLinkMatch.All">
                             @category.CategoryName
                         </NavLink>
                     </li>
@@ -29,7 +30,7 @@ else
                 {
                     <div class="no-books-container">
                         <div class="row">
-                            <img class="col-12 no-book-image" src="/images/components/no-book-found.jpg" />
+                            <img class="col-12 no-book-image" src="/images/components/no-book-found.png" />
                             <h6 class="col-12 no-book-found-text">هیچ کتابی یافت نشد</h6>
                         </div>
                     </div>

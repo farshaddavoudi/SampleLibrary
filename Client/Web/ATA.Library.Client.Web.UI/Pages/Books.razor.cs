@@ -50,12 +50,19 @@ namespace ATA.Library.Client.Web.UI.Pages
 
                 CategoryId = defaultCategory.Id;
 
-                NavigationManager.NavigateTo($"books/{CategoryId}/{defaultCategory.CategoryName?.Replace(" ", "-")}");
+                var newUrl = $"/books/{CategoryId}/{defaultCategory.CategoryName?.Replace(" ", "-")}";
+
+                await JsRuntime.ChangeAddressBarUrl(newUrl);
             }
-            else
-            {
-                _books = await BookWebService.GetBooksByCategory((int)CategoryId);
-            }
+
+            _books = await BookWebService.GetBooksByCategory((int)CategoryId);
+
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+                await JsRuntime.AddClassToElementById($"categoryId{CategoryId}", "active");
         }
 
         private async Task StateChangeRequested()

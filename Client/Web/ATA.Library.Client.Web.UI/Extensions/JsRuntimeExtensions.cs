@@ -30,6 +30,16 @@ namespace ATA.Library.Client.Web.UI.Extensions
             await jsRuntime.InvokeVoidAsync("open", url, "_blank");
         }
 
+        public static async Task ChangeAddressBarUrl(this IJSRuntime jsRuntime, string newUrl)
+        {
+            await jsRuntime.InvokeVoidAsync("changeAddressBarUrl", newUrl);
+        }
+
+        public static async Task AddClassToElementById(this IJSRuntime jsRuntime, string elementId, string className)
+        {
+            await jsRuntime.InvokeVoidAsync("addClassToElementById", elementId, className);
+        }
+
         public static async Task SetLayoutTitle(this IJSRuntime jsRuntime, string title)
         {
             await jsRuntime.InvokeVoidAsync("setLayoutTitle", title);

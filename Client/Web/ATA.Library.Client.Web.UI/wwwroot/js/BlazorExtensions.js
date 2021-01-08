@@ -27,3 +27,19 @@ function getCookie(cookieName) {
 function deleteCookie(cookieName) {
     document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
+
+// https://stackoverflow.com/questions/60494746/blazor-navigation-update-url-without-changing-reloading-page
+// https://stackoverflow.com/questions/3338642/updating-address-bar-with-new-url-without-hash-or-reloading-the-page
+function changeAddressBarUrl(newUrl) {
+    history.pushState(null, "", newUrl);
+}
+
+// https://www.w3schools.com/howto/howto_js_add_class.asp
+function addClassToElementById(elementId, className) {
+    var element = document.getElementById(elementId);
+    if (element) {
+        element.classList.add(className);
+    } else {
+        console.log("Element with id=" + elementId + " not found. Error occurred in BlazorExtensions.js file and addClassToElementById method.");
+    }
+}
