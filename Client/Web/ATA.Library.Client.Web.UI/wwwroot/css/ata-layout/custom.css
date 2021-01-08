@@ -250,7 +250,7 @@ box-shadow: 0px 20px 46px -8px rgba(0,0,0,0.41);
     line-height: 25px;
     min-height: 24px;
     font-size: 12px;
-	margin: 17px 5px;
+	margin: 17px 2rem;
 }
 #full-icon-btn::after {
 	display: none;

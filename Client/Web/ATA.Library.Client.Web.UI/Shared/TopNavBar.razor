@@ -2,26 +2,35 @@
     <div class="navbar-header">
 
         <ul class="nav navbar-top-links navbar-left">
-            <li class="dropdown @_userDropdownCssClass">
-                <a class="dropdown-toggle profile-pic" data-toggle="dropdown" @onclick="OnUserProfileClick">
-                    <img src="@_userProfileImageAddress" @onerror="OnUserImageLoadFailed" alt="user-img" width="36" class="img-circle"><span class="hidden-xs">
-                        <span class="user-name">@_userName / @_personnelCode</span>
-                    </span>
-                </a>
-                <ul class="dropdown-menu dropdown-user scale-up">
-                    <li><a href="#" class="btn disabled" title="به زودی"><i class="ti-user"></i> پروفایل من</a></li>
-                    <!--<li><a href="#" class="btn disabled" title="به زودی"><i class="ti-settings"></i> تنظیمات حساب</a></li>-->
-                    <li><a href="/pages/user/changepassword.aspx" target="_blank"><i class="ti-settings"></i> تغییر کلمه عبور</a></li>
-                    <li role="separator" class="divider"> </li>
-                    <li>
-                        <button class="btn btn-link" @onclick="Logout">
-                            <i class="fa fa-power-off"></i> خروج
-                        </button>
-                    </li>
 
-                </ul>
-                <!-- /.dropdown-user -->
-            </li>
+            @if (!string.IsNullOrWhiteSpace(_userProfileImageAddress))
+            {
+                <li class="dropdown @_userDropdownCssClass">
+                    <a class="dropdown-toggle profile-pic" data-toggle="dropdown" @onclick="OnUserProfileClick">
+
+
+                        <img src="@_userProfileImageAddress" @onerror="OnUserImageLoadFailed" alt="user-img" width="36" class="img-circle" />
+                        <span class="hidden-xs">
+                            <span class="user-name">@_userName / @_personnelCode</span>
+                        </span>
+
+                    </a>
+                    <ul class="dropdown-menu dropdown-user scale-up">
+                        <li><a href="#" class="btn disabled" title="به زودی"><i class="ti-user"></i> پروفایل من</a></li>
+                        <!--<li><a href="#" class="btn disabled" title="به زودی"><i class="ti-settings"></i> تنظیمات حساب</a></li>-->
+                        <li><a href="/pages/user/changepassword.aspx" target="_blank"><i class="ti-settings"></i> تغییر کلمه عبور</a></li>
+                        <li role="separator" class="divider"> </li>
+                        <li>
+                            <button class="btn btn-link" @onclick="Logout">
+                                <i class="fa fa-power-off"></i> خروج
+                            </button>
+                        </li>
+
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+            }
+
             <li>
                 <a id="full-icon-btn" class="dropdown-toggle waves-effect waves-light float-left" data-toggle="dropdown" href="http://home.ataair.ir" data-step="2" data-position='left'><span class="">بازگشت به پرتال آتا</span> <i class="icon-options-vertical"></i></a>
 
