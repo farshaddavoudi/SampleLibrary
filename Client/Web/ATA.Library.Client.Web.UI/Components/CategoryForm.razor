@@ -11,6 +11,7 @@
             <label class="form-label">نقش مدیر</label>
             <InputText class="form-control" @bind-Value="Category.AdminRole" placeholder="نقش مدیر" />
             <div class="form-text">نقش مدیر دسته در سیستم security </div>
+            <ValidationMessage For="() => Category.AdminRole" />
         </div>
         <div class="mb-3 buttons-wrapper">
             <button type="submit" class="btn btn-primary save-button">ذخیره</button>
