@@ -1,8 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+
+		<!--Blazor Optimization-->
+		<BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
+		<InvariantGlobalization>true</InvariantGlobalization>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Blazored.LocalStorage" Version="3.0.0" />
@@ -17,8 +21,8 @@
 		<PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ATA.Library.Client.Web.Service\ATA.Library.Client.Web.Service.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ATA.Library.Client.Web.Service\ATA.Library.Client.Web.Service.csproj" />
+	</ItemGroup>
 
 </Project>

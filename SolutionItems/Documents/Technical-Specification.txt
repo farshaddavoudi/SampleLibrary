@@ -13,13 +13,14 @@
 		> Do not have any authentication for the endpoint.
 
 Client:
-	* Blazor
+	* Blazor .Net5	
 	* Bootstrap 5 rtl
 	* Using SASS instead of CSS for styles
 	* Using HttpClientFactory typed client
 		> Connecting to Security client
 	* Include roles heavily in the logic using Blazor features (refer to doc: تحلیل سامانه)
-
+	* Using Syncfusion PDF viewer for reading PDFs without downnloading them
+	* ATA layout included heavily with help of our designer Majid Badkoubeh
 
 Publish:
 	* Only Master branch to publish (develop branch to development)
