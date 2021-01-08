@@ -23,30 +23,27 @@
 
 <body>
     <div id="app">
-        <div style="position: absolute; top: 30vh; width: 100%; text-align: center; font-family: webyekan">
-            <h1 style="font-weight: bold">
-                کتابخانه‌ی مجازی
-                <span style="color:indianred">آتا</span>
-            </h1>
-            <p>
-                <img src="images/loading.gif" />
-            </p>
+        <div class="make-center-loader-wrapper" style="height: 100vh">
+            <div class="preloader">
+                <svg class="circular" viewBox="25 25 50 50">
+                    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
+                </svg>
+            </div>
         </div>
     </div>
-
     <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
+        متاسفانه خطایی روی داده است. لطفا صفحه را مجدد بارگزاری نمایید. در صورت عدم رفع مشکل با پشتیبانی تماس بگیرید
+        <a href="" class="reload btn btn-sm">بارگزاری مجدد صفحه</a>
         <a class="dismiss">🗙</a>
     </div>
 
-<script src="_framework/blazor.webassembly.js"></script>
-<script src="js/jquery/jquery.min.js"></script>
-<script src="js/book-plugin.js"></script>
-<script src="_content/Microsoft.AspNetCore.Components.Web.Extensions/headManager.js"></script>
-<script src="_content/Blazored.Modal/blazored.modal.js"></script>
-<script src="js/BlazorExtensions.js"></script>
-<script src="js/ata.js"></script>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/book-plugin.js"></script>
+    <script src="_content/Microsoft.AspNetCore.Components.Web.Extensions/headManager.js"></script>
+    <script src="_content/Blazored.Modal/blazored.modal.js"></script>
+    <script src="js/BlazorExtensions.js"></script>
+    <script src="js/ata.js"></script>
 </body>
 
 </html>

@@ -651,12 +651,11 @@ code {
 }
 
 .preloader {
-    width: 100%;
-    height: 100%;
-
+    width: 60px;
+    height: 60px;
     position: fixed;
     z-index: 99999;
-    background: rgba(0,0,0,0.8);
+    background: transparent;
 }
 
     .preloader:before {
@@ -670,13 +669,13 @@ code {
     -moz-animation: preloader_rotate 2s linear infinite;
     -o-animation: preloader_rotate 2s linear infinite;
     animation: preloader_rotate 2s linear infinite;
-    height: 50px;
+    height: 60px;
     -webkit-transform-origin: center center;
     -moz-transform-origin: center center;
     -ms-transform-origin: center center;
     -o-transform-origin: center center;
     transform-origin: center center;
-    width: 50px;
+    width: 60px;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -2467,7 +2466,8 @@ table.dataTable thead .sorting_desc_disabled {
 .white-box {
     background: #fff;
     padding: 25px;
-    margin-bottom: 15px
+    margin-bottom: 15px;
+    min-height: 90vh;
 }
 
     .white-box .box-title {
@@ -2475,6 +2475,7 @@ table.dataTable thead .sorting_desc_disabled {
         font-weight: 400;
         font-size: 15px;
         line-height: 32px;
+        font-family: webyekan !important;
     }
 
         .white-box .box-title select {
@@ -11942,6 +11943,29 @@ a.fc-event:not([href]):not([tabindex]) {
         .management-buttons span:last-child {
             background: lightgreen;
         }
+
+.make-center-loader-wrapper {
+    direction: ltr;
+    font-family: roboto, iranyekan;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#blazor-error-ui > a.reload {
+    margin-right: 1em;
+    /*float: left;*/
+    width: 20%;
+    color: forestgreen;
+}
+
+#blazor-error-ui > a.dismiss {
+    float: left;
+    left: 3rem;
+    top: 1em;
+    right: auto;
+}
 
 
 /*#endregion*/

@@ -1,27 +1,30 @@
 ﻿@using ATA.Library.Client.Web.Service.Enums
-@if (LoadingType == LoadingType.Security)
+
+@if (LoadingType == LoadingType.Default)
 {
-    <div class="preloader">
-        <svg class="circular" viewBox="25 25 50 50">
-            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
-        </svg>
+    <div class="make-center-loader-wrapper">
+        <div class="preloader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
+            </svg>
+        </div>
     </div>
 }
 
 else
 {
-<div style="direction: ltr; font-family: roboto, iranyekan;height: 70vh; display: flex;justify-content: center;align-items: center;">
+    <div style="direction: ltr; font-family: roboto, iranyekan;height: 70vh; display: flex;justify-content: center;align-items: center;">
 
-    @if (LoadingType == LoadingType.GrayRing)
-    {
-        <img src="/images/loader.gif" />
-        @*<img src="/images/components/Loading/circle_gray_loading.gif" style="width:20rem" />*@
-    }
-    else
-    {   <img src="/images/loader.gif" />
-        @*<img src="/images/components/Loading/circle_red_loading.gif" style="width:4rem" />*@
-    }
-</div>
+        @if (LoadingType == LoadingType.GrayRing)
+        {
+            <img src="/images/loader.gif" />
+            @*<img src="/images/components/Loading/circle_gray_loading.gif" style="width:20rem" />*@
+        }
+        else
+        { <img src="/images/loader.gif" />
+            @*<img src="/images/components/Loading/circle_red_loading.gif" style="width:4rem" />*@
+        }
+    </div>
 }
 
 
@@ -29,5 +32,5 @@ else
 @code
 {
     [Parameter]
-    public LoadingType LoadingType { get; set; } = LoadingType.Security;
+    public LoadingType LoadingType { get; set; } = LoadingType.Default;
 }

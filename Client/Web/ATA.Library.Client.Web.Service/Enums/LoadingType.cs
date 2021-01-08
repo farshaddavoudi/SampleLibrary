@@ -2,7 +2,7 @@
 {
     public enum LoadingType
     {
-        Security,
+        Default,
 
         RedRing,
 
