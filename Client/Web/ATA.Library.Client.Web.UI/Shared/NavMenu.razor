@@ -1,10 +1,10 @@
-﻿<div class="navbar-default sidebar " role="navigation">
+﻿<div class="navbar-default sidebar " role="navigation" style="width: 60px">
     <div class="top-left-part hidden-sm hidden-xs">
         <a class="logo" href="http://home.ataair.ir">
             <b><img src="/images/ata-layout/eliteadmin-logo-dark.png" alt="home"></b>
-            <span class="hidden-xs">
-                <img src="/images/ata-layout/logo-text-dark.png" alt="home">
-            </span>
+            @*<span class="hidden-xs">
+                    <img src="/images/ata-layout/logo-text-dark.png" alt="home">
+                </span>*@
         </a>
     </div>
     <div class="sidebar-nav navbar-collapse slimscrollsidebar">
@@ -12,18 +12,18 @@
 
 
             <li class="sidenav-item">
-                <NavLink class="waves-effect" href="/books">
+                <NavLink class="waves-effect" href="/books" title="لیست کتاب‌ها">
                     <i class="fas fa-books"></i>
-                    <span class="hide-menu">لیست کتاب‌ها</span>
+                    @*<span class="hide-menu">لیست کتاب‌ها</span>*@
                 </NavLink>
             </li>
 
             <AuthorizeView Roles="@AppStrings.Claims.Administrator">
 
                 <li class="sidenav-item">
-                    <NavLink class="waves-effect" href="/categories" Match="NavLinkMatch.All">
+                    <NavLink class="waves-effect" href="/categories" Match="NavLinkMatch.All" title="مدیریت دسته‌ها">
                         <i class="fas fa-cogs"></i>
-                        <span class="hide-menu">مدیریت دسته‌ها</span>
+                        @*<span class="hide-menu">مدیریت دسته‌ها</span>*@
                     </NavLink>
                 </li>
 
@@ -33,9 +33,9 @@
             {
                 <AuthorizeView Roles="@_categoriesAdminRoles">
                     <li class="sidenav-item">
-                        <NavLink class="waves-effect" href="/book-form" Match="NavLinkMatch.All">
-                            <i class="fas fa-plus"></i>
-                            <span class="hide-menu">افزودن کتاب</span>
+                        <NavLink class="waves-effect" href="/book-form" Match="NavLinkMatch.All" title="افزودن کتاب">
+                            <i class="fas fa-plus" style="margin-right: 3px"></i>
+                            <span class="hide-menu">@*افزودن کتاب*@</span>
                         </NavLink>
                     </li>
                 </AuthorizeView>

@@ -62,5 +62,6 @@ namespace ATA.Library.Client.Web.UI.Shared
             HostClient.DefaultRequestHeaders.Remove(AppStrings.ATAAuthTokenKey);
             NavigationManager.NavigateTo($"http://security.app.ataair.ir/Application/Login.aspx?ReturnUrl={AppSettings.Urls!.AppAddress}", true);
         }
+
     }
 }
