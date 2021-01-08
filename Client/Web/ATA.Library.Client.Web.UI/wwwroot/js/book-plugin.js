@@ -1,13 +1,6 @@
-let hackForBlazorExecuteComponentTwice = 0;
+
 
 function initializeBookPlugin() {
-
-    hackForBlazorExecuteComponentTwice++;
-
-    if (isEven(hackForBlazorExecuteComponentTwice))
-        return;
-
-
     var $books = $('#bk-list > li > div.bk-book'),
         booksCount = $books.length;
 
@@ -94,12 +87,6 @@ function initializeBookPlugin() {
 
 }
 
-function isEven(value) {
-    if (value % 2 === 0)
-        return true;
-    else
-        return false;
-}
 
 
 

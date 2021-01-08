@@ -4585,7 +4585,8 @@ ul.common li {
 
         .vtabs .tabs-vertical li a {
             color: #2b2b2b;
-            margin-bottom: 10px
+            margin-bottom: 10px;
+            padding-right: 0.7rem;
         }
 
     .vtabs .tab-content {
@@ -11478,12 +11479,17 @@ a.btn-inverse.btn-outline:not([href]):not([tabindex]) {
 .customvtab .tabs-vertical li a.active,
 .customvtab .tabs-vertical li a.active:focus,
 .customvtab .tabs-vertical li a.active:hover {
-    background: #f7f7f7;
+    background: #f4f4f4;
     border: 0;
     border-left: 2px solid #ff6849;
     margin-left: -1px;
     color: #2b2b2b;
     padding: 10px;
+    border-radius: 15px;
+    padding-right: 15px;
+    margin-right: -10px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .customtab2 li .nav-link.active,

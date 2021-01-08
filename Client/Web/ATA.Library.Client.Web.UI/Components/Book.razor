@@ -30,11 +30,15 @@
 
     <div class="bk-back">
         <p>
-            <span>
-                نام نویسنده:
-                @BookDto.Author
-            </span>
-            <br />
+            @if (!string.IsNullOrWhiteSpace(BookDto.Author))
+            {
+                <span>
+                    نام نویسنده:
+                    @BookDto.Author
+                </span>
+                <br />
+            }
+
             <span>
                 تاریخ بارگذاری:
                 @BookDto.CreatedAt.ToShortPersianDateString()
@@ -42,16 +46,19 @@
             <br />
             <span>
                 حجم:
+            </span>
+            <br />
+            <span class="book-size">
                 @BookDto.BookSizeToDisplay
             </span>
-            @if (!string.IsNullOrWhiteSpace(BookDto.Description))
-            {
-                <br />
-                <span>
-                    توضیحات:
-                    @BookDto.Description
-                </span>
-            }
+            @*@if (!string.IsNullOrWhiteSpace(BookDto.Description))
+                {
+                    <br />
+                    <span>
+                        توضیحات:
+                        @BookDto.Description
+                    </span>
+                }*@
 
         </p>
     </div>

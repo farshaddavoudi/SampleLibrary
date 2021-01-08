@@ -35,12 +35,13 @@ namespace ATA.Library.Client.Web.UI.Pages
         [Inject]
         private IJSRuntime JsRuntime { get; set; }
 
+        protected override async Task OnInitializedAsync()
+        {
+            _categories = await CategoryWebService.GetCategories();
+        }
+
         protected override async Task OnParametersSetAsync()
         {
-            await JsRuntime.SetLayoutTitle(AppStrings.AppPersianFullName);
-
-            _categories = await CategoryWebService.GetCategories();
-
             if (_categories.Count == 0)
                 return;
 
@@ -52,20 +53,20 @@ namespace ATA.Library.Client.Web.UI.Pages
 
                 var newUrl = $"/books/{CategoryId}/{defaultCategory.CategoryName?.Replace(" ", "-")}";
 
-                await JsRuntime.ChangeAddressBarUrl(newUrl);
+                NavigationManager.NavigateTo(newUrl);
             }
 
             _books = await BookWebService.GetBooksByCategory((int)CategoryId);
+
+            await base.OnParametersSetAsync();
 
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
-            {
-                if (CategoryId != null)
-                    await JsRuntime.AddClassToElementById($"categoryId{CategoryId}", "active");
-            }
+                await JsRuntime.SetLayoutTitle(AppStrings.AppPersianFullName);
+
         }
 
         private async Task StateChangeRequested()
