@@ -1,6 +1,14 @@
+@using System.Reflection
+@inject LazyAssemblyLoader AssemblyLoader
+
 <CascadingBlazoredModal>
     <CascadingAuthenticationState>
-        <Router AppAssembly="@typeof(Program).Assembly">
+        <Router AppAssembly="@typeof(Program).Assembly"
+                AdditionalAssemblies="@_lazyLoadedAssemblies"
+                OnNavigateAsync="@OnNavigateAsync">
+            <Navigating>
+                <Loading />
+            </Navigating>
             <Found Context="routeData">
                 <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
 
@@ -14,12 +22,51 @@
 
                 </AuthorizeRouteView>
             </Found>
+
             <NotFound>
                 <LayoutView Layout="@typeof(MainLayout)">
                     <PageNotFound />
                 </LayoutView>
             </NotFound>
+
         </Router>
     </CascadingAuthenticationState>
 </CascadingBlazoredModal>
 
+@code
+{
+    private readonly List<Assembly> _lazyLoadedAssemblies = new List<Assembly>();
+
+    private async Task OnNavigateAsync(NavigationContext arg)
+    {
+        try
+        {
+            if (arg.Path.Contains("book-viewer"))
+            {
+                var assemblies = await AssemblyLoader.LoadAssembliesAsync(
+                    new List<string>
+                    {
+                        "Syncfusion.Blazor.Buttons.dll",
+                        "Syncfusion.Blazor.Data.dll",
+                        "Syncfusion.Blazor.DropDowns.dll",
+                        "Syncfusion.Blazor.InPlaceEditor.dll",
+                        "Syncfusion.Blazor.Inputs.dll",
+                        "Syncfusion.Blazor.Lists.dll",
+                        "Syncfusion.Blazor.Navigations.dll",
+                        "Syncfusion.Blazor.Notifications.dll",
+                        "Syncfusion.Blazor.PdfViewer.dll",
+                        "Syncfusion.Blazor.Popups.dll",
+                        "Syncfusion.Blazor.Spinner.dll",
+                        "Syncfusion.Blazor.SplitButtons.dll",
+                        "Syncfusion.Blazor.Themes.dll"
+                        });
+
+                _lazyLoadedAssemblies.AddRange(assemblies);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+}
