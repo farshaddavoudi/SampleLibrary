@@ -16,7 +16,7 @@ function initializeBookPlugin() {
 
         $parent.find('span.bk-bookback').on('click', function () {
 
-            debugger;
+            //debugger;
 
             $bookview.removeClass('bk-active');
 
@@ -34,10 +34,8 @@ function initializeBookPlugin() {
 
         $bookview.on('click', function () {
 
-           debugger;
-            console.log('dovomo');
-
-            var $this = $(this);
+           //debugger;
+           var $this = $(this);
 
             $other.data('opened', false).removeClass('bk-viewinside').parent().css('z-index', 0).find('button.bk-bookview').removeClass('bk-active');
             if (!$other.hasClass('bk-viewback')) {
