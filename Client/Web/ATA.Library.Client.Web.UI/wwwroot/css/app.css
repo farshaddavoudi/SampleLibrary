@@ -149,53 +149,6 @@ html {
     vertical-align: middle;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: #2b2b2b;
-    margin: 10px 0;
-    font-weight: 200
-}
-
-h1 {
-    line-height: 60px;
-    font-size: 36px
-}
-
-h2 {
-    line-height: 44px;
-    font-size: 24px
-}
-
-h3 {
-    line-height: 38px;
-    font-size: 21px
-}
-
-h4 {
-    line-height: 34px;
-    font-size: 18px
-}
-
-h5 {
-    line-height: 26px;
-    font-size: 14px
-}
-
-h6 {
-    line-height: 1.85;
-}
-
-.dn {
-    display: none
-}
-
-.db {
-    display: block
-}
 
 .light_op_text {
     color: rgba(255, 255, 255, .5)
