@@ -4,8 +4,6 @@ function initializeBookPlugin() {
     var $books = $('#bk-list > li > div.bk-book'),
         booksCount = $books.length;
 
-    console.log($books);
-
     $books.each(function () {
 
         var $book = $(this),
@@ -18,7 +16,7 @@ function initializeBookPlugin() {
 
         $parent.find('span.bk-bookback').on('click', function () {
 
-            //debugger;
+            debugger;
 
             $bookview.removeClass('bk-active');
 
@@ -36,7 +34,8 @@ function initializeBookPlugin() {
 
         $bookview.on('click', function () {
 
-           // debugger;
+           debugger;
+            console.log('dovomo');
 
             var $this = $(this);
 

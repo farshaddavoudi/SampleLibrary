@@ -51,6 +51,12 @@ else
                         <img src="@_coverImagePreview" />
                     </div>
                 }
+                else if (!string.IsNullOrWhiteSpace(_book.CoverImageUrl))
+                {
+                    <div class="row cover-preview-image-wrapper">
+                        <img src="@(GetCoverAbsoluteUrlFromCoverName(_book.CoverImageUrl))" />
+                    </div>
+                }
             </div>
             <div class="mb-3 col-md-6 col-sm-12">
                 <label for="bookFile" class="form-label">بارگزاری فایل Pdf کتاب</label>

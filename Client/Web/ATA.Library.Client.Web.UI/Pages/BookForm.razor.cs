@@ -1,4 +1,5 @@
-﻿using ATA.Library.Client.Web.Service.Book.Contracts;
+﻿using ATA.Library.Client.Web.Service.AppSetting;
+using ATA.Library.Client.Web.Service.Book.Contracts;
 using ATA.Library.Client.Web.Service.Category.Contracts;
 using ATA.Library.Client.Web.Service.Enums;
 using ATA.Library.Client.Web.UI.Extensions;
@@ -9,6 +10,7 @@ using Humanizer;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.JSInterop;
 using MimeTypes;
 using System;
@@ -52,6 +54,12 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         [Inject]
         private NavigationManager NavigationManager { get; set; }
+
+        [Inject]
+        private IWebAssemblyHostEnvironment HostEnvironment { get; set; }
+
+        [Inject]
+        private AppSettings AppSettings { get; set; }
 
         [Parameter]
         public int? BookId { get; set; }
@@ -115,7 +123,9 @@ namespace ATA.Library.Client.Web.UI.Pages
             }
             else
             { // Editing book
+                await BookWebService.EditBook(_book);
 
+                ToastService.ShowSuccess("ویرایش کتاب با موفقیت انجام شد");
             }
 
             isSaving = false;
@@ -208,6 +218,13 @@ namespace ATA.Library.Client.Web.UI.Pages
         private void Cancel()
         {
             NavigationManager.NavigateTo("/books");
+        }
+
+        private string GetCoverAbsoluteUrlFromCoverName(string coverName)
+        {
+            return HostEnvironment.IsDevelopment()
+                ? AppSettings.BookBaseUrls!.CoverBaseUrl
+                : $"{AppSettings.BookBaseUrls!.CoverBaseUrl}/{coverName}";
         }
     }
 }

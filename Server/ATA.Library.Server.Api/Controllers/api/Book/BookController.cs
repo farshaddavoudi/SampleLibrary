@@ -53,7 +53,7 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
             if (book == null)
                 return NotFound($"هیچ کتابی با این شناسه پیدا نشد. شناسه‌ی ارسالی = {bookId}");
 
-            return Ok(book);
+            return Ok(_mapper.Map<BookDto>(book));
         }
 
         /// <summary>
