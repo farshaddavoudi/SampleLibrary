@@ -2476,6 +2476,7 @@ table.dataTable thead .sorting_desc_disabled {
         font-size: 15px;
         line-height: 32px;
         font-family: webyekan !important;
+        letter-spacing: 1px;
     }
 
         .white-box .box-title select {

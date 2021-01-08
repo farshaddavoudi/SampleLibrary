@@ -48,6 +48,9 @@ namespace ATA.Library.Client.Web.UI.Pages
         [Inject]
         private HttpClient HostClient { get; set; }
 
+        [Inject]
+        private NavigationManager NavigationManager { get; set; }
+
         [Parameter]
         public int? BookId { get; set; }
 
@@ -193,6 +196,11 @@ namespace ATA.Library.Client.Web.UI.Pages
             _uploadStatus = UploadStatus.Finished;
 
             _uploadStatusTitle = $"Successfully Uploaded";
+        }
+
+        private void Cancel()
+        {
+            NavigationManager.NavigateTo("/books");
         }
     }
 }

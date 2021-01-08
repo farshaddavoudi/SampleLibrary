@@ -62,7 +62,10 @@ namespace ATA.Library.Client.Web.UI.Pages
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
-                await JsRuntime.AddClassToElementById($"categoryId{CategoryId}", "active");
+            {
+                if (CategoryId != null)
+                    await JsRuntime.AddClassToElementById($"categoryId{CategoryId}", "active");
+            }
         }
 
         private async Task StateChangeRequested()
