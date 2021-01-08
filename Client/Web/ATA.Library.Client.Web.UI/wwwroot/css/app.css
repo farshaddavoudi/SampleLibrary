@@ -11776,6 +11776,10 @@ button.close {
         border-color: #e4e7ea
     }
 
+select.form-control {
+    -webkit-appearance: menulist !important; /* Showing arrow of select */
+}
+
 select.form-control:not([size]):not([multiple]) {
     /*height: 3.85rem;*/
     padding-top: 6px;

@@ -30,6 +30,8 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         private string _uploadStatusTitle;
 
+        private bool isSaving;
+
         [CascadingParameter]
         private Task<AuthenticationState> AuthenticationStateTask { get; set; }
 
@@ -98,15 +100,17 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         private async Task HandleBookSubmit()
         {
+            isSaving = true;
+
             if (_book.Id == default)
             { // Adding book
                 await BookWebService.AddBook(_book);
 
                 ToastService.ShowSuccess("کتاب با موفقیت اضافه شد");
 
-                // todo: Modal to user for choose between
-                // 1- Another book add
-                // 2- Go to books
+                var categoryId = _book.CategoryId;
+
+                _book = new BookDto { CategoryId = categoryId };
 
             }
             else
@@ -114,6 +118,9 @@ namespace ATA.Library.Client.Web.UI.Pages
 
             }
 
+            isSaving = false;
+
+            _uploadStatus = null;
         }
 
         private async Task OnCoverImageFileSelection(InputFileChangeEventArgs e)

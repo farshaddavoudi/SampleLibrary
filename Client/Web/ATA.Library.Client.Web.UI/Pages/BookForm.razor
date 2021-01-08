@@ -56,6 +56,8 @@ else
                 <label for="bookFile" class="form-label">بارگزاری فایل Pdf کتاب</label>
                 <InputFile id="bookFile" class="form-control" OnChange="OnBookFileSelection" />
                 <div class="form-text">حداکثر حجم فایل 50 مگابایت </div>
+                <ValidationMessage For="()=> _book.BookFileUrl" />
+
                 @if (_uploadStatus != null)
                 {
                     <div class="uploading-progress-wrapper">
@@ -94,7 +96,14 @@ else
                     }
                     else
                     {
-                        <button type="submit" class="btn btn-primary w-100">ذخیره</button>
+                        if (isSaving)
+                        {
+                            <button type="button" disabled="disabled" class="btn btn-primary disabled w-100">در حال ثبت ...</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-primary w-100">ذخیره</button>
+                        }
                     }
                 </div>
             </div>
