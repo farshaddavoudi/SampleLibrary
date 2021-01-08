@@ -65,7 +65,11 @@ namespace ATA.Library.Client.Web.UI.Pages
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
+            {
                 await JsRuntime.SetLayoutTitle(AppStrings.AppPersianFullName);
+                // await JsRuntime.InvokeVoidAsync("clearConsole");
+                await JsRuntime.InvokeVoidAsync("addSignature");
+            }
 
         }
 

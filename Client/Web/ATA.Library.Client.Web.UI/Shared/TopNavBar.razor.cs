@@ -42,7 +42,7 @@ namespace ATA.Library.Client.Web.UI.Shared
 
             _personnelCode = userPersonnelCodeClaim.Value;
 
-            _userProfileImageAddress = $"http://cdn.app.ataair.ir/img/pers/{_personnelCode}.png";
+            _userProfileImageAddress = $"https://cdn.app.ataair.ir/img/pers/{_personnelCode}.png";
 
         }
 

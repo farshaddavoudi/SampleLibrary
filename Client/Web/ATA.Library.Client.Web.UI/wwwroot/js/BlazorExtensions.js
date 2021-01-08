@@ -43,3 +43,14 @@ function addClassToElementById(elementId, className) {
         console.log("Element with id=" + elementId + " not found. Error occurred in BlazorExtensions.js file and addClassToElementById method.");
     }
 }
+
+
+// My signature in console
+function addSignature() {
+    console.log('%c Developed by %cFarshad Davoudi', 'font-weight:bold; font-size:30px; color: blue;', 'font-weight:bold; font-size:50px;color:red;text-shadow:1px 1px 0px black, 1px -1px 0px black, -1px 1px 0px black, -1px -1px 0x black;');
+}
+
+// Clear console
+function clearConsole() {
+    console.clear();
+}
