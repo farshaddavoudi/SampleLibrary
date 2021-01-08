@@ -20,6 +20,7 @@ Client:
 		> Connecting to Security client
 	* Include roles heavily in the logic using Blazor features (refer to doc: تحلیل سامانه)
 	* Using Syncfusion PDF viewer for reading PDFs without downnloading them
+		> Configure lazy loading for Syncfusion PdfViewer for app initial startup faster
 	* ATA layout included heavily with help of our designer Majid Badkoubeh
 
 Publish:
