@@ -32,13 +32,17 @@ namespace ATA.Library.Client.Web.Service.Book
             {
                 var msg = "ارتباط با سرور برقرار نشد. لطفا چند دقیقه بعد مجدد تلاش نمایید";
                 _toastService.ShowError(msg);
+#if DEBUG
                 throw new BadRequestException(msg);
+#endif
             }
 
             if (!getBookResult.IsSuccess)
             {
                 _toastService.ShowError(getBookResult.Message);
+#if DEBUG
                 throw new BadRequestException(getBookResult.Message ?? "HttpGet call failed");
+#endif
             }
 
             return getBookResult.Data!;
@@ -52,13 +56,17 @@ namespace ATA.Library.Client.Web.Service.Book
             {
                 var msg = "ارتباط با سرور برقرار نشد. لطفا چند دقیقه بعد مجدد تلاش نمایید";
                 _toastService.ShowError(msg);
+#if DEBUG
                 throw new BadRequestException(msg);
+#endif
             }
 
             if (!getBooksResult.IsSuccess)
             {
                 _toastService.ShowError(getBooksResult.Message);
+#if DEBUG
                 throw new BadRequestException(getBooksResult.Message ?? "HttpGet call failed");
+#endif
             }
 
             return getBooksResult.Data!;
@@ -72,13 +80,19 @@ namespace ATA.Library.Client.Web.Service.Book
             {
                 var msg = "ارتباط با سرور برقرار نشد. لطفا چند دقیقه بعد مجدد تلاش نمایید";
                 _toastService.ShowError(msg);
+#if DEBUG
                 throw new DomainLogicException(msg);
+#endif
+
             }
 
             if (!addResult.IsSuccess)
             {
                 _toastService.ShowError(addResult.Message);
+#if DEBUG
                 throw new DomainLogicException(addResult.Message ?? "HttpPost call failed");
+#endif
+
             }
         }
 
@@ -90,13 +104,18 @@ namespace ATA.Library.Client.Web.Service.Book
             {
                 var msg = "ارتباط با سرور برقرار نشد. لطفا چند دقیقه بعد مجدد تلاش نمایید";
                 _toastService.ShowError(msg);
+#if DEBUG
                 throw new DomainLogicException(msg);
+#endif
+
             }
 
             if (!uploadResult.IsSuccess)
             {
                 _toastService.ShowError(uploadResult.Message);
+#if DEBUG
                 throw new DomainLogicException(uploadResult.Message ?? "HttpPost call failed");
+#endif
             }
 
             return uploadResult.Data!;
@@ -110,13 +129,18 @@ namespace ATA.Library.Client.Web.Service.Book
             {
                 var msg = "خطا در ارتباط با سرور";
                 _toastService.ShowError(msg);
+#if DEBUG
                 throw new DomainLogicException(msg);
+#endif
+
             }
 
             if (!editResult.IsSuccess)
             {
                 _toastService.ShowError(editResult.Message);
+#if DEBUG
                 throw new DomainLogicException(editResult.Message ?? "HttpPut call failed");
+#endif
             }
         }
 
@@ -128,13 +152,17 @@ namespace ATA.Library.Client.Web.Service.Book
             {
                 var msg = "خطا در ارتباط با سرور";
                 _toastService.ShowError(msg);
+#if DEBUG
                 throw new DomainLogicException(msg);
+#endif
             }
 
             if (!deleteResult.IsSuccess)
             {
                 _toastService.ShowError(deleteResult.Message);
+#if DEBUG
                 throw new DomainLogicException(deleteResult.Message ?? "HttpDelete call failed");
+#endif
             }
         }
     }

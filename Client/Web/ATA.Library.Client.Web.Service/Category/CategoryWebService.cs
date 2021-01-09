@@ -32,13 +32,17 @@ namespace ATA.Library.Client.Web.Service.Category
             {
                 var msg = "خطا در ارتباط با سرور";
                 _toastService.ShowError(msg);
+#if DEBUG
                 throw new InvalidOperationException(msg);
+#endif
             }
 
             if (!categoriesResult!.IsSuccess)
             {
                 _toastService.ShowError(categoriesResult.Message);
+#if DEBUG
                 throw new InvalidOperationException(categoriesResult.Message);
+# endif
             }
 
             var categories = categoriesResult.Data;
@@ -61,13 +65,17 @@ namespace ATA.Library.Client.Web.Service.Category
             {
                 var msg = "خطا در ارتباط با سرور";
                 _toastService.ShowError(msg);
+#if DEBUG
                 throw new DomainLogicException(msg);
+#endif
             }
 
             if (!addResult.IsSuccess)
             {
                 _toastService.ShowError(addResult.Message);
+#if DEBUG
                 throw new DomainLogicException(addResult.Message ?? "HttpPost call failed");
+#endif
             }
         }
 
@@ -79,13 +87,17 @@ namespace ATA.Library.Client.Web.Service.Category
             {
                 var msg = "خطا در ارتباط با سرور";
                 _toastService.ShowError(msg);
+#if DEBUG
                 throw new DomainLogicException(msg);
+#endif
             }
 
             if (!editResult.IsSuccess)
             {
                 _toastService.ShowError(editResult.Message);
+#if DEBUG
                 throw new DomainLogicException(editResult.Message ?? "HttpPut call failed");
+#endif
             }
         }
 
@@ -97,13 +109,17 @@ namespace ATA.Library.Client.Web.Service.Category
             {
                 var msg = "خطا در ارتباط با سرور";
                 _toastService.ShowError(msg);
+#if DEBUG
                 throw new DomainLogicException(msg);
+#endif
             }
 
             if (!deleteResult.IsSuccess)
             {
                 _toastService.ShowError(deleteResult.Message);
+#if DEBUG
                 throw new DomainLogicException(deleteResult.Message ?? "HttpDelete call failed");
+#endif
             }
         }
     }
