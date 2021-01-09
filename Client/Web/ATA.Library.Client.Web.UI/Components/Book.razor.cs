@@ -46,15 +46,6 @@ namespace ATA.Library.Client.Web.UI.Components
         [Inject]
         private IJSRuntime JsRuntime { get; set; }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-                await JsRuntime.InitializeBookPlugin();
-            }
-
-        }
-
         protected override void OnParametersSet()
         {
             _coverImageUrl = HostEnvironment.IsDevelopment()
@@ -105,6 +96,11 @@ namespace ATA.Library.Client.Web.UI.Components
             {
                 await JsRuntime.NavigateToUrlInNewTab($"/book-viewer/{BookDto.Id}/{BookDto.Title?.Replace(" ", "-")}");
             }
+        }
+
+        private async Task ShowBookDetails()
+        {
+            await JsRuntime.FlipBook($"book{BookDto.Id}");
         }
     }
 }

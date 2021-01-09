@@ -10,7 +10,7 @@
     </div>
 </AuthorizeView>
 
-<div class="bk-book book-1 bk-bookdefault">
+<div id="@($"book{BookDto.Id}")" class="bk-book book-1 bk-bookdefault">
     <div class="bk-front">
         <div class="bk-cover-back"></div>
         <div class="bk-cover" style="background-image: url(@_coverImageUrl);">
@@ -78,7 +78,7 @@
 
 <div class="bk-info">
 
-    <span class="bk-bookback">جزئیات</span>
+    <span class="bk-bookback" @onclick="ShowBookDetails">جزئیات</span>
     <span class="bk-bookview" @onclick="ViewOrDownloadBook">
         @(BookDto.IsDownloadable ? "دانلود" : "مشاهده")
     </span>

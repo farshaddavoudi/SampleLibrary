@@ -45,9 +45,9 @@ namespace ATA.Library.Client.Web.UI.Extensions
             await jsRuntime.InvokeVoidAsync("setLayoutTitle", title);
         }
 
-        public static async Task InitializeBookPlugin(this IJSRuntime jsRuntime)
+        public static async Task FlipBook(this IJSRuntime jsRuntime, string bookId)
         {
-            await jsRuntime.InvokeVoidAsync("initializeBookPlugin");
+            await jsRuntime.InvokeVoidAsync("flipBook", bookId);
         }
     }
 }
