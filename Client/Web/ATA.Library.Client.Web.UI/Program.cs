@@ -4,6 +4,7 @@ using ATA.Library.Client.Web.UI.Infrastructure.SyncfusionComponent;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
+using Toolbelt.Blazor.Extensions.DependencyInjection;
 
 namespace ATA.Library.Client.Web.UI
 {
@@ -21,7 +22,10 @@ namespace ATA.Library.Client.Web.UI
             // Client Installers
             builder.Services.InstallServicesInAssemblies(blazorAppSettings);
 
-            await builder.Build().RunAsync();
+            await builder
+                .Build()
+                .UseLoadingBar()
+                .RunAsync();
 
         }
     }

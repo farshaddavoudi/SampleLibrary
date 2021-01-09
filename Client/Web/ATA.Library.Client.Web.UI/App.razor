@@ -41,7 +41,7 @@
     {
         try
         {
-            if (arg.Path.Contains("book-viewer"))
+            if (arg.Path.Contains("book-viewer/"))
             {
                 var assemblies = await AssemblyLoader.LoadAssembliesAsync(
                     new List<string>
@@ -59,7 +59,7 @@
                         "Syncfusion.Blazor.Spinner.dll",
                         "Syncfusion.Blazor.SplitButtons.dll",
                         "Syncfusion.Blazor.Themes.dll"
-                        });
+                            });
 
                 _lazyLoadedAssemblies.AddRange(assemblies);
             }

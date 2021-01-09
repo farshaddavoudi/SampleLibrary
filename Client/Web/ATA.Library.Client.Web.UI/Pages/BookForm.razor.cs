@@ -32,7 +32,7 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         private string _uploadStatusTitle;
 
-        private bool isSaving;
+        private bool _isSaving;
 
         [CascadingParameter]
         private Task<AuthenticationState> AuthenticationStateTask { get; set; }
@@ -72,8 +72,6 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            await JsRuntime.SetLayoutTitle("افزودن کتاب");
-
             _categories = await CategoryWebService.GetCategories();
 
             var authState = await AuthenticationStateTask;
@@ -106,9 +104,17 @@ namespace ATA.Library.Client.Web.UI.Pages
             }
         }
 
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+                await JsRuntime.SetLayoutTitle("افزودن کتاب");
+
+            await base.OnAfterRenderAsync(firstRender);
+        }
+
         private async Task HandleBookSubmit()
         {
-            isSaving = true;
+            _isSaving = true;
 
             if (_book.Id == default)
             { // Adding book
@@ -128,7 +134,7 @@ namespace ATA.Library.Client.Web.UI.Pages
                 ToastService.ShowSuccess("ویرایش کتاب با موفقیت انجام شد");
             }
 
-            isSaving = false;
+            _isSaving = false;
 
             _uploadStatus = null;
         }

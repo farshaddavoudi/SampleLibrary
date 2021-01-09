@@ -5,7 +5,7 @@
 
 <Title Value="@(AppStrings.AppPersianFullName)"></Title>
 
-@if (_books == null)
+@if (_categories == null)
 {
     <Loading />
 }
@@ -25,34 +25,39 @@ else
                 }
             </ul>
             <div class="tab-content">
-                @if (_books.Count == 0)
+
+                @if (_books == null)
                 {
-                    <div class="no-books-container">
-                        <div class="row">
-                            <img class="col-12 no-book-image" src="/images/components/no-book-found.png" />
-                            <h6 class="col-12 no-book-found-text">هیچ کتابی یافت نشد</h6>
-                        </div>
-                    </div>
+                    <Loading />
                 }
                 else
                 {
-                    <div class="main">
-                        <ul id="bk-list" class="bk-list clearfix">
-                            @foreach (var book in _books)
-                            {
-                                <li @key="@book" id="@($"book{book.Id}")">
-                                    <Book BookDto="@book" @key="@book.Id" StateChangeRequest="StateChangeRequested" />
-                                </li>
-                            }
-                        </ul>
-                    </div>
+                    @if (_books.Count == 0)
+                    {
+                        <div class="no-books-container">
+                            <div class="row">
+                                <img class="col-12 no-book-image" src="/images/components/no-book-found.png" />
+                                <h6 class="col-12 no-book-found-text">هیچ کتابی یافت نشد</h6>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="main">
+                            <ul id="bk-list" class="bk-list clearfix">
+                                @foreach (var book in _books)
+                                {
+                                    <li @key="@book" id="@($"book{book.Id}")">
+                                        <Book BookDto="@book" @key="@book.Id" StateChangeRequest="StateChangeRequested" />
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
                 }
+
             </div>
         </div>
-
-
-
-
     </div>
 
 }

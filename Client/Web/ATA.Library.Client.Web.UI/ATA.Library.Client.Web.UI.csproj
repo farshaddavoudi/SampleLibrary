@@ -18,6 +18,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.1" PrivateAssets="all" />
 		<PackageReference Include="Syncfusion.Blazor.PdfViewer" Version="18.4.0.31" />
 		<PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+		<PackageReference Include="Toolbelt.Blazor.LoadingBar" Version="12.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>

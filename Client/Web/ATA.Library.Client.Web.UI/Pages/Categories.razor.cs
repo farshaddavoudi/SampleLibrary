@@ -32,9 +32,15 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            await JsRuntime.SetLayoutTitle("مدیریت دسته‌ها");
-
             await LoadTableData();
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+                await JsRuntime.SetLayoutTitle("مدیریت دسته‌ها");
+
+            await base.OnAfterRenderAsync(firstRender);
         }
 
         private async Task OnAddCategory()

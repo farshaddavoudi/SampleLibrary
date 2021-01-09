@@ -1,4 +1,8 @@
 ﻿function setLayoutTitle(title) {
-    document.getElementById("ata-layout-box-title").innerHTML = title;
+    let el = document.getElementById("ata-layout-box-title");
+
+    if (el) {
+        el.innerHTML = title;
+    }
 }
 
