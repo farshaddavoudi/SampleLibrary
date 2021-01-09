@@ -41,10 +41,12 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            AppData.OnChange += StateHasChanged;
+
             if (AppData.Categories.Count == 0)
                 _categories = AppData.Categories = await CategoryWebService.GetCategories();
-
-            _categories = AppData.Categories;
+            else
+                _categories = AppData.Categories;
         }
 
         protected override async Task OnParametersSetAsync()
@@ -66,7 +68,6 @@ namespace ATA.Library.Client.Web.UI.Pages
             _books = await BookWebService.GetBooksByCategory((int)CategoryId);
 
             await base.OnParametersSetAsync();
-
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
