@@ -1,7 +1,6 @@
-﻿using ATA.Library.Client.Web.Service.AppSetting;
-using ATA.Library.Shared.Dto;
+﻿using ATA.Library.Client.Web.Service;
+using ATA.Library.Client.Web.Service.AppSetting;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
 
 namespace ATA.Library.Client.Web.UI.Infrastructure.AppSingletonCaches
 {
@@ -9,14 +8,9 @@ namespace ATA.Library.Client.Web.UI.Infrastructure.AppSingletonCaches
     {
         public void InstallServices(IServiceCollection services, AppSettings appSettings)
         {
-            var appCache = new AppCache();
+            var appCache = new AppData();
 
             services.AddSingleton(sp => appCache);
         }
-    }
-
-    public class AppCache
-    {
-        public List<CategoryDto> Categories { get; set; } = new List<CategoryDto>();
     }
 }

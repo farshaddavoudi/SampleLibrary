@@ -1,7 +1,7 @@
-﻿using ATA.Library.Client.Web.Service.Category.Contracts;
+﻿using ATA.Library.Client.Web.Service;
+using ATA.Library.Client.Web.Service.Category.Contracts;
 using ATA.Library.Client.Web.UI.Components;
 using ATA.Library.Client.Web.UI.Extensions;
-using ATA.Library.Client.Web.UI.Infrastructure.AppSingletonCaches;
 using ATA.Library.Shared.Dto;
 using Blazored.Modal;
 using Blazored.Modal.Services;
@@ -30,7 +30,7 @@ namespace ATA.Library.Client.Web.UI.Pages
         private IJSRuntime JsRuntime { get; set; }
 
         [Inject]
-        private AppCache AppCache { get; set; }
+        private AppData AppData { get; set; }
 
         [CascadingParameter]
         private IModalService ModalService { get; set; }
@@ -109,7 +109,7 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         public void Dispose()
         {
-            AppCache.Categories = _categories;
+            AppData.Categories = _categories;
         }
     }
 }
