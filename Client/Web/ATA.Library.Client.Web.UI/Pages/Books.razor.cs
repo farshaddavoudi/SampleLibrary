@@ -1,6 +1,7 @@
 ﻿using ATA.Library.Client.Web.Service.Book.Contracts;
 using ATA.Library.Client.Web.Service.Category.Contracts;
 using ATA.Library.Client.Web.UI.Extensions;
+using ATA.Library.Client.Web.UI.Infrastructure.AppSingletonCaches;
 using ATA.Library.Shared.Core;
 using ATA.Library.Shared.Dto;
 using Microsoft.AspNetCore.Components;
@@ -35,9 +36,15 @@ namespace ATA.Library.Client.Web.UI.Pages
         [Inject]
         private IJSRuntime JsRuntime { get; set; }
 
+        [Inject]
+        private AppCache AppCache { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
-            _categories = await CategoryWebService.GetCategories();
+            if (AppCache.Categories.Count == 0)
+                _categories = AppCache.Categories = await CategoryWebService.GetCategories();
+
+            _categories = AppCache.Categories;
         }
 
         protected override async Task OnParametersSetAsync()

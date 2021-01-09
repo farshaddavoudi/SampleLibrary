@@ -1,6 +1,7 @@
 ﻿using ATA.Library.Client.Web.Service.Category.Contracts;
 using ATA.Library.Client.Web.UI.Components;
 using ATA.Library.Client.Web.UI.Extensions;
+using ATA.Library.Client.Web.UI.Infrastructure.AppSingletonCaches;
 using ATA.Library.Shared.Dto;
 using Blazored.Modal;
 using Blazored.Modal.Services;
@@ -8,13 +9,14 @@ using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ATA.Library.Client.Web.UI.Pages
 {
     [Authorize(Roles = "Administrator")]
-    public partial class Categories
+    public partial class Categories : IDisposable
     {
         private List<CategoryDto> _categories;
 
@@ -26,6 +28,9 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         [Inject]
         private IJSRuntime JsRuntime { get; set; }
+
+        [Inject]
+        private AppCache AppCache { get; set; }
 
         [CascadingParameter]
         private IModalService ModalService { get; set; }
@@ -100,6 +105,11 @@ namespace ATA.Library.Client.Web.UI.Pages
             _categories = await CategoryWebService.GetCategories();
 
             StateHasChanged();
+        }
+
+        public void Dispose()
+        {
+            AppCache.Categories = _categories;
         }
     }
 }
