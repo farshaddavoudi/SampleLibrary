@@ -61,7 +61,11 @@ else
             <div class="mb-3 col-md-6 col-sm-12">
                 <label for="bookFile" class="form-label">بارگزاری فایل Pdf کتاب</label>
                 <InputFile id="bookFile" class="form-control" OnChange="OnBookFileSelection" />
-                <div class="form-text">حداکثر حجم فایل 50 مگابایت </div>
+                <div class="form-text">
+                    حداکثر حجم فایل
+                    @AppStrings.UploadLimits.MaxBookFileSizeInMB.ToString()
+                    مگابایت
+                </div>
                 <ValidationMessage For="()=> _book.BookFileUrl" />
 
                 @if (_uploadStatus != null)

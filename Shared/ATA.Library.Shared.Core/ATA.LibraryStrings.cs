@@ -34,7 +34,7 @@
         {
             public static readonly int MaxCoverImageSizeInKB = 500;
 
-            public static readonly int MaxBookFileSizeInMB = 50;
+            public static readonly int MaxBookFileSizeInMB = 100;
         }
 
         public static class Regex
