@@ -1,0 +1,1 @@
+﻿Copy all blazor.webassembly files into _framework folder until the WebDeploy issue resolved
