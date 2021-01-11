@@ -4,7 +4,6 @@ using ATA.Library.Client.Web.UI.Extensions;
 using ATA.Library.Shared.Core;
 using ATA.Library.Shared.Service.Exceptions;
 using ATA.Library.Shared.Service.Extensions;
-using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -27,7 +26,6 @@ namespace ATA.Library.Client.Web.UI.AuthProvider
         private readonly AppSettings _appSettings;
         private readonly IWebAssemblyHostEnvironment _hostEnvironment;
         private readonly string _authTokenKey = AppStrings.ATAAuthTokenKey;
-        private readonly IToastService _toastService;
 
         #region Constructor Injections
 
@@ -36,7 +34,7 @@ namespace ATA.Library.Client.Web.UI.AuthProvider
             AppSettings appSettings,
             IJSRuntime jsRuntime,
             IWebAssemblyHostEnvironment hostEnvironment,
-            ISecurityClientService securityClientService, IToastService toastService)
+            ISecurityClientService securityClientService)
         {
             _hostClient = hostClient;
             _navigationManager = navigationManager;
@@ -44,7 +42,6 @@ namespace ATA.Library.Client.Web.UI.AuthProvider
             _jsRuntime = jsRuntime;
             _hostEnvironment = hostEnvironment;
             _securityClientService = securityClientService;
-            _toastService = toastService;
         }
 
         #endregion

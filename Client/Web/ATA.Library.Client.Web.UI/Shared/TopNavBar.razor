@@ -3,13 +3,13 @@
 
         <ul class="nav navbar-top-links navbar-left">
 
-            @if (!string.IsNullOrWhiteSpace(_userProfileImageAddress))
+            @if (!string.IsNullOrWhiteSpace(AppData.UserProfileImageUrl))
             {
                 <li class="dropdown @_userDropdownCssClass">
                     <a class="dropdown-toggle profile-pic" data-toggle="dropdown" @onclick="OnUserProfileClick">
 
 
-                        <img src="@_userProfileImageAddress" @onerror="OnUserImageLoadFailed" alt="user-img" width="36" class="img-circle" />
+                        <img src="@AppData.UserProfileImageUrl" @onerror="OnUserImageLoadFailed" alt="user-img" width="36" class="img-circle" />
                         <span class="hidden-xs">
                             <span class="user-name">@_userName / @_personnelCode</span>
                         </span>

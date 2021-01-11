@@ -1,4 +1,5 @@
-﻿using ATA.Library.Client.Web.Service.AppSetting;
+﻿using ATA.Library.Client.Web.Service;
+using ATA.Library.Client.Web.Service.AppSetting;
 using ATA.Library.Client.Web.UI.Extensions;
 using ATA.Library.Shared.Core;
 using Microsoft.AspNetCore.Components;
@@ -15,7 +16,6 @@ namespace ATA.Library.Client.Web.UI.Shared
         private string _userDropdownCssClass;
         private string _userName;
         private string _personnelCode;
-        private string _userProfileImageAddress;
 
         [CascadingParameter]
         private Task<AuthenticationState> AuthenticationStateTask { get; set; }
@@ -32,6 +32,9 @@ namespace ATA.Library.Client.Web.UI.Shared
         [Inject]
         private AppSettings AppSettings { get; set; }
 
+        [Inject]
+        private AppData AppData { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             var authState = await AuthenticationStateTask;
@@ -42,8 +45,8 @@ namespace ATA.Library.Client.Web.UI.Shared
 
             _personnelCode = userPersonnelCodeClaim.Value;
 
-            _userProfileImageAddress = $"https://cdn.app.ataair.ir/img/pers/{_personnelCode}.png";
-
+            if (string.IsNullOrWhiteSpace(AppData.UserProfileImageUrl))
+                AppData.UserProfileImageUrl = $"https://cdn.app.ataair.ir/img/pers/{_personnelCode}.png";
         }
 
         private void OnUserProfileClick()
@@ -53,7 +56,7 @@ namespace ATA.Library.Client.Web.UI.Shared
 
         private void OnUserImageLoadFailed()
         {
-            _userProfileImageAddress = "/images/ata-layout/user-default.jpg";
+            AppData.UserProfileImageUrl = "/images/ata-layout/user-default.jpg";
         }
 
         private async Task Logout()

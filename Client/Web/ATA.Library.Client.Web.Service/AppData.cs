@@ -17,6 +17,8 @@ namespace ATA.Library.Client.Web.Service
             }
         }
 
+        public string? UserProfileImageUrl { get; set; }
+
         public event Action? OnChange;
         private void NotifyDataChanged() => OnChange?.Invoke();
     }
