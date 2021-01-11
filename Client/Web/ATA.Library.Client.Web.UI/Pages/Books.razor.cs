@@ -75,8 +75,6 @@ namespace ATA.Library.Client.Web.UI.Pages
             if (firstRender)
             {
                 await JsRuntime.SetLayoutTitle(AppStrings.AppPersianFullName);
-                // await JsRuntime.InvokeVoidAsync("clearConsole");
-                await JsRuntime.InvokeVoidAsync("addSignature");
             }
 
         }

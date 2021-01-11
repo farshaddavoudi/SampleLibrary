@@ -1,4 +1,5 @@
 @using System.Reflection
+@inject IJSRuntime JsRuntime
 @inject LazyAssemblyLoader AssemblyLoader
 
 <CascadingBlazoredModal>
@@ -59,7 +60,7 @@
                         "Syncfusion.Blazor.Spinner.dll",
                         "Syncfusion.Blazor.SplitButtons.dll",
                         "Syncfusion.Blazor.Themes.dll"
-                            });
+                                    });
 
                 _lazyLoadedAssemblies.AddRange(assemblies);
             }
@@ -68,5 +69,10 @@
         {
             throw new Exception(ex.Message);
         }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await JsRuntime.InvokeVoidAsync("addSignature");
     }
 }
