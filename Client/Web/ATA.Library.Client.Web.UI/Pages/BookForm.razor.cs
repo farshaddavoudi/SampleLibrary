@@ -122,6 +122,8 @@ namespace ATA.Library.Client.Web.UI.Pages
 
                 ToastService.ShowSuccess("کتاب با موفقیت اضافه شد");
 
+                _coverImagePreview = null;
+
                 var categoryId = _book.CategoryId;
 
                 _book = new BookDto { CategoryId = categoryId };
