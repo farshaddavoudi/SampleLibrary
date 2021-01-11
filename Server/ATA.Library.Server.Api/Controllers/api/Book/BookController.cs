@@ -151,6 +151,11 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
 
             dto.CreatedAt = entity.CreatedAt; //fix CreateAt mapping issue
 
+            dto.CoverImageUrl = dto.CoverImageByteData != null
+                ? await _bookService.SaveCoverImageFileAndGetPathAsync(dto.CoverImageByteData,
+                    dto.CoverImageFileFormat!, cancellationToken)
+                : "default-book-cover.png";
+
             _mapper.Map(dto, entity);
 
             await _bookService.UpdateAsync(entity, cancellationToken);
