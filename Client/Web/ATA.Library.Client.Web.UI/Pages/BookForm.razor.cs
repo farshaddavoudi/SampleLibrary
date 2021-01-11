@@ -211,8 +211,8 @@ namespace ATA.Library.Client.Web.UI.Pages
 
                 await using (var fileStream = e.File.OpenReadStream(maxAllowedSize))
                 {
-                    await fileStream.ReadAsync(buffers);
-                    var content = new MultipartFormDataContent { { new ByteArrayContent(buffers), "file", bookName.Replace(" ", "-") } };
+                    //await fileStream.ReadAsync(buffers);
+                    var content = new MultipartFormDataContent { { new StreamContent(fileStream), "file", bookName.Replace(" ", "-") } };
                     _book.BookFileUrl = await BookWebService.UploadBookFile(content);
                     await fileStream.DisposeAsync();
                 }
