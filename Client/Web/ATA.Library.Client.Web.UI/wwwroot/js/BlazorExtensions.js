@@ -48,6 +48,7 @@ function addClassToElementById(elementId, className) {
 // My signature in console
 function addSignature() {
     console.log('%c Developed by %cF@rsh@d D@voudi', 'font-weight:bold; font-size:25px; color: blue;', 'font-weight:bold; font-size:25px;letter-spacing:3px;color:green;text-shadow:1px 1px 0px black, 1px -1px 0px black, -1px 1px 0px black, -1px -1px 0x black;');
+    console.log('contact me: https://www.linkedin.com/in/farshad-davoudi/');
 }
 
 // Clear console
