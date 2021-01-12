@@ -29,7 +29,7 @@
                 <div class="row" style="width:100%">
                     <div class="col-1"></div>
                     <div class="col-10 text-center">
-                        <p style="direction: rtl">
+                        <p id="appLoadingTitle" style="direction: rtl">
                             در حال بارگذاری اولیه سامانه
                         </p>
                         <div class="progress" style="height: 25px">
@@ -52,17 +52,24 @@
 
         <script type="text/javascript">
 
-            var isAlreadyInstalled = localStorage.getItem("appInstalled");
+            // Update version in every deployment
+            const applicationVersion = "1.1";
 
-            if (isAlreadyInstalled) {
-                document.getElementById("app-install-loading").style.display = "none";
-                document.getElementById("app-initial-loading").style.display = "flex";
-            } else {
+            var isAlreadyInstalled = localStorage.getItem("BlazorInstalled");
+            var appVersion = localStorage.getItem("AppVersion");
+
+            if (!isAlreadyInstalled || appVersion !== applicationVersion) {
                 document.getElementById("app-install-loading").style.display = "block";
                 document.getElementById("app-initial-loading").style.display = "none";
 
+                if (isAlreadyInstalled) {
+                    document.getElementById("appLoadingTitle").innerHTML = "در حال بروزرسانی سامانه";
+                }
+
                 const progressbar = document.getElementById("progressbar");
+
                 var i = 0;
+
                 window.loadResourceCallback = (total, name, response) => {
                     if (name.endsWith('.dll')) {
                         i++;
@@ -75,6 +82,9 @@
                 }
 
                 localStorage.setItem("appInstalled", true);
+            } else {
+                document.getElementById("app-install-loading").style.display = "none";
+                document.getElementById("app-initial-loading").style.display = "flex";
             }
         </script>
     </div>
