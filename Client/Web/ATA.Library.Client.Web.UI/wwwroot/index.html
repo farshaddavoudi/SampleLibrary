@@ -55,14 +55,17 @@
             // Update version in every deployment
             const applicationVersion = "1.1";
 
-            var isAlreadyInstalled = localStorage.getItem("BlazorInstalled");
             var appVersion = localStorage.getItem("AppVersion");
 
-            if (!isAlreadyInstalled || appVersion !== applicationVersion) {
+            if (appVersion === applicationVersion) {
+
+                document.getElementById("app-install-loading").style.display = "none";
+                document.getElementById("app-initial-loading").style.display = "flex";
+            } else {
                 document.getElementById("app-install-loading").style.display = "block";
                 document.getElementById("app-initial-loading").style.display = "none";
 
-                if (isAlreadyInstalled) {
+                if (appVersion) {
                     document.getElementById("appLoadingTitle").innerHTML = "در حال بروزرسانی سامانه";
                 }
 
@@ -81,10 +84,7 @@
                     }
                 }
 
-                localStorage.setItem("appInstalled", true);
-            } else {
-                document.getElementById("app-install-loading").style.display = "none";
-                document.getElementById("app-initial-loading").style.display = "flex";
+                localStorage.setItem("AppVersion", applicationVersion);
             }
         </script>
     </div>
