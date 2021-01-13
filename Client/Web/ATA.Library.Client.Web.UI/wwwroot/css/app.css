@@ -1,4 +1,4 @@
-﻿/*#region font-face*/
+/*#region font-face*/
 @font-face {
     font-family: 'webyekan';
     src: url('/fonts/webyekan/web_Yekan.woff') format('woff'), url('/fonts/webyekan/web_Yekan.ttf') format('truetype'), url('/fonts/webyekan/web_Yekan.svg') format('svg'), url('/fonts/webyekan/web_Yekan.eot') format('embedded-opentype');
@@ -1688,7 +1688,7 @@ pre {
     }
 
     .navbar-top-links > li {
-        float: right
+        float: right;
     }
 
         .navbar-top-links > li:last-child {
@@ -4590,9 +4590,9 @@ ul.common li {
         }
 
     .vtabs .tab-content {
-        display: table-cell;
+        /* display: table; */
         padding: 20px;
-        vertical-align: top
+        vertical-align: top;
     }
 
 .tabs-vertical li.active a,
@@ -11024,7 +11024,41 @@ ul.pro-amenities {
         display: inline-block;
         vertical-align: middle;
     }
-
+    .vtabs .tabs-vertical {
+        width: auto;
+        display: table;
+        width: 100% !important;
+        border: 0;
+    }
+    .navbar-top-links > li {
+    float: none;
+}
+    .customvtab .tabs-vertical li a.active {
+        
+border: 0 !important;
+        
+background: #ea3c43 !important;
+        
+color: #fff !important;
+        
+margin-right: 0 !important;
+    }
+    .customvtab .tabs-vertical li a {
+        text-align: center;
+        background:#f5f5f5;
+        border-radius:8px !important;
+    }
+.vtabs .tab-content {
+    display: table;
+}
+.sidebar {
+    display:none
+    
+}
+.inner-content {
+    padding-right: 15px;
+    padding-left: 1.1rem;
+}
         .navbar-top-links .profile-pic img {
             margin-left: 0
         }
@@ -11034,7 +11068,7 @@ ul.pro-amenities {
     }
 
     .navbar-top-links li:last-child {
-        margin-left: 0
+        margin-left: 0;
     }
 
     .navbar-top-links .dropdown-alerts,
@@ -11175,9 +11209,6 @@ ul.pro-amenities {
 }
 
 @media (max-width:480px) {
-    .vtabs .tabs-vertical {
-        width: auto
-    }
 
     .stat-item {
         padding-left: 0
@@ -11333,7 +11364,8 @@ pre {
     -webkit-transition: .5 easy-out;
     -o-transition: .5 easy-out;
     -moz-transition: .5 easy-out;
-    transition: .5 easy-out
+    transition: .5 easy-out;
+    width: 100%;
 }
 
     #side-menu .nav {
