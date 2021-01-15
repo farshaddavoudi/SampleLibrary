@@ -194,7 +194,7 @@ namespace ATA.Library.Client.Web.UI.Pages
 
             _uploadStatusTitle = $"Uploading {e.File.Size.Bytes().Humanize("0.0")} ...";
 
-            var buffers = new byte[e.File.Size];
+            //var buffers = new byte[e.File.Size];
 
             _book.BookFileSize = e.File.Size;
 
