@@ -1,10 +1,9 @@
 ﻿using ATA.Library.Client.Service.HostServices.Category.Contracts;
 using ATA.Library.Client.Web.Service.Category.Contracts;
 using ATA.Library.Shared.Dto;
-using ATA.Library.Shared.Service.Exceptions;
 using Blazored.Toast.Services;
-using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ATA.Library.Client.Web.Service.Category
@@ -33,7 +32,7 @@ namespace ATA.Library.Client.Web.Service.Category
                 var msg = "خطا در ارتباط با سرور";
                 _toastService.ShowError(msg);
 #if DEBUG
-                throw new InvalidOperationException(msg);
+                throw new HttpRequestException(msg);
 #endif
             }
 
@@ -41,7 +40,7 @@ namespace ATA.Library.Client.Web.Service.Category
             {
                 _toastService.ShowError(categoriesResult.Message);
 #if DEBUG
-                throw new InvalidOperationException(categoriesResult.Message);
+                throw new HttpRequestException(categoriesResult.Message);
 # endif
             }
 
@@ -66,7 +65,7 @@ namespace ATA.Library.Client.Web.Service.Category
                 var msg = "خطا در ارتباط با سرور";
                 _toastService.ShowError(msg);
 #if DEBUG
-                throw new DomainLogicException(msg);
+                throw new HttpRequestException(msg);
 #endif
             }
 
@@ -74,7 +73,7 @@ namespace ATA.Library.Client.Web.Service.Category
             {
                 _toastService.ShowError(addResult.Message);
 #if DEBUG
-                throw new DomainLogicException(addResult.Message ?? "HttpPost call failed");
+                throw new HttpRequestException(addResult.Message ?? "HttpPost call failed");
 #endif
             }
         }
@@ -88,7 +87,7 @@ namespace ATA.Library.Client.Web.Service.Category
                 var msg = "خطا در ارتباط با سرور";
                 _toastService.ShowError(msg);
 #if DEBUG
-                throw new DomainLogicException(msg);
+                throw new HttpRequestException(msg);
 #endif
             }
 
@@ -96,7 +95,7 @@ namespace ATA.Library.Client.Web.Service.Category
             {
                 _toastService.ShowError(editResult.Message);
 #if DEBUG
-                throw new DomainLogicException(editResult.Message ?? "HttpPut call failed");
+                throw new HttpRequestException(editResult.Message ?? "HttpPut call failed");
 #endif
             }
         }
@@ -110,7 +109,7 @@ namespace ATA.Library.Client.Web.Service.Category
                 var msg = "خطا در ارتباط با سرور";
                 _toastService.ShowError(msg);
 #if DEBUG
-                throw new DomainLogicException(msg);
+                throw new HttpRequestException(msg);
 #endif
             }
 
@@ -118,7 +117,7 @@ namespace ATA.Library.Client.Web.Service.Category
             {
                 _toastService.ShowError(deleteResult.Message);
 #if DEBUG
-                throw new DomainLogicException(deleteResult.Message ?? "HttpDelete call failed");
+                throw new HttpRequestException(deleteResult.Message ?? "HttpDelete call failed");
 #endif
             }
         }

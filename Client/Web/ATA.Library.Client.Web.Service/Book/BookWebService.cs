@@ -1,7 +1,6 @@
 ﻿using ATA.Library.Client.Service.HostServices.Book.Contracts;
 using ATA.Library.Client.Web.Service.Book.Contracts;
 using ATA.Library.Shared.Dto;
-using ATA.Library.Shared.Service.Exceptions;
 using Blazored.Toast.Services;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -33,7 +32,7 @@ namespace ATA.Library.Client.Web.Service.Book
                 var msg = "ارتباط با سرور برقرار نشد. لطفا چند دقیقه بعد مجدد تلاش نمایید";
                 _toastService.ShowError(msg);
 #if DEBUG
-                throw new BadRequestException(msg);
+                throw new HttpRequestException(msg);
 #endif
             }
 
@@ -41,7 +40,7 @@ namespace ATA.Library.Client.Web.Service.Book
             {
                 _toastService.ShowError(getBookResult.Message);
 #if DEBUG
-                throw new BadRequestException(getBookResult.Message ?? "HttpGet call failed");
+                throw new HttpRequestException(getBookResult.Message ?? "HttpGet call failed");
 #endif
             }
 
@@ -57,7 +56,7 @@ namespace ATA.Library.Client.Web.Service.Book
                 var msg = "ارتباط با سرور برقرار نشد. لطفا چند دقیقه بعد مجدد تلاش نمایید";
                 _toastService.ShowError(msg);
 #if DEBUG
-                throw new BadRequestException(msg);
+                throw new HttpRequestException(msg);
 #endif
             }
 
@@ -65,7 +64,7 @@ namespace ATA.Library.Client.Web.Service.Book
             {
                 _toastService.ShowError(getBooksResult.Message);
 #if DEBUG
-                throw new BadRequestException(getBooksResult.Message ?? "HttpGet call failed");
+                throw new HttpRequestException(getBooksResult.Message ?? "HttpGet call failed");
 #endif
             }
 
@@ -81,7 +80,7 @@ namespace ATA.Library.Client.Web.Service.Book
                 var msg = "ارتباط با سرور برقرار نشد. لطفا چند دقیقه بعد مجدد تلاش نمایید";
                 _toastService.ShowError(msg);
 #if DEBUG
-                throw new DomainLogicException(msg);
+                throw new HttpRequestException(msg);
 #endif
 
             }
@@ -90,7 +89,7 @@ namespace ATA.Library.Client.Web.Service.Book
             {
                 _toastService.ShowError(addResult.Message);
 #if DEBUG
-                throw new DomainLogicException(addResult.Message ?? "HttpPost call failed");
+                throw new HttpRequestException(addResult.Message ?? "HttpPost call failed");
 #endif
 
             }
@@ -105,7 +104,7 @@ namespace ATA.Library.Client.Web.Service.Book
                 var msg = "ارتباط با سرور برقرار نشد. لطفا چند دقیقه بعد مجدد تلاش نمایید";
                 _toastService.ShowError(msg);
 #if DEBUG
-                throw new DomainLogicException(msg);
+                throw new HttpRequestException(msg);
 #endif
 
             }
@@ -114,7 +113,7 @@ namespace ATA.Library.Client.Web.Service.Book
             {
                 _toastService.ShowError(uploadResult.Message);
 #if DEBUG
-                throw new DomainLogicException(uploadResult.Message ?? "HttpPost call failed");
+                throw new HttpRequestException(uploadResult.Message ?? "HttpPost call failed");
 #endif
             }
 
@@ -130,7 +129,7 @@ namespace ATA.Library.Client.Web.Service.Book
                 var msg = "خطا در ارتباط با سرور";
                 _toastService.ShowError(msg);
 #if DEBUG
-                throw new DomainLogicException(msg);
+                throw new HttpRequestException(msg);
 #endif
 
             }
@@ -139,7 +138,7 @@ namespace ATA.Library.Client.Web.Service.Book
             {
                 _toastService.ShowError(editResult.Message);
 #if DEBUG
-                throw new DomainLogicException(editResult.Message ?? "HttpPut call failed");
+                throw new HttpRequestException(editResult.Message ?? "HttpPut call failed");
 #endif
             }
         }
@@ -153,7 +152,7 @@ namespace ATA.Library.Client.Web.Service.Book
                 var msg = "خطا در ارتباط با سرور";
                 _toastService.ShowError(msg);
 #if DEBUG
-                throw new DomainLogicException(msg);
+                throw new HttpRequestException(msg);
 #endif
             }
 
@@ -161,7 +160,7 @@ namespace ATA.Library.Client.Web.Service.Book
             {
                 _toastService.ShowError(deleteResult.Message);
 #if DEBUG
-                throw new DomainLogicException(deleteResult.Message ?? "HttpDelete call failed");
+                throw new HttpRequestException(deleteResult.Message ?? "HttpDelete call failed");
 #endif
             }
         }
