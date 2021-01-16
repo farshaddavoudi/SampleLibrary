@@ -18,11 +18,12 @@ Client:
 	* Using SASS instead of CSS for styles
 	* Using HttpClientFactory typed client
 		> Connecting to Security client
+	* Using DevExpress Uploader component 
 	* Include roles heavily in the logic using Blazor features (refer to doc: تحلیل سامانه)
 	* Using Syncfusion PDF viewer for reading PDFs without downnloading them
 		> Configure lazy loading for Syncfusion PdfViewer for app initial startup faster
 	* ATA layout included heavily with help of our designer Majid Badkoubeh
-	* Because of custom web.config (for reading compression .gz and .br files) IISexpress won't work.
+	* Not using custom web.config because of DevExpress uploader error and problem with IISExpress
 
 Publish:
 	* Only Master branch to publish (develop branch to development)
