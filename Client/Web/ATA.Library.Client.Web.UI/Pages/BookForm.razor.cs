@@ -6,6 +6,7 @@ using ATA.Library.Client.Web.UI.Extensions;
 using ATA.Library.Shared.Core;
 using ATA.Library.Shared.Dto;
 using Blazored.Toast.Services;
+using DevExpress.Blazor;
 using Humanizer;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -28,11 +29,17 @@ namespace ATA.Library.Client.Web.UI.Pages
 
         private List<CategoryDto> _categories;
 
+        private int MaxAllowedFileSize => AppStrings.UploadLimits.MaxBookFileSizeInMB * 1000000;
+
+        private string _getUploadUrl;
+
         private UploadStatus? _uploadStatus;
 
         private string _uploadStatusTitle;
 
         private bool _isSaving;
+
+        private string _authToken;
 
         [CascadingParameter]
         private Task<AuthenticationState> AuthenticationStateTask { get; set; }
@@ -74,10 +81,14 @@ namespace ATA.Library.Client.Web.UI.Pages
         {
             _categories = await CategoryWebService.GetCategories();
 
+            _getUploadUrl = $"{AppSettings.Urls!.HostUrl}api/v1/book/upload-file/";
+
             var authState = await AuthenticationStateTask;
 
             var userRoles = authState.User.Claims.Where(c => c.Type == ClaimTypes.Role)
                 .Select(c => c.Value).ToList();
+
+            _authToken = await JsRuntime.GetCookieAsync(AppStrings.ATAAuthTokenKey);
 
             if (!userRoles.Contains(AppStrings.Claims.Administrator))
             {
@@ -174,6 +185,7 @@ namespace ATA.Library.Client.Web.UI.Pages
             _book.CoverImageFileFormat = MimeTypeMap.GetExtension(imgMimeType);
         }
 
+        [Obsolete]
         private async Task OnBookFileSelection(InputFileChangeEventArgs e)
         {
             var maxAllowedSize = AppStrings.UploadLimits.MaxBookFileSizeInMB * 1000000;
@@ -205,8 +217,7 @@ namespace ATA.Library.Client.Web.UI.Pages
             using (var client = new HttpClient())
             {
                 client.BaseAddress = HostClient.BaseAddress;
-                var token = await JsRuntime.GetCookieAsync(AppStrings.ATAAuthTokenKey);
-                client.DefaultRequestHeaders.Add(AppStrings.ATAAuthTokenKey, token);
+                client.DefaultRequestHeaders.Add(AppStrings.ATAAuthTokenKey, _authToken);
                 client.Timeout = TimeSpan.FromHours(1);
 
                 await using (var fileStream = e.File.OpenReadStream(maxAllowedSize))
@@ -234,5 +245,57 @@ namespace ATA.Library.Client.Web.UI.Pages
                 ? AppSettings.BookBaseUrls!.CoverBaseUrl
                 : $"{AppSettings.BookBaseUrls!.CoverBaseUrl}/{coverName}";
         }
+
+        private void FileUploadStart(FileUploadStartEventArgs e)
+        {
+            e.RequestHeaders.Add(AppStrings.ATAAuthTokenKey, _authToken);
+
+            var maxAllowedSize = AppStrings.UploadLimits.MaxBookFileSizeInMB * 1000000;
+
+            if (e.FileInfo.Size > maxAllowedSize)
+            {
+                ToastService.ShowError("حجم فایل بیشتر از مقدار مجاز می‌باشد");
+                e.Cancel = true;
+                return;
+            }
+
+            if (e.FileInfo.Type != "application/pdf")
+            {
+                ToastService.ShowError("فقط فایل‌های pdf امکان آپلود دارند.");
+                e.Cancel = true;
+                return;
+            }
+
+            _uploadStatus = UploadStatus.Started;
+
+            _uploadStatusTitle = $"Uploading {Convert.ToInt32(e.FileInfo.Size).Bytes().Humanize("0.0")} ...";
+
+            StateHasChanged();
+
+        }
+
+        private void FileUploaded(FileUploadEventArgs e)
+        {
+            _book.BookFileSize = Convert.ToInt32(e.FileInfo.Size);
+
+            _book.BookFileFormat = MimeTypeMap.GetExtension(e.FileInfo.Type);
+
+            _uploadStatus = UploadStatus.Finished;
+
+            _uploadStatusTitle = $"Successfully Uploaded";
+
+            StateHasChanged();
+
+        }
+
+        private void FileUploadFailed(FileUploadEventArgs obj)
+        {
+            _uploadStatus = UploadStatus.Failed;
+
+            _uploadStatusTitle = $"Upload Failed";
+
+            StateHasChanged();
+        }
+
     }
 }

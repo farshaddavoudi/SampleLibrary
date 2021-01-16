@@ -4,10 +4,12 @@ using ATA.Library.Shared.Core;
 using ATA.Library.Shared.Dto;
 using ATA.Library.Shared.Service.Exceptions;
 using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +19,21 @@ using System.Threading.Tasks;
 
 namespace ATA.Library.Server.Api.Controllers.api.Book
 {
+    #region Args
+
+    // Declare a class that stores chunk details.
+    public class ChunkMetadata
+    {
+        public int Index { get; set; }
+        public int TotalCount { get; set; }
+        public int FileSize { get; set; }
+        public string? FileName { get; set; }
+        public string? FileType { get; set; }
+        public string? FileGuid { get; set; }
+    }
+
+    #endregion
+
     /// <summary>
     /// Books management
     /// </summary>
@@ -26,14 +43,16 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
         private readonly IBookService _bookService;
         private readonly IMapper _mapper;
         private readonly ILogger<BookController> _logger;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
         #region Constructor Injections
 
-        public BookController(IBookService bookService, IMapper mapper, ILogger<BookController> logger)
+        public BookController(IBookService bookService, IMapper mapper, ILogger<BookController> logger, IWebHostEnvironment hostingEnvironment)
         {
             _bookService = bookService;
             _mapper = mapper;
             _logger = logger;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         #endregion
@@ -73,16 +92,65 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
             return Ok(_mapper.Map<List<BookDto>>(categoryBooks));
         }
 
+
         /// <summary>
-        /// Upload book pdf file into server
+        /// Upload book pdf file into server by chunks (using DevExpress component)
+        /// </summary>
+        /// <param name="bookFile">"bookFile" is the value of the Upload "Name" property.</param>
+        /// <param name="chunkMetadata"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpPost("upload-file")]
+        public async Task<ActionResult> UploadBookFile(IFormFile bookFile, [FromForm] string chunkMetadata, CancellationToken cancellationToken)
+        {
+            // Specify the location for temporary files.
+            var tempPath = Path.Combine(_hostingEnvironment.ContentRootPath, "TempChunkedUploadFiles");
+
+            // Remove temporary files.
+            _bookService.RemoveTempFilesAfterDelay(tempPath, new TimeSpan(0, 5, 0));
+
+            try
+            {
+                if (!string.IsNullOrEmpty(chunkMetadata))
+                {
+                    // Get chunk details.
+                    var metaDataObject = JsonConvert.DeserializeObject<ChunkMetadata>(chunkMetadata);
+
+                    // Specify the full path for temporary files (including the file name).
+                    var tempFilePath = Path.Combine(tempPath, metaDataObject.FileGuid + ".tmp");
+
+                    // Check whether the target directory exists; otherwise, create it.
+                    if (!Directory.Exists(tempPath))
+                        Directory.CreateDirectory(tempPath);
+
+                    // Append the chunk to the file.
+                    await _bookService.AppendChunkToFileAsync(tempFilePath, bookFile, cancellationToken);
+
+                    // Save the file if all chunks are received.
+                    if (metaDataObject.Index == (metaDataObject.TotalCount - 1))
+                        _bookService.SaveUploadedFile(tempFilePath, metaDataObject.FileName!);
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+            return Ok();
+        }
+
+
+        /// <summary>
+        /// Upload book pdf file into server (Obsolete: Replaced by DevExpress special endpoint to upload files)
         /// </summary>
         /// <param name="file"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
+        [Obsolete("Replaced by DevExpress special endpoint to upload files")]
         [HttpPost("file-upload")]
         [DisableRequestSizeLimit]
+        [ApiExplorerSettings(IgnoreApi = true)]
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Create))]
-        public async Task<IActionResult> UploadBookFile(IFormFile file, CancellationToken cancellationToken)
+        public async Task<IActionResult> UploadBookFile2(IFormFile file, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Start uploading the file");
 
@@ -184,4 +252,6 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
         }
 
     }
+
+
 }

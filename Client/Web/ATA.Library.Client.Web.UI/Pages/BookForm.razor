@@ -3,6 +3,7 @@
 @page "/book-form/{BookId:int}/{BookTitle}"
 @using ATA.Library.Client.Web.Service.Enums
 
+
 <Title Value="افزودن کتاب"></Title>
 
 
@@ -60,7 +61,21 @@ else
             </div>
             <div class="mb-3 col-md-6 col-sm-12">
                 <label for="bookFile" class="form-label">بارگزاری فایل Pdf کتاب</label>
-                <InputFile id="bookFile" class="form-control" OnChange="OnBookFileSelection" />
+
+                <DxUpload Name="bookFile"
+                          UploadUrl="@_getUploadUrl"
+                          ChunkSize="5000000"
+                          AllowedFileExtensions="@(new List<string> { ".pdf" })"
+                          MinFileSize="1000"
+                          ShowFileList="false"
+                          FileUploadStart="FileUploadStart"
+                          FileUploaded="FileUploaded"
+                          FileUploadAborted="FileUploadFailed"
+                          FileUploadError="FileUploadFailed"
+                          MaxFileSize="@MaxAllowedFileSize">
+                </DxUpload>
+
+                @*<InputFile id="bookFile" class="form-control" OnChange="OnBookFileSelection" />*@
                 <div class="form-text">
                     حداکثر حجم فایل
                     @AppStrings.UploadLimits.MaxBookFileSizeInMB.ToString()
@@ -74,6 +89,10 @@ else
                         @if (_uploadStatus == UploadStatus.Started)
                         {
                             <img src="/images/components/Loading/circle_red_loading.gif" class="img-uploading" />
+                        }
+                        else if (_uploadStatus == UploadStatus.Failed)
+                        {
+                            <img src="/images/components/error-mark.png" class="img-check" />
                         }
                         else
                         {

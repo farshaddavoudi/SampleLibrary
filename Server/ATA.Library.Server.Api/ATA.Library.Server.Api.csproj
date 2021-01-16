@@ -38,6 +38,7 @@
   <ItemGroup>
     <Folder Include="Controllers\odata\" />
     <Folder Include="Infrastructure\Hangfire\" />
+    <Folder Include="TempChunkedUploadFiles\" />
     <Folder Include="Uploads\CoverImages\" />
     <Folder Include="Uploads\BookFiles\" />
   </ItemGroup>
