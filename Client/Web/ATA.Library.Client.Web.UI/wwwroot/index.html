@@ -52,41 +52,40 @@
 
 
         <script type="text/javascript">
+            // Update version in every deployment
+            const applicationVersion = "1.3";
 
-            //// Update version in every deployment
-            //const applicationVersion = "1.2";
+            var appVersion = localStorage.getItem("AppVersion");
 
-            //var appVersion = localStorage.getItem("AppVersion");
+            if (appVersion === applicationVersion) {
 
-            //if (appVersion === applicationVersion) {
+                document.getElementById("app-install-loading").style.display = "none";
+                document.getElementById("app-initial-loading").style.display = "flex";
+            } else {
+                document.getElementById("app-install-loading").style.display = "block";
+                document.getElementById("app-initial-loading").style.display = "none";
 
-            //    document.getElementById("app-install-loading").style.display = "none";
-            //    document.getElementById("app-initial-loading").style.display = "flex";
-            //} else {
-            //    document.getElementById("app-install-loading").style.display = "block";
-            //    document.getElementById("app-initial-loading").style.display = "none";
+                if (appVersion) {
+                    document.getElementById("appLoadingTitle").innerHTML = "در حال بروزرسانی سامانه";
+                }
 
-            //    if (appVersion) {
-            //        document.getElementById("appLoadingTitle").innerHTML = "در حال بروزرسانی سامانه";
-            //    }
+                const progressbar = document.getElementById("progressbar");
 
-            //    const progressbar = document.getElementById("progressbar");
+                var i = 0;
 
-            //    var i = 0;
+                window.loadResourceCallback = (total, name, response) => {
+                    if (name.endsWith('.dll')) {
+                        i++;
+                        const value = parseInt((i * 100.0) / total);
+                        const pct = value + '%';
 
-            //    window.loadResourceCallback = (total, name, response) => {
-            //        if (name.endsWith('.dll')) {
-            //            i++;
-            //            const value = parseInt((i * 100.0) / total);
-            //            const pct = value + '%';
+                        progressbar.style.width = pct;
+                        console.log(i + '/' + total + ' (' + pct + ') ' + name);
+                    }
+                }
 
-            //            progressbar.style.width = pct;
-            //            console.log(i + '/' + total + ' (' + pct + ') ' + name);
-            //        }
-            //    }
-
-            //    localStorage.setItem("AppVersion", applicationVersion);
-            //}
+                localStorage.setItem("AppVersion", applicationVersion);
+            }
         </script>
     </div>
     <div id="blazor-error-ui">
