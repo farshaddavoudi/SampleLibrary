@@ -81,7 +81,9 @@ namespace ATA.Library.Server.Service.Book
         public void SaveUploadedFile(string tempFilePath, string fileName)
         {
             var path = $@"{_appSettings.FileUploadPath!.BookFile}";
-            File.Copy(tempFilePath, Path.Combine(path, fileName));
+            var fullPath = Path.Combine(path, fileName);
+            File.Delete(fullPath);
+            File.Copy(tempFilePath, fullPath);
         }
     }
 }
