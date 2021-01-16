@@ -28,11 +28,31 @@
 .uploading-progress-wrapper {
     direction: ltr;
     margin-bottom: 1rem;
+    margin-top: 1em;
 }
 
 .img-check {
     width: 2.5rem;
     margin-left: 0.5rem;
     margin-top: -3px;
+    margin-bottom: 4px;
+}
+
+
+#UploaderButton {
+    background-color: #eeeeee !important;
+    height: 38px !important;
+    padding: .6rem 1rem !important;
+    border-radius: 2px !important;
+    color: black !important;
+    margin-bottom: 9px !important;
+}
+
+.devexp-uploader-wrapper {
+    direction:ltr;
+}
+
+.uploader-form-title {
+    width: 100%;
     margin-bottom: 4px;
 }

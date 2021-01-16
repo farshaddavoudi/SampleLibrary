@@ -59,28 +59,36 @@ else
                     </div>
                 }
             </div>
-            <div class="mb-3 col-md-6 col-sm-12">
-                <label for="bookFile" class="form-label">بارگزاری فایل Pdf کتاب</label>
+            <div class="mb-3 col-md-6 col-sm-12 uploader-container">
+                <label for="bookFile" class="form-label uploader-form-title">بارگزاری فایل Pdf کتاب</label>
 
-                <DxUpload Name="bookFile"
-                          UploadUrl="@_getUploadUrl"
-                          ChunkSize="5000000"
-                          AllowedFileExtensions="@(new List<string> { ".pdf" })"
-                          MinFileSize="1000"
-                          ShowFileList="false"
-                          FileUploadStart="FileUploadStart"
-                          FileUploaded="FileUploaded"
-                          FileUploadAborted="FileUploadFailed"
-                          FileUploadError="FileUploadFailed"
-                          MaxFileSize="@MaxAllowedFileSize">
-                </DxUpload>
+                <button id="UploaderButton" class="btn border-primary btn-primary m-1">انتخاب فایل کتاب</button>
 
                 <div class="form-text">
                     حداکثر حجم فایل
                     @AppStrings.UploadLimits.MaxBookFileSizeInMB.ToString()
                     مگابایت
                 </div>
-                <ValidationMessage For="()=> _book.BookFileUrl" />
+
+                <div class="devexp-uploader-wrapper">
+                    <DxUpload Name="bookFile"
+                              UploadUrl="@_getUploadUrl"
+                              ChunkSize="5000000"
+                              SelectButtonText="انتخاب فایل کتاب"
+                              ShowSelectButton="true"
+                              ExternalSelectButtonCssSelector="#UploaderButton"
+                              AllowedFileExtensions="@(new List<string> { ".pdf" })"
+                              MinFileSize="1000"
+                              ShowFileList="false"
+                              FileUploadStart="FileUploadStart"
+                              FileUploaded="FileUploaded"
+                              FileUploadAborted="FileUploadFailed"
+                              FileUploadError="FileUploadFailed"
+                              MaxFileSize="@MaxAllowedFileSize">
+                    </DxUpload>
+                </div>
+
+
 
                 @if (_uploadStatus != null)
                 {
