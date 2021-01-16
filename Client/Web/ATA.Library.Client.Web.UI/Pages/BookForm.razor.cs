@@ -185,55 +185,6 @@ namespace ATA.Library.Client.Web.UI.Pages
             _book.CoverImageFileFormat = MimeTypeMap.GetExtension(imgMimeType);
         }
 
-        [Obsolete]
-        private async Task OnBookFileSelection(InputFileChangeEventArgs e)
-        {
-            var maxAllowedSize = AppStrings.UploadLimits.MaxBookFileSizeInMB * 1000000;
-
-            if (e.File.Size > maxAllowedSize)
-            {
-                ToastService.ShowError("حجم فایل بیشتر از مقدار مجاز می‌باشد");
-                return;
-            }
-
-            if (e.File.ContentType != "application/pdf")
-            {
-                ToastService.ShowError("فقط فایل‌های pdf امکان آپلود دارند.");
-                return;
-            }
-
-            _uploadStatus = UploadStatus.Started;
-
-            _uploadStatusTitle = $"Uploading {e.File.Size.Bytes().Humanize("0.0")} ...";
-
-            //var buffers = new byte[e.File.Size];
-
-            _book.BookFileSize = e.File.Size;
-
-            _book.BookFileFormat = MimeTypeMap.GetExtension(e.File.ContentType);
-
-            var bookName = e.File.Name.Length > 50 ? e.File.Name.Substring(0, 50) : e.File.Name;
-
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = HostClient.BaseAddress;
-                client.DefaultRequestHeaders.Add(AppStrings.ATAAuthTokenKey, _authToken);
-                client.Timeout = TimeSpan.FromHours(1);
-
-                await using (var fileStream = e.File.OpenReadStream(maxAllowedSize))
-                {
-                    //await fileStream.ReadAsync(buffers);
-                    var content = new MultipartFormDataContent { { new StreamContent(fileStream), "file", bookName.Replace(" ", "-") } };
-                    _book.BookFileUrl = await BookWebService.UploadBookFile(content);
-                    await fileStream.DisposeAsync();
-                }
-            }
-
-            _uploadStatus = UploadStatus.Finished;
-
-            _uploadStatusTitle = $"Successfully Uploaded";
-        }
-
         private void Cancel()
         {
             NavigationManager.NavigateTo("/books");
@@ -279,6 +230,8 @@ namespace ATA.Library.Client.Web.UI.Pages
             _book.BookFileSize = Convert.ToInt32(e.FileInfo.Size);
 
             _book.BookFileFormat = MimeTypeMap.GetExtension(e.FileInfo.Type);
+
+            _book.BookFileUrl = e.FileInfo.Name;
 
             _uploadStatus = UploadStatus.Finished;
 

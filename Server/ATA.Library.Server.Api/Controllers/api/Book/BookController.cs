@@ -1,8 +1,6 @@
 ﻿using ATA.Library.Server.Model.Entities.Book;
 using ATA.Library.Server.Service.Book.Contracts;
-using ATA.Library.Shared.Core;
 using ATA.Library.Shared.Dto;
-using ATA.Library.Shared.Service.Exceptions;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -137,41 +135,6 @@ namespace ATA.Library.Server.Api.Controllers.api.Book
             }
             return Ok();
         }
-
-
-        /// <summary>
-        /// Upload book pdf file into server (Obsolete: Replaced by DevExpress special endpoint to upload files)
-        /// </summary>
-        /// <param name="file"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        [Obsolete("Replaced by DevExpress special endpoint to upload files")]
-        [HttpPost("file-upload")]
-        [DisableRequestSizeLimit]
-        [ApiExplorerSettings(IgnoreApi = true)]
-        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Create))]
-        public async Task<IActionResult> UploadBookFile2(IFormFile file, CancellationToken cancellationToken)
-        {
-            _logger.LogInformation("Start uploading the file");
-
-            if (file.Length == 0)
-                throw new ArgumentNullException(nameof(file));
-
-            if (file.Length > AppStrings.UploadLimits.MaxBookFileSizeInMB * 1000000)
-                throw new BadRequestException("حجم فایل کتاب بیشتر از حد مجاز می‌باشد");
-
-            await using var memoryStream = new MemoryStream();
-
-            await file.CopyToAsync(memoryStream, cancellationToken);
-
-            var fileUrl =
-                await _bookService.SaveBookFileAndGetPathAsync(memoryStream.ToArray(), file.Name, cancellationToken);
-
-            _logger.LogInformation("Finish uploading the file");
-
-            return StatusCode(StatusCodes.Status201Created, fileUrl);
-        }
-
 
         /// <summary>
         /// Add a book
