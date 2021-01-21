@@ -1,5 +1,5 @@
 ﻿# Server:
-	* Using .Net 5
+* Using .Net 5
 	* SQL Server database
 	* Code-First approach
 	* AutoRegisterDi as services registrar
