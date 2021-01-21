@@ -1,4 +1,4 @@
-﻿# Server
+﻿# Server:
 	* Using .Net 5
 	* SQL Server database
 	* Code-First approach
@@ -12,7 +12,7 @@
 	* Using HealthChecks for check Database, Server DiskStorage, SSO Service and etc; all hosted by healthcheck.app.ataair.ir
 		- Do not have any authentication for the endpoint.
 
-# Client
+# Client:
 	* Blazor .Net5 (standalone)
 	* Bootstrap 5 rtl
 	* Using SASS instead of CSS for styles
@@ -25,7 +25,7 @@
 	* ATA layout included heavily with help of our designer Majid Badkoubeh
 	* Not using custom web.config because of DevExpress uploader error and problem with IISExpress
 
-# Publish
+# Publish:
 	* Only Master branch to publish (develop branch to development)
 	* Using Web Deploy Publish 
 	* Manually in published path in server, copy PublishAssets -> InstallingLoader folder blazor.webassembly.js files (3 files) into _framework 
