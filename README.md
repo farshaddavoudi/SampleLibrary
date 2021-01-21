@@ -1,18 +1,35 @@
-# Introduction
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+﻿# Server:
+	* Using .Net 5
+	* SQL Server database
+	* Code-First approach
+	* AutoRegisterDi as services registrar
+	* AutoMapper as mapper
+	* Authentication from ATA SSO 
+		> ddl file and doc are included 
+	* Using HttpClientFactory typed client
+		> Connecting to Security client
+	* Independent Server and Client approach with only a shared layer for common models and services 
+	* Using HealthChecks for check Database, Server DiskStorage, SSO Service and etc; all hosted by healthcheck.app.ataair.ir
+		> Do not have any authentication for the endpoint.
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+# Client:
+	* Blazor .Net5 (standalone)
+	* Bootstrap 5 rtl
+	* Using SASS instead of CSS for styles
+	* Using HttpClientFactory typed client
+		> Connecting to Security client
+	* Using DevExpress Uploader component 
+	* Include roles heavily in the logic using Blazor features (refer to doc: تحلیل سامانه)
+	* Using Syncfusion PDF viewer for reading PDFs without downnloading them
+		> Configure lazy loading for Syncfusion PdfViewer for app initial startup faster
+	* ATA layout included heavily with help of our designer Majid Badkoubeh
+	* Not using custom web.config because of DevExpress uploader error and problem with IISExpress
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
-
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://www.visualstudio.com/en-us/docs/git/create-a-readme). You can also seek inspiration from the below readme files:
-
+# Publish:
+	* Only Master branch to publish (develop branch to development)
+	* Using Web Deploy Publish 
+	* Manually in published path in server, copy PublishAssets -> InstallingLoader folder blazor.webassembly.js files (3 files) into _framework 
+		> It is temporarily because of lack of Azure Pipeline CI/CD. 
+	* Backup automatically creates on Server
+	* No need to stop IIS to publish. It will automatically will do that :)
+	* Make application like offline by app_offline.htm files modifications on the server (different senarios for Client and Server apps)

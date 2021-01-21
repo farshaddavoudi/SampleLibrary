@@ -10,7 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)SSO Auth\Use Modules or Roles discussion.txt" />
-    <Content Include="$(MSBuildThisFileDirectory)Technical-Specification.txt" />
     <Content Include="$(MSBuildThisFileDirectory)تحلیل سامانه\آپلود فایل‌ها.txt" />
     <Content Include="$(MSBuildThisFileDirectory)تحلیل سامانه\راه حل مشاهده کتاب بدون امکان دانلود.txt" />
     <Content Include="$(MSBuildThisFileDirectory)تحلیل سامانه\سناریوی دسترسی‌ها.txt" />
