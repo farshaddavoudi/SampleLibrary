@@ -1,5 +1,0 @@
-﻿ATA personnels can download books
-
-Books are categorized based on ATA units
-
-Each category has one or more admin to manage books, upload or edit or delete them
